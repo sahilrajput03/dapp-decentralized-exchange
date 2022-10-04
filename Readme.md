@@ -34,7 +34,7 @@ We can use bitcoin scripting to perform more complex transactions by using bitco
 
 Ethereum is blockchain of 2nd generation capable of not only processing simple financial transaction but also any arbitary computation. This allowed to build much more sophisticated applications on top of ethereum blockchain.
 
-On top of this basic blockchain technology, there's another part Ethereum Virtual Machine. So, EVM's are capable of running small programs called Smart Contracts. These SC can run code and manipulate the cryptocurrency i.e., ether. Also, with smart contracts you can code a multisignature wallet where you need to approval of serveral people before spending any ether. The beauty of Smart Contract is that their code is executed on blockchain so you don't need any third party to execute them. Once the code of the smart contract is deployed on the blockchain nobody can is able to change the the code and stop the code to run and its just going on blockchian foreever. Some contracts were did get hacked becoz of the bug in the code of the smart contract but never becoz of the ethereum technogoloy.
+On top of this basic blockchain technology, there's another part Ethereum Virtual Machine. So, EVM's are capable of running small programs called Smart Contracts. These SC can run code and manipulate the cryptocurrency i.e., ether. Also, with smart contracts you can code a multisignature wallet where you need to approval of serveral people before spending any ether. The beauty of Smart Contract is that their code is executed on blockchain so you don't need any third party to execute them. Once the code of the smart contract is deployed on the blockchain nobody can is able to change the the code and stop the code to run and its just going on blockchian forever. Some contracts were did get hacked becoz of the bug in the code of the smart contract but never becoz of the ethereum technogoloy.
 
 Transaction in are identified by hash. A Cryptographic has is a fingerprint, it uniquely identifies a piece of data. It looks like a gibberish text. So if we change one digit of the data, the hash will be completely different. We can produce the cryptographic hashes via cryptographic functions, like sha2, sha3. Hashes are fixed size of characters for any size of data. Cryptographic hashing is one way function.
 
@@ -47,6 +47,7 @@ How ethereum addresses are created?
 2. Elliptic cryptography, we generate another long number i.e., public key.
 3. We can get public key from private key easily but not the other wa y around. Public key is 128char long. We compute a cryptographic hash of this public key using KECHAK256 hash fn, in other words we compute a fingerprint of this public key. This fingerprint is a string which is 64char long, we take the last 42char and finally we prefix it with 0x so in the end we have a string of 42 chars and thats our address.
 
+<<<<<<< HEAD
 - We can give the address to anyone if we want to receive some ether.
 - We can use private key which we used to generate the address, if we want to send ether to another address. Technically that's called to sign a transaction.
 
@@ -292,3 +293,6 @@ What visibility identifier should I use: Considering `Least privilidge principle
 ### We can directly deploy to ethereum testnet (tested with goerli for now)
 
 ![](./ss/ss-we-can-deploy-to-testnet-directly-via-remix.png)
+=======
+CONTINUTE FROM lesson-6 @ 25sec
+>>>>>>> 1417aeeb3a513b0bee3eb5f3764f788659a0e800
