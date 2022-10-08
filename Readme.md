@@ -154,7 +154,6 @@ Youtube Channle: https://www.youtube.com/channel/UCJWh7F3AFyQ_x01VKzr9eyA
 
 # TODO:
 
-- Start watching from video 20
 - Do the `solidity-by-example` for practising with solidity side by side as you do projects. They have YouTube channel as well.
 
 ## Resources
