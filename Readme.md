@@ -296,3 +296,119 @@ What visibility identifier should I use: Considering `Least privilidge principle
 =======
 CONTINUTE FROM lesson-6 @ 25sec
 >>>>>>> 1417aeeb3a513b0bee3eb5f3764f788659a0e800
+
+## Colors of buttons in remix 
+
+BLUE - view functions only reads so we don't need to pay for gas (blue is caling, thats easy to remember though)
+ORANGE - other function (may change values) will require to pay for gas
+
+
+## control structures in solidity (lesson27)
+
+- if loop: `if(! a == b && b == c){}else{}`
+
+We can use !, ==, etc like in js.
+
+- for loop: `for (uint i = 0; i < 10; i++){i}`
+
+- whil-loop():
+
+```sol
+bool isOk = true;
+while(isOk){
+	//
+	if(){
+		isOk = false;
+	}
+}
+```
+
+Fyi: You can use `break` and `continue` just like we they work in other langs.
+
+## arrays in solidity
+
+Two types of arrays:
+
+1. storage arrays: These are actually stored inside the blockchain. After we change their values via some function the values will stay/persist in the memory of blockchain.
+2. memory arrays: These are temporary arrays, they exist only when you are executing a functions and after that they disappear.
+3. arrays arguments and return arrays from functions
+
+Storage Arrays:
+==============
+
+```sol
+// 1. stoage arrays: Storage arrays are either dynamic sized (no length given i.e., as we do in next line) or fixed sized array length
+uint[] myArray; // CRUD: create, read, update, delete
+
+// fixed sized storage array (we loose access to `.push` method on the array)
+// uint[] yourArr = [1,2]
+
+function foo() external {
+	// Add element
+	myArray.push(2);
+	myArray.push(3);
+
+	// get/retrieve
+	myArray[0];
+	myArray[1]
+
+	// update
+	myArray[0] = 20;
+
+	// accessing non-existing array item throws error
+	uint 
+	uint myItem =	myArray[3] // throws error
+
+	// delete item (it only resets the value at given index to its default type value, i.e, 0 in this case, thus the length of the array will remain same)
+	delete myArray[1];
+	// default value for a boolean array item would be set to false though.
+
+
+	// iterate over items of the array
+	for(uint i = 0; i < myArray.length; i++){
+		uint item = myArray[i]
+	}
+
+
+}
+
+```
+
+Memory Arrays:
+==============
+
+For memory arrays there is no such thing as dynamic size memory array thus it has to be declared as specific sized array.
+
+Memory arrays are not stored in the blockchain after we finish callig the function in our smart contract.
+
+```sol
+
+// It doesn't make sense to store memory array outside of the fuction as we do with storage arrays becoz values outside the functions are stored in the blockchain by default. So we only declare memory arrays inside the function.
+// tldr: You cannot have a dynamic sized array with memory arrays
+// FYI HACK: The keyword `memory` itself signifies the values will be in memory and not storage.
+function bar() external{
+	uint[] memory newArr = new uint[](3) // 3 is the length of the array
+
+	// CRUD OPERATIONS
+	// update
+	// newArr.push() // this throws error btw
+	newArr[0] = 10;
+	newArr[1] = 20;
+
+	// read
+	newArr[0];
+	
+	// update
+	newArr[0] = 200;
+
+	delete newArr[5];
+}
+```
+
+3. Pass array to functions and return array from functions
+
+```sol
+function fooBar(uint[]){
+
+}
+```
