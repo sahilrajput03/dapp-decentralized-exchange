@@ -378,7 +378,7 @@ Memory Arrays:
 
 For memory arrays there is no such thing as dynamic size memory array thus it has to be declared as specific sized array.
 
-Memory arrays are not stored in the blockchain after we finish callig the function in our smart contract.
+MEMORY ARRAYS are not stored in the blockchain after we finish callig the function in our smart contract.
 
 ```sol
 
@@ -407,7 +407,11 @@ function bar() external{
 3. Pass array to functions and return array from functions
 
 ```sol
-function fooBar(uint[]){
+// For now remember that since the function is `external` we need use keyword `calldata`
+// If you make the function `public/internal` then you would need to use keyword `memory` instead
+function fooBar(uint[] calldata myArg) external returns(uint[] calldata){
+function fooBar(uint[] memory myArg) public returns(uint[] memory){
+function fooBar(uint[] memory myArg) internal returns(uint[] memory){
 
 }
 ```
@@ -416,4 +420,383 @@ function fooBar(uint[]){
 	Haivng an offiline copy in either pdf or epub is much better bcoz you can underline and highlight and make notes inside the docs itself and have that pdf/epub as reference for the future all the time. Yo!! Having an epub can be much better coz you cna read it on the phone and udpate the epub with highlight as well using readera, yo!!
 
 	![image](https://user-images.githubusercontent.com/31458531/194707268-01da0e35-f70a-4d9e-9ea2-83434b59cee0.png)
+
+
+## Mappings - vid29
+
+Mapping is somewhat similar to objects in javascript.
+
+
+```sol
+pragma solidity 0.6.0;
+contract MyContract {
+	// 1. decleare mapping
+	// 2. CRUD
+	// 3. Default Values
+	// 4. Exotic Mapping 1: nested mapping
+	// 5. Exotic Mapping 2: array inside mapping
+
+	// 1. declare mappings
+	mapping(address => uint) balances;
+	mapping(address => mapping(address => bool)) approved; // say one user can allow a certain number of people to spend from his account
+	mapping(address => uint[]) scores;
+
+	function foo(address spender) external{
+		//2 - Add
+		balances[msg.sender] = 100;
+		//2 - Read
+		balances[msg.sender];
+		//2 - Update
+		balances[msg.sender] = 200;
+		//2 - Delete
+		delete balances[msg.sender];
+
+		//3 - default values
+		balances[semoAddressThatDoNotExist]// we get value 0 coz its default value of uint
+
+		//4 - exotic mapping 1
+		approved[msg.sender][spender] = true;
+		// reading
+		approved[msg.sender][spender]; 
+		// update
+		approved[msg.sender][spender] = false;
+		// delete
+		delete approved[msg.sender][spender];
+
+		// 5. exotic mapping 2
+		// YOU DONT NEED TO INSTANTIATE ARRAY OF MAPPINGS - Amazing Solidity // scores[msg.sender] = new uint[](2);
+		scores[msg.sender].push(1); // adding
+		scores[msg.sender].push(2);
+		scores[msg.sender][0]; // accessing
+		scores[msg.sender][0] = 10; // updating
+		delete scores[msg.sender][0] // deleting
+	}
+
+}
+```
+
+
+## Struct
+
+```sol
+contract MyContract{
+	// 1. declare struct
+	// 2. CRUD
+	// 3. Array of struct
+	// 4. Mapping of struct
+
+	// struct is like a template
+	struct User {
+		address addr;
+		uint score;
+		string name;
+	}
+	// array of struct
+	User[] users;
+	// mapping of struct
+	mapping(address => User) userList2;
+
+	function foo(string calldata _name) external {
+		// Syntax 1:
+		User memory user1 = User(msg.sender, 0, _name);
+		User memory user2 = User(msg.sender, 0, _name);
+		// Syntax 2: Benefit of this is that you don't need to remember the order of the variables but the disadvantages is that its little bit more verbose.
+		User memory user3 = User({name: _name, score: 0, addr: msg.sender);
+
+		// reading
+		user3.addr;
+		// update
+		user3.score = 20;
+		// delete
+		delete user1;
+
+		// array of struct
+		users.push(user2)
+		users.push(User(...))
+
+		// mapping of struct
+		userList2[msg.sender] = user2;
+		userList2[msg.sender] = User(...);
+	}
+}
+```
+
+## Events - Push data from smart contract to outside consumers i.e, web consumers
+
+Consider a Decentralized Exchange and consider a event throught which we inform all our ourside consumers(web users) whenever a new trade happens.
+
+Cons of events:
+- Cannot be read by smart contracts (its a one way communication i.e., from smart contract -> consumers)
+Pros of events:
+- Gas cost is lower as compared to variables for events
+
+```sol
+contract MyContract {
+	event NewTrade(
+		uint date,
+		address from,
+		// address indexed from, // the keyword indexed make is filterable using this field for the web consumers. ALSO< making the field `indexed` makes is expensive for ethereum to the events bcoz now it has to build an index as well. ALSO, you can have a max of 3 indexed fields in a event.
+		address to,
+		uint amount,
+	);
+
+	function trade(address to, uint amount) external {
+		// Before solidity version 0.5 they had syntaxt to emit the event by simply calling the name of event like we do a function
+		emit NewTrade(now, msg.sender, to, amount);
+		// so outside the clients who are listening to this event will receive this event and they do this with web3 library. FUTURE VIDEO: How to listen to events with `web3js`
+	}
+}
+
+```
+
+## Calling a function of another smart contract from a smart contract - vid32
+
+```sol
+contract A{
+	//1. call function of other contract
+	//2. import keyword
+	//3. contract interface
+	//4. error propagation
+
+	//1. interface of B => B
+	//2. address of B
+	
+	address addressB; // STATE VARIABLE
+
+	function setAddressB(address _addressB) external {
+		addressB = _addressB;	
+	}
+
+	function callHelloWorld() external view returns (string memory) {
+		B b = B(addressB); // instance of contract B
+		return b.helloWorld();
+	}
+}
+
+contract B{
+	function helloWorld() external pure returns(string memory){
+		return 'hello world';
+	}
+}
+```
+
+**Please see `learn-module` folder to get code for referecing from different file.**
+
+
+
+## The Ether denominations are called Finney, Szabo, and Wei. What/who are these named after?
+
+Source: https://ethereum.stackexchange.com/questions/253/the-ether-denominations-are-called-finney-szabo-and-wei-what-who-are-these-na
+
+## Transfer ether in contracts - vid 33
+
+Send ether from contract to another address(can be another contract or EOA {Externally Owner Accounts i.e., Address controlled by private key i.e., by a person}).
+
+
+```sol
+contract MyContract{
+	// SENDING ETHER TO OTHER ACCOUNT
+	function foo(address payable to, uint amount) external {
+		to.transfer(amount); // this will transfer the amount to the address `to`
+		to.transfer(1 ether);
+		to.transfer(1); // this would be wei ( 1wei = 10 ^ -18  ether)
+	}
+
+	// REVEIVING ETHER FROM OTHER ACCOUNTS TO CONTRACT ADDRESS
+	// if you try to send ether to a fn that isn't payable would be rejected
+	funciton bar() external payable {
+		msg.value
+		address(this).balance += msg.value; // everything by default is in wei
+	}
+
+	// another way to send ether to a contract is by without calling any function
+	// function() // its a funciton where you don't define a name in past solidityVersion: 0.5
+	// from ver 0.6 the syntax has changed, now it has been split into fallback and receive fn
+	// Actually if you call any non-exiting function (say `bazz()`) then the function `fallback` will be executed and since we have also defined it as `payable` and thus it can carry out the functionality of handling the ether send to non-exiting functions (intentionally or by accident). By the way you may remove payable keyword if you have the receive handler defined coz its made specially to do handle ethers send to contracts.
+	fallback() external payable{
+		//	
+	}
+	// If you call contract with some ether (without targeting any funciton) then the receive function will be called.
+	receive() external payable{
+		//
+	}
+}
+```
+
+## errors in details
+
+```sol
+contract MyContract{
+	//1. what happens when there is an error? Ans. all gas is consumed and state variables are restored to their earlier values
+	//2. throw
+	//3. revert()
+	//4. require()
+	//5. assert()
+	//6. error in other contracts
+
+	uint a;
+	function foo() external {
+		throw // throw is DEPRECATED in solidity version: 0.5
+		revert('this is why is reverts');
+		if(a == 10){
+			revert('this is why is reverts');
+		}
+		// BUT THERE IS SHORTER WAY TO SEND REVERT CONDITIONALLY i.e.,
+		require(a != 10, 'this is why it reverts');
+		// LEARN: Above two ways of using `revert` and `require` are exactly the same.
+
+
+		/ raising error with assert
+		assert(a!=10); // you should test thing in contract which should never happen in smart contracts. We do this becoz if in later point if assert happens that means there is bug in smart contract for .e.g, these assert statements can be used by tools to analyse your smart contract and these tools can tell that in some conditions these assert statements can fail so you have to review the logic of the smart contract.
+		// `require()` is more for the runtime of the contract.
+	}
+
+	function willThrow() external {
+		require(true == false, 'because reasons');
+		// OR USE BELOW
+		// revert('because reasons');
+		// OR USE BELOW
+		// assert(true == false);
+	}
+
+	function willThrowInOtherContract() external{
+		B b = new B();
+		// b.bar(); // COMMENTED TEMPORARILY TO DEMO THE ERROR SUPRESION VIA below ways instead.
+
+		// ERROR HANDLING IN SOLIDITY WITH .call() WAY
+		// cast b `pointer` to `address` using `call()` method
+		address(b).call(abi.encodePacked("bar()"))
+		// NOW, above statment will return value `false` thus you can handle it however it want and it would consume the simply underneath.
+		// ALERT NOTE: call() is a low level way of calling smart contracts, VULNERABLE to RE-ENTRANCY ATTACKS. Avoid if possible.
+	}
+}
+
+contract B {
+	function bar() external {
+		revert('because other reasons');
+	}
+}
+```
+
+
+## Function modfiers in solidity - vid 35
+
+Its usefult to implement access control and validating some values.
+
+```sol
+contract MyContract {
+	//1. modifier syntax
+	//2. passing arguments
+	//3. chaining modifiers
+	//4. example for access control
+
+	// NOTE: We are forwarding argument `a` to the modifier so we can add some validations to the function using the modifier i.e, abstracting some validations out
+	function foo(uint a) external myModifier1(a) myModifier2(a) {
+	// YOU CAN ALSO HAVE HAVE SYNTAX LIKE `myModifier` instead of `myModifier()` as well
+		// do some stuff
+	}
+
+	// by default modifers is `internal` and you cannot make it say `public` or anything else.
+	// you can only call modifier from the smart contract and not from outside
+	modifier myModifier1(uint a){
+		require(a == 10, 'my error message');
+		_; // LEARN: In case of chaining modifiers(i.e., having 2 or more modifiers) _ will not be replaced with the code of `foo()` function but will be replaced by the `myModifier2()` code and the _ of `myModifier2` will actually get the code of `foo()` funciton.
+	}
+	modifier myModifier2(uint a){
+		require(a == 10, 'my error message');
+		_;
+	}
+	// CRUX: The code of myModifier1 followed by myModifier2 and finally the code of `foo` function will be executed.
+
+
+	// ---------------
+	// ANOTHER FUNCTION
+	function bar(uint a) external onlyAdmin {
+	// YOU CAN ALSO HAVE HAVE SYNTAX LIKE `myModifier` instead of `myModifier()` as well
+		// do some stuff
+	}
+
+	// Implementing access control using modifier
+	modifier onlyAdmin(){
+		require(msg.sender == admin, 'only admin');
+		_;
+	}
+
+
+}
+```
+
+
+## Inheritance and passing of values to constructor to a parent contract
+
+```sol
+// Parent.sol
+contract Parent {
+	uint data;
+
+	constructor (uint initialData) public {
+		data = initialData;
+	}
+	function foo() internal {}
+}
+```
+
+```sol
+import "./Parent.sol";
+// import "./Parent2.sol"; // for demoing the MULTIPLE INHERITANCE and calling multiple constructors from child contract
+
+// inheriting or more Contracts i.e., Parent and Parent2
+contract Child is Parent, Parent2 {
+	//~TODO:TEST_IT ~ I think parent contract's constructors are not called by default IMO ~Sahil 
+	// CALLING parent constructors from a child contract (LEARN: parent constructors will be executed first)
+	// FORWARDING VALUES to one or more parent contract constructors
+	constructor(uint initialData) public Parent(initialData) Parent2(initialData){
+		// So we can get value of data from the parent's state variales
+		//  data = 10 // data IS ALREADY 10 COZ THE PARENT CONSTRUCTOR INITIALIZED IT ALREADY
+	}
+
+	function bar() external {
+		foo(); // CALLING FUNCTION OF A PARENT CONTRACT
+		// We can also manipuate the data of a contract as well
+		data++;
+	}
+}
+```
+
+## is js future of smart contracts?
+
+Article - TODO READ: https://thenewstack.io/is-javascript-the-future-of-smart-contracts/
+
+Framework Site: https://agoric.com/
+
+## vyper
+
+- Pythonic Smart Contract Language for the EVM.
+- Github(4.3K*): https://github.com/vyperlang/vyper
+
+## A multisig wallet
+
+In this wallet you can only make a transaction if mulitple people agree on the transaction. That is it allows multiple parties to agree on transactions before execution.
+
+The way it works is that you need to approve a couple of ethereum addresses and after each of these addresses can suggest to do a transfer of ether and after other addresses can approve this transfer. And when you have enough transfers, the smart contract automatically send the ether to the receipient.
+
+
+Approvers: These are addresses that'll validate each transfer made by multisig wallet.
+
+## struct or array of struct returning from the fn?
+
+- Returning struct array: I COPIED SOLUTION FROM: https://ethereum.stackexchange.com/a/74336/106687
+- https://ethereum.stackexchange.com/questions/7317/how-can-i-return-struct-when-function-is-called
+- https://medium.com/coinmonks/solidity-tutorial-returning-structs-from-public-functions-e78e48efb378
+- LOOKS REALLY LEGITIMATE Though: https://blog.finxter.com/how-to-return-an-array-of-structs-in-solidity/
+- Another interesting quetion related to gas fees for struct array returnig: https://stackoverflow.com/questions/70647477/solidity-return-struct-array-vs-uint-array
+
+
+## assert vs. require
+
+In solidity docs: https://docs.soliditylang.org/en/v0.8.17/control-structures.html#panic-via-assert-and-error-via-require
+
+## Will revert() refund all gas of the transaction or just the remaining gas?
+
+Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/106687)
 
