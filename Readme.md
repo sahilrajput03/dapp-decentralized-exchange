@@ -413,6 +413,8 @@ function fooBar(uint[]){
 }
 ```
 
-- **Officially downloading complete solidity docs in html, pdf or epub formats:** [Click here](https://github.com/sahilrajput03/dapp-6fig-eattheblocks/tree/main)
+- **Officially downloading complete solidity docs in html, pdf or epub formats:** 
+
+	![image](https://user-images.githubusercontent.com/31458531/194707268-01da0e35-f70a-4d9e-9ea2-83434b59cee0.png)
 
 	Haivng an offiline copy in either pdf or epub is much better bcoz you can underline and highlight and make notes inside the docs itself and have that pdf/epub as reference for the future all the time. Yo!! Having an epub can be much better coz you cna read it on the phone and udpate the epub with highlight as well using readera, yo!!
