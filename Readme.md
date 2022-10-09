@@ -800,3 +800,18 @@ In solidity docs: https://docs.soliditylang.org/en/v0.8.17/control-structures.ht
 
 Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/106687)
 
+## Create truffle project and understanding directory structure
+
+- Create truffle project: ??
+- Install truffle and ganache: `sudo npm i -g truffle ganache`
+
+**Directory structure and meanings:**
+
+- `contracts` - You write all your contracts in this directory
+- `migration` - You write how the migration files that tells truffle how to deply your smart contracts to ethereum blockchain
+- `test` - We write tests for our contracts in this directory
+- `truffle-config.js` - We define our configuration like which solidity version to use and different parameters for development blockchain that we're gonna run with truffle
+
+## Truffle walkthrough in vscode
+
+![](./ss/vscode-truffle-walkthrough.png)
