@@ -802,6 +802,8 @@ Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/1066
 
 ## Create truffle project and understanding directory structure
 
+**Truffle Docs:** [Click here](https://trufflesuite.com/docs/)
+
 - Create truffle project: ??
 - Install truffle and ganache: `sudo npm i -g truffle ganache`, Installation guide: [Click here](https://trufflesuite.com/docs/vscode-ext/installation-guide/)
 
@@ -812,7 +814,7 @@ Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/1066
 - `test` - We write tests for our contracts in this directory
 - `truffle-config.js` - We define our configuration like which solidity version to use and different parameters for development blockchain that we're gonna run with truffle
 
-## Truffle walkthrough in vscode
+**Truffle walkthrough in vscode**
 
 ![](./ss/vscode-truffle-walkthrough.png)
 
