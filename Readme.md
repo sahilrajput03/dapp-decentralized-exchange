@@ -803,7 +803,7 @@ Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/1066
 ## Create truffle project and understanding directory structure
 
 - Create truffle project: ??
-- Install truffle and ganache: `sudo npm i -g truffle ganache`
+- Install truffle and ganache: `sudo npm i -g truffle ganache`, Installation guide: [Click here](https://trufflesuite.com/docs/vscode-ext/installation-guide/)
 
 **Directory structure and meanings:**
 
@@ -815,3 +815,5 @@ Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/1066
 ## Truffle walkthrough in vscode
 
 ![](./ss/vscode-truffle-walkthrough.png)
+
+Amazing feats of vscode's extension: https://trufflesuite.com/blog/build-on-web3-with-truffle-vs-code-extension/
