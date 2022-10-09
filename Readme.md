@@ -819,3 +819,11 @@ Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/1066
 ![](./ss/vscode-truffle-walkthrough.png)
 
 Amazing feats of vscode's extension: https://trufflesuite.com/blog/build-on-web3-with-truffle-vs-code-extension/
+
+**From output of `truffle init`:**
+
+```bash
+Try our scaffold commands to get started:
+  $ truffle create contract YourContractName # scaffold a contract
+  $ truffle create test YourTestName         # scaffold a test
+```
