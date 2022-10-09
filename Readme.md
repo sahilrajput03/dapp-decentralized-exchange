@@ -804,7 +804,7 @@ Just the remaining gas. [Source](https://ethereum.stackexchange.com/a/19220/1066
 
 **Truffle Docs:** [Click here](https://trufflesuite.com/docs/)
 
-- Create truffle project: ??
+- Create truffle project: `truffle init`
 - Install truffle and ganache: `sudo npm i -g truffle ganache`, Installation guide: [Click here](https://trufflesuite.com/docs/vscode-ext/installation-guide/)
 
 **Directory structure and meanings:**
@@ -827,3 +827,7 @@ Try our scaffold commands to get started:
   $ truffle create contract YourContractName # scaffold a contract
   $ truffle create test YourTestName         # scaffold a test
 ```
+
+**Configuration Documentation:** [Click here](https://trufflesuite.com/docs/truffle/reference/configuration)
+
+**Truffle Dashboard:** [Click here](https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/)
