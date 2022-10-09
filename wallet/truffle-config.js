@@ -47,95 +47,98 @@
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
-  /**
-   * Networks define how you connect to your ethereum client and let you set the
-   * defaults web3 uses to send transactions. If you don't specify one truffle
-   * will spin up a managed Ganache instance for you on port 9545 when you
-   * run `develop` or `test`. You can ask a truffle command to use a specific
-   * network from the command line, e.g
-   *
-   * $ truffle test --network <network-name>
-   */
+	/**
+	 * Networks define how you connect to your ethereum client and let you set the
+	 * defaults web3 uses to send transactions. If you don't specify one truffle
+	 * will spin up a managed Ganache instance for you on port 9545 when you
+	 * run `develop` or `test`. You can ask a truffle command to use a specific
+	 * network from the command line, e.g
+	 *
+	 * $ truffle test --network <network-name>
+	 */
 
-  networks: {
-    // Useful for testing. The `development` name is special - truffle uses it by default
-    // if it's defined here and no other network is specified at the command line.
-    // You should run a client (like ganache, geth, or parity) in a separate terminal
-    // tab if you use this network and you must also set the `host`, `port` and `network_id`
-    // options below to some value.
-    //
-    // development: {
-    //  host: "127.0.0.1",     // Localhost (DEFAULT: none)
-    //  port: 8545,            // Standard Ethereum port (DEFAULT: none)
-    //  network_id: "*",       // Any network (DEFAULT: none)
-    // },
-    //
-    // An additional network, but with some advanced options…
-    // advanced: {
-    //   port: 8777,             // Custom port
-    //   network_id: 1342,       // Custom network
-    //   gas: 8500000,           // Gas sent with each transaction (DEFAULT: ~6700000)
-    //   gasPrice: 20000000000,  // 20 gwei (in wei) (DEFAULT: 100 gwei)
-    //   from: <address>,        // Account to send transactions from (DEFAULT: accounts[0])
-    //   websocket: true         // Enable EventEmitter interface for web3 (DEFAULT: false)
-    // },
-    //
-    // Useful for deploying to a PUBLIC NETWORK.
-    // Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
-    // goerli: {
-    //   provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`),
-    //   network_id: 5,       // Goerli's id
-    //   confirmations: 2,    // # of confirmations to wait between deployments. (DEFAULT: 0)
-    //   timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/DEFAULT: 50)
-    //   skipDryRun: true     // Skip dry run before migrations? (DEFAULT: false for public nets )
-    // },
-    //
-    // Useful for PRIVATE NETWORKS
-    // private: {
-    //   provider: () => new HDWalletProvider(MNEMONIC, `https://network.io`),
-    //   network_id: 2111,   // This network is yours, in the cloud.
-    //   production: true    // Treats this network as if it was a public net. (DEFAULT: false)
-    // }
-  },
+	networks: {
+		// Useful for testing. The `development` name is special - truffle uses it by default
+		// if it's defined here and no other network is specified at the command line.
+		// You should run a client (like ganache, geth, or parity) in a separate terminal
+		// tab if you use this network and you must also set the `host`, `port` and `network_id`
+		// options below to some value.
+		//
+		// ~Sahil: I uncommented below code to try to run my test events to be run against this development instance of gnache-server though and it seems to work though.
+		development: {
+			host: '127.0.0.1', // Localhost (DEFAULT: none)
+			port: 8545, // Standard Ethereum port (DEFAULT: none)
+			network_id: '*', // Any network (DEFAULT: none)
+			websockets: true,
+			// disableConfirmationListener: true, // (TRIED TO IMPROVE PERFORMANCE WITH THIS) set to true to disable web3's confirmation listener // src: https://trufflesuite.com/docs/truffle/reference/configuration/
+		},
+		//
+		// An additional network, but with some advanced options…
+		// advanced: {
+		//   port: 8777,             // Custom port
+		//   network_id: 1342,       // Custom network
+		//   gas: 8500000,           // Gas sent with each transaction (DEFAULT: ~6700000)
+		//   gasPrice: 20000000000,  // 20 gwei (in wei) (DEFAULT: 100 gwei)
+		//   from: <address>,        // Account to send transactions from (DEFAULT: accounts[0])
+		//   websocket: true         // Enable EventEmitter interface for web3 (DEFAULT: false)
+		// },
+		//
+		// Useful for deploying to a PUBLIC NETWORK.
+		// Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
+		// goerli: {
+		//   provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`),
+		//   network_id: 5,       // Goerli's id
+		//   confirmations: 2,    // # of confirmations to wait between deployments. (DEFAULT: 0)
+		//   timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/DEFAULT: 50)
+		//   skipDryRun: true     // Skip dry run before migrations? (DEFAULT: false for public nets )
+		// },
+		//
+		// Useful for PRIVATE NETWORKS
+		// private: {
+		//   provider: () => new HDWalletProvider(MNEMONIC, `https://network.io`),
+		//   network_id: 2111,   // This network is yours, in the cloud.
+		//   production: true    // Treats this network as if it was a public net. (DEFAULT: false)
+		// }
+	},
 
-  // Set default mocha options here, use special reporters, etc.
-  mocha: {
-    // timeout: 100000
-  },
+	// Set default mocha options here, use special reporters, etc.
+	mocha: {
+		// timeout: 100000
+	},
 
-  // Configure your compilers
-  compilers: {
-    solc: {
-      version: "0.8.17" // Fetch exact version from solc-bin (DEFAULT: truffle's version)
-      // docker: true,        // Use "0.5.1" you've installed locally with docker (DEFAULT: false)
-      // settings: {          // See the solidity docs for advice about optimization and evmVersion
-      //  optimizer: {
-      //    enabled: false,
-      //    runs: 200
-      //  },
-      //  evmVersion: "byzantium"
-      // }
-    }
-  }
+	// Configure your compilers
+	compilers: {
+		solc: {
+			version: '0.8.17', // Fetch exact version from solc-bin (DEFAULT: truffle's version)
+			// docker: true,        // Use "0.5.1" you've installed locally with docker (DEFAULT: false)
+			// settings: {          // See the solidity docs for advice about optimization and evmVersion
+			//  optimizer: {
+			//    enabled: false,
+			//    runs: 200
+			//  },
+			//  evmVersion: "byzantium"
+			// }
+		},
+	},
 
-  // Truffle DB is currently disabled by default; to enable it, change enabled:
-  // false to enabled: true. The default storage location can also be
-  // overridden by specifying the adapter settings, as shown in the commented code below.
-  //
-  // NOTE: It is not possible to migrate your contracts to truffle DB and you should
-  // make a backup of your artifacts to a safe location before enabling this feature.
-  //
-  // After you backed up your artifacts you can utilize db by running migrate as follows:
-  // $ truffle migrate --reset --compile-all
-  //
-  // db: {
-  //   enabled: false,
-  //   host: "127.0.0.1",
-  //   adapter: {
-  //     name: "indexeddb",
-  //     settings: {
-  //       directory: ".db"
-  //     }
-  //   }
-  // }
-};
+	// Truffle DB is currently disabled by default; to enable it, change enabled:
+	// false to enabled: true. The default storage location can also be
+	// overridden by specifying the adapter settings, as shown in the commented code below.
+	//
+	// NOTE: It is not possible to migrate your contracts to truffle DB and you should
+	// make a backup of your artifacts to a safe location before enabling this feature.
+	//
+	// After you backed up your artifacts you can utilize db by running migrate as follows:
+	// $ truffle migrate --reset --compile-all
+	//
+	// db: {
+	//   enabled: false,
+	//   host: "127.0.0.1",
+	//   adapter: {
+	//     name: "indexeddb",
+	//     settings: {
+	//       directory: ".db"
+	//     }
+	//   }
+	// }
+}
