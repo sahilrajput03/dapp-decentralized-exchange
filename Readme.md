@@ -901,3 +901,5 @@ migrate --reset
 - LIBRARY: `web3-react`: [Github 4.4k*](https://github.com/Uniswap/web3-react)
 
 - Monkey minting web3 dapp: Medium Article - [Click here](https://javascript.plainenglish.io/set-up-web3-in-your-react-app-dec6d6f45b4d)
+
+- **non-signed transaction:** Using local ganache blockchain node allows us to run non-signed transactions. vid 67

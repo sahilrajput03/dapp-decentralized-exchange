@@ -60,7 +60,7 @@ module.exports = {
 	 */
 
 	// contracts_build_directory: './client/contracts',
-	contracts_build_directory: path.join(__dirname, 'client/contracts'),
+	// contracts_build_directory: path.join(__dirname, 'client/contracts'),
 
 	networks: {
 		// Useful for testing. The `development` name is special - truffle uses it by default
@@ -110,6 +110,7 @@ module.exports = {
 
 	// Set default mocha options here, use special reporters, etc.
 	mocha: {
+		// This has no effect on delayed exiting of test execution ~Sahil. Truffle is bad at testing!
 		// timeout: 100000
 	},
 

@@ -13,7 +13,7 @@ module.exports = async function (deployer, _network, accounts) {
 	// @ts-ignore
 	await web3.eth.sendTransaction({from: accounts[0], to: wallet.address, value: 10_000}) // 10_000 wei
 
-	// USING THEN CALLS
+	// USING THEN() CALLS
 	// deployer
 	// 	.deploy(Wallet, [accounts[0], accounts[1], accounts[2]], 2)
 	// 	.then(() => {
@@ -29,9 +29,6 @@ module.exports = async function (deployer, _network, accounts) {
 
 // DOCS: Read more about deployment options @ https://trufflesuite.com/docs/truffle/getting-started/running-migrations/#deployerdeploycontract-args-options
 
-// MASSIVE ISSUE NETWORKS FIELD IN NOT POPULATED IN ARTIFACTS:
-// https://ethereum.stackexchange.com/questions/36612/truffle-does-not-add-networks-to-build-contracts-contract-json-after-migration
-
 function writeContractAddressToFile(wallet) {
 	let config = `
 export const walletAddress = '${wallet.address}'
@@ -39,6 +36,10 @@ export const walletAddress = '${wallet.address}'
 
 	let data = JSON.stringify(config)
 	const TARGET_FILE_PATH = './client/contracts/walletAddress.ts'
-	fs.writeFileSync(TARGET_FILE_PATH, JSON.parse(data))	
+	fs.writeFileSync(TARGET_FILE_PATH, JSON.parse(data))
 }
 
+// #MASSIVE ISSUE# NETWORKS FIELD IN NOT POPULATED IN ARTIFACTS:
+// https://ethereum.stackexchange.com/questions/36612/truffle-does-not-add-networks-to-build-contracts-contract-json-after-migration
+// https://stackoverflow.com/questions/48609913/unhandled-rejection-error-this-contract-object-doesnt-have-address-set-yet-pl
+// https://stackoverflow.com/questions/70575902/there-is-no-data-networks-in-smart-contract-json

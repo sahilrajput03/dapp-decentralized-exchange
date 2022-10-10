@@ -9,9 +9,9 @@ const {artifacts, contract, beforeEach, web3, assert, it} = global
  */
 
 // artifacts is an object injected in a test file by truffle - vid 47
-const Wallet = artifacts.require('Wallet')
+const Wallet = artifacts.require('MultiSigWallet')
 
-contract('Wallet', (accounts) => {
+contract('MultiSigWallet', (accounts) => {
 	let wallet
 	beforeEach(async () => {
 		// this callback will be executed before each of our tests

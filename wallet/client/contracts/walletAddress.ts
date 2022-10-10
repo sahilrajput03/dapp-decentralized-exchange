@@ -1,1 +1,1 @@
-export const walletAddress = '0xB82173e119200FA7eaC08AfE00EC02D9acC54a1a'
+export const walletAddress = '0xd57BE2dbF40Af6a45EBEd8775484B1EC3C423301'
