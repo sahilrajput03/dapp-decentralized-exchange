@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "truffle test",
-    "test2": "truffle test --network development"
+    "test2": "truffle test --network development",
+		"start-local-blockchain": "truffle develop"
+
   },
   "keywords": [],
   "author": "",

@@ -857,3 +857,29 @@ Try our scaffold commands to get started:
 **Our "MultiSig Dapp" would look like this:**
 
 ![image](https://user-images.githubusercontent.com/31458531/194860276-23172e30-a5d2-477d-8640-1a1912c32672.png)
+
+**Migration files:**
+
+They allow us specify how we want to deploy our smart contract to the ethereum blockchain.
+
+**Truffle Develop and Truffle Console in DOCS:** [Click here](https://trufflesuite.com/docs/truffle/getting-started/using-truffle-develop-and-the-console/)
+
+	tldr: Use `truffle develop` for development and use `truffle console` when you want to make the development blockchain more advanced like configuring accounts, and much more, read @ above article.
+
+```bash
+# using local blockchain and migrating files
+nr start-local-blockchain # alias of `truffle develop`
+# Remeber to execute this reset command everytime you deploy becoz it might happen that truffle might not recognize your changes on some occasions and thus resulting in non-deployment of the affected contracts
+# From docs: You can use the --reset option to run all your migrations from the beginning.
+migrate --reset
+```
+
+- **Contract Artifact:** When we need to connect from the frontend we need to have some information about the smart contract and all that info is found in a file called *Contract Artifact*.
+
+
+- **What happens when we run migrate command?**
+
+	Three step process:
+	1. Compilation of smart contracts
+	2. Deployment of smart contracts
+	3. Creation of file called contract artifact
