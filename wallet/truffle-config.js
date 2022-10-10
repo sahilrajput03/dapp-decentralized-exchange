@@ -46,6 +46,8 @@
 
 // const HDWalletProvider = require('@truffle/hdwallet-provider');
 
+const path = require('path')
+
 module.exports = {
 	/**
 	 * Networks define how you connect to your ethereum client and let you set the
@@ -57,6 +59,9 @@ module.exports = {
 	 * $ truffle test --network <network-name>
 	 */
 
+	// contracts_build_directory: './client/contracts',
+	contracts_build_directory: path.join(__dirname, 'client/contracts'),
+
 	networks: {
 		// Useful for testing. The `development` name is special - truffle uses it by default
 		// if it's defined here and no other network is specified at the command line.
@@ -64,12 +69,14 @@ module.exports = {
 		// tab if you use this network and you must also set the `host`, `port` and `network_id`
 		// options below to some value.
 		//
+
 		// ~Sahil: I uncommented below code to try to run my test events to be run against this development instance of gnache-server though and it seems to work though.
 		development: {
 			host: '127.0.0.1', // Localhost (DEFAULT: none)
-			port: 8545, // Standard Ethereum port (DEFAULT: none)
+			port: 9545, // Standard Ethereum port (DEFAULT: none)
 			network_id: '*', // Any network (DEFAULT: none)
 			websockets: true,
+			// from: "", // default address to use for any transaction Truffle makes 
 			// disableConfirmationListener: true, // (TRIED TO IMPROVE PERFORMANCE WITH THIS) set to true to disable web3's confirmation listener // src: https://trufflesuite.com/docs/truffle/reference/configuration/
 		},
 		//

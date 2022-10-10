@@ -1,0 +1,9 @@
+@media (prefers-color-scheme: dark) {
+  .code {
+    color: white;
+    background: #111;
+  }
+  .logo img {
+    filter: invert(1);
+  }
+}

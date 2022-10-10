@@ -874,7 +874,16 @@ nr start-local-blockchain # alias of `truffle develop`
 migrate --reset
 ```
 
-- **Contract Artifact:** When we need to connect from the frontend we need to have some information about the smart contract and all that info is found in a file called *Contract Artifact*.
+- **Contract Artifact:** When we need to connect from the frontend we need to have some information about the smart contract and all that info is found in a file called *Contract Artifact*. **ABI** describes the function signature of our smart contract.
+
+	A artifact of a contract (example @ `./build/contracts/MultiSigWallet.json`) has properties like: `contractName`, `artifact`, `bytecode`, etc and all these properties are used by web3 library to interact with the smart contract on the blockchain.
+
+	`networks.address` has the address of the deployed contract.
+
+	**Changing default directory for the build contracts via `truffle-config.js`:**
+	> Source: [Click here](https://trufflesuite.com/docs/truffle/reference/configuration/#contracts_build_directory)
+	> The default output directory for compiled contracts is ./build/contracts relative to the project root. This can be changed with the `contracts_build_directory` key.
+	~Sahil: I set it to `./client/contracts` directory so we can utilise the artifacts directly in our frontend. Cool.
 
 
 - **What happens when we run migrate command?**
@@ -882,4 +891,13 @@ migrate --reset
 	Three step process:
 	1. Compilation of smart contracts
 	2. Deployment of smart contracts
-	3. Creation of file called contract artifact
+	3. Creation of file called contract artifact (example @ `./build/contracts/MultiSigWallet.json`)
+
+
+- **Truffle Gitter:** [Click here](https://gitter.im/ConsenSys/truffle)
+
+- **Truffle Compile command:** `truffle compile` compiles your contract if they are modified ~Sahil
+
+- LIBRARY: `web3-react`: [Github 4.4k*](https://github.com/Uniswap/web3-react)
+
+- Monkey minting web3 dapp: Medium Article - [Click here](https://javascript.plainenglish.io/set-up-web3-in-your-react-app-dec6d6f45b4d)
