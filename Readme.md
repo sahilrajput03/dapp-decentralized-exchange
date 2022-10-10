@@ -853,3 +853,7 @@ Try our scaffold commands to get started:
 **Truffle vs. hardhat github stars:** 13.6k* truffle and 4.4k* hardhat
 
 **Running ganache server:** `ganache-cli` and it will run blockchain on port 8545.
+
+**MultiSig Dapp would look like this:**
+
+![image](https://user-images.githubusercontent.com/31458531/194860276-23172e30-a5d2-477d-8640-1a1912c32672.png)
