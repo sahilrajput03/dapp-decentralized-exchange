@@ -27,7 +27,9 @@ export default function TransferList({transfers, approveTransfer}: TransferListT
 							<td>{transfer.approvals}</td>
 							<td>{transfer.sent ? 'yes' : 'no'}</td>
 
-							<button onClick={() => approveTransfer(transfer.id)}>approve</button>
+							<td>
+								<button onClick={() => approveTransfer(transfer.id)}>Approve</button>
+							</td>
 						</tr>
 					))}
 				</tbody>

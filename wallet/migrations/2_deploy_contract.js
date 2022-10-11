@@ -11,6 +11,7 @@ module.exports = async function (deployer, _network, accounts) {
 	const wallet = await Wallet.deployed() // get info of deployed contract instance
 	writeContractAddressToFile(wallet) // Using nodejs api to write contract address to a file for usage in frontend
 	// @ts-ignore
+	// Sending 10_000 wei to our contract
 	await web3.eth.sendTransaction({from: accounts[0], to: wallet.address, value: 10_000}) // 10_000 wei
 
 	// USING THEN() CALLS
