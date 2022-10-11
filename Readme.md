@@ -915,3 +915,19 @@ migrate --reset
 - **Why does the restarting the `truffle develop` server requires you to "Reset Accounts" in metmask (like we do after restarting local blochkchain)?:**
 
 	Its becuase of mismatch of nonce value in the metamask.
+
+- **Resources used by Author:**
+
+	- https://vanity-eth.tk/
+	- http://faucet.kovan.network/
+	
+- **Goerli:** [Pronounciation](https://www.howtopronounce.com/dutch/g%C3%B6rli-1)
+
+- **Infura:**
+	- Discord: [Click here](https://discord.gg/fwnFRrZRJn)
+	- Merge workshops: [Click here](https://www.crowdcast.io/e/the-merge-weekly/)
+	- Merge Docs: [Click here](https://docs.infura.io/infura/learn/the-merge)
+	- Resources that ConsenSys prepared ahead of the Merge: [Click here](https://consensys.net/knowledge-base/the-merge/)
+	- Support Page: [Click here](https://infura.io/support/ticket)
+	- INFURA: *ETH2 API DEPRECATION
+Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be deprecated on October 12, 2022.*
