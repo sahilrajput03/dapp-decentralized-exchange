@@ -907,3 +907,7 @@ migrate --reset
 - **Adding 9545 localhost network:** tldr: `truffle develop` runs ganache node at port 9545 (defaultport used by ganache is 8545). Why use `truffle develop`  instead when we can use ganache server which uses runs at port 8545 by default (we have a network @ 8545 in metmask by default)? ALSO: We can use run ganache node to run at custom port via: `ganache -p 9545`, but the problem is ganache uses different addresses each time (whereas `truffle develop` uses same addresses, hence more convenient). ALSO: `truffle develop` allows us to use cli of its own. yo! 
 
 ![image](https://user-images.githubusercontent.com/31458531/195033789-b2375ae1-82bd-4b24-830e-d5895807fbba.png)
+
+- **Adding account (required for one time only) from `truffle develop`'s accounts?:**
+
+![image](https://user-images.githubusercontent.com/31458531/195037219-71e21250-0523-44b6-b92a-14207857dadd.png)
