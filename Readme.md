@@ -977,6 +977,13 @@ ERC-20 Tokens: It is a virtual currency inside a smart contract.
 		- https://eips.ethereum.org/EIPS/eip-20
 		- Or at github: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
 
-- **ICO:** https://en.wikipedia.org/wiki/Initial_coin_offering
+	- **Top Tokens:** https://coinmarketcap.com/tokens/
 
-![image](https://user-images.githubusercontent.com/31458531/195117284-31873122-af02-4c76-8dff-1aadd94f1836.png)
+		All top tokens use ERC-20 tokens standard.
+
+	- **ICO:** https://en.wikipedia.org/wiki/Initial_coin_offering
+
+	![image](https://user-images.githubusercontent.com/31458531/195117284-31873122-af02-4c76-8dff-1aadd94f1836.png)
+
+
+
