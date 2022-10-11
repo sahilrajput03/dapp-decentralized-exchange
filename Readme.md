@@ -963,7 +963,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 ## PROJECT - A Decentralized Exchange with ERC-20 tokens
 
-ERC-20 Tokens: It is a virtual currency inside a smart contract.
+- ERC-20 Tokens: It is a virtual currency inside a smart contract.
 
 	A decentralized exchange is a smart contract that allows traders to buy or sell ERC-20 tokens in decentralized way.
 
