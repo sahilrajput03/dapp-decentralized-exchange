@@ -24,4 +24,6 @@ There is no test watch mode support from truffle suite and they don't care to su
 
 ![image](https://user-images.githubusercontent.com/31458531/194763010-2a255f70-6767-4737-8448-68cbe2f29f55.png)
 
-yo
+- **PROJECT_ID is missing in infura dashboard?:**
+
+  ![image](https://user-images.githubusercontent.com/31458531/195074491-ad05a109-cd53-47a8-a3bb-a0c822b1a7da.png) 
