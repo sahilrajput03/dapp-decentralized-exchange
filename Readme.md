@@ -997,3 +997,9 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - **Thats how decentralized app makes the transfers and maintains one's balance in their ledger:**
 
 	![image](https://user-images.githubusercontent.com/31458531/195167593-9fa8eb28-8651-4355-8c4a-59399de79637.png)
+
+
+- **Progress with project:**
+
+	- Our decentralize exchange manipulates Ethereum ERC-20 tokens. And we need to control which tokens are allowed to be traded otherwise if we don't preapprove which tokens to be traded it can be a big security risk. So, we're gonna implement a token registry on our dex smart contract.
+
