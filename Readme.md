@@ -956,3 +956,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - **Generating addresses from private keys provided in the deployment settings?:**
 
   ![image](https://user-images.githubusercontent.com/31458531/195076419-e466ffdd-0ec6-4ff0-94ce-d1c1ec48e1f3.png)
+
+- **Deployment to network ~Author:**
+
+	`truffle migrate --reset --network goerli`

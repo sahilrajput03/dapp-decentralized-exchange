@@ -41,15 +41,16 @@
  * https://trufflesuite.com/docs/truffle/getting-started/using-the-truffle-dashboard/
  */
 
-// require('dotenv').config();
-// const { MNEMONIC, PROJECT_ID } = process.env;
+require('dotenv').config()
+const {MNEMONIC, PR_KEY1, PR_KEY2, PR_KEY3, PROJECT_ID} = process.env
+// Mnemonic from output of `truffle develop`
+// # FYI: PROJECT_ID = INFURA's API_KEY (Infura team changed the names of the this value, source: from their documentation.)
+if (!PROJECT_ID || !PR_KEY1 || !PR_KEY2 || !PR_KEY3) {
+	console.error('Please make sure you have all the required environment files in .env file')
+	process.exit(1)
+}
 
 const HDWalletProvider = require('@truffle/hdwallet-provider')
-
-const MNEMONIC = process.env.PROJECT_ID // Mnemonic from output of `truffle develop`
-const PROJECT_ID = process.env.PROJECT_ID // # FYI: PROJECT_ID = INFURA's API_KEY (Infura team changed the names of the this value, source: from their documentation.)
-
-if (!MNEMONIC || !PROJECT_ID) process.exit(1)
 
 const path = require('path')
 module.exports = {
@@ -96,8 +97,16 @@ module.exports = {
 		//
 		// Useful for deploying to a PUBLIC NETWORK.
 		// Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
+		// ~Sahil: vid 74
 		goerli: {
-			provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`),
+			// provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`), // FROM INITIAL TEMPLATE
+			provider: () =>
+				new HDWalletProvider({
+					// mnemonic: MNEMONIC, // You either need mnemonic or private keys to generate addresses ~Author and Sahil
+					privateKeys: [PR_KEY1, PR_KEY2, PR_KEY3],
+					providerOrUrl: `https://goerli.infura.io/v3/${PROJECT_ID}`,
+					numberOfAddresses: 3, // Default is 1; These three account addresses are available to the deployment script file (`wallet/migrations/2_deploy_contract.js`) and will utilise those addresses at that time accordingly as used in that file. ~Sahil
+				}),
 			network_id: 5, // Goerli's id (~Sahi: Chain id is also 5)
 			confirmations: 2, // # of confirmations to wait between deployments. (DEFAULT: 0)
 			timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/DEFAULT: 50)

@@ -8,6 +8,7 @@ type TransferListT = {
 export default function TransferList({transfers, approveTransfer}: TransferListT) {
 	return (
 		<div>
+			<h2>Transfer List</h2>
 			<table>
 				<thead>
 					<tr>

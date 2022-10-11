@@ -3,13 +3,14 @@ const {artifacts} = global
 var Wallet = artifacts.require('MultiSigWallet')
 const fs = require('fs')
 
-module.exports = async function (deployer, _network, accounts) {
+module.exports = async function (deployer, network, accounts) {
 	// accounts i.e, 3rd argument is the exact same list of accounts returned from web3.eth.getAccounts(). Source: https://trufflesuite.com/docs/truffle/getting-started/running-migrations/#available-accounts
+	// console.log('GOT _network:?', network); // development, goerli
 
 	// deployment steps (Deploy a single contract with constructor arguments)
 	await deployer.deploy(Wallet, [accounts[0], accounts[1], accounts[2]], 2) // quorum = 2
 	const wallet = await Wallet.deployed() // get info of deployed contract instance
-	writeContractAddressToFile(wallet) // Using nodejs api to write contract address to a file for usage in frontend
+	writeContractAddressToFile(wallet, network) // Using nodejs api to write contract address to a file for usage in frontend
 	// @ts-ignore
 	// Sending 10_000 wei to our contract
 	await web3.eth.sendTransaction({from: accounts[0], to: wallet.address, value: 10_000}) // 10_000 wei
@@ -30,13 +31,15 @@ module.exports = async function (deployer, _network, accounts) {
 
 // DOCS: Read more about deployment options @ https://trufflesuite.com/docs/truffle/getting-started/running-migrations/#deployerdeploycontract-args-options
 
-function writeContractAddressToFile(wallet) {
+function writeContractAddressToFile(wallet, networkName) {
 	let config = `
 export const walletAddress = '${wallet.address}'
+export const networkName = '${networkName}'
+// (Alert: WORKS FOR GOERLI CONTRACTS ONLY) View txns @ goerli.etherscan.io: https://goerli.etherscan.io/address/${wallet.address}
 `.trim()
 
 	let data = JSON.stringify(config)
-	const TARGET_FILE_PATH = './client/contracts/walletAddress.ts'
+	const TARGET_FILE_PATH = `./client/config/config-${networkName === 'development' ? 'local' : networkName}.ts`
 	fs.writeFileSync(TARGET_FILE_PATH, JSON.parse(data))
 }
 

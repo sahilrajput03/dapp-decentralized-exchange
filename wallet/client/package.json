@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_PUBLIC_BC_NETWORK=local next dev",
+		"dev-goerli": "NEXT_PUBLIC_BC_NETWORK=goerli next dev",
+		"dev-mumbai": "NEXT_PUBLIC_BC_NETWORK=mumbai next dev",
+
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@truffle/hdwallet-provider": "^2.0.17",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

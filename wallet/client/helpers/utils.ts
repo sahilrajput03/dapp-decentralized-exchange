@@ -1,10 +1,11 @@
 // vid 61
-import {resolve} from 'path'
 import Web3 from 'web3'
 
 // `Wallet` is a contract abstraction
 import Wallet from '../contracts/MultiSigWallet.json'
-import {walletAddress} from '../contracts/walletAddress'
+import * as config from '../config/'
+
+const {walletAddress} = config
 
 declare global {
 	interface Window {

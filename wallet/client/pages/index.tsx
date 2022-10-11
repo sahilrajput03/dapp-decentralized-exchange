@@ -9,6 +9,7 @@ import Header from '../components/Header'
 import NewTransfer from '../components/NewTransfer'
 import TransferList from '../components/TransferList'
 import type {transferT} from '../components/NewTransfer'
+import {network, walletAddress} from '../config'
 
 const Home: NextPage = () => {
 	return (
@@ -89,7 +90,14 @@ const Content = () => {
 			<Header approvers={approvers} quorum={quorum} />
 			<NewTransfer createTransfer={createTransfer} />
 			<TransferList transfers={transfers} approveTransfer={approveTransfer} />
-			<pre>{allAddresses}</pre>
+			{network === 'local' && <pre>{allAddresses}</pre>}
+			{network === 'goerli' && (
+				<div>
+					<h2>View Transactions</h2>
+					View transaction @ goerli.etherscan.io:{' '}
+					<a href={'https://goerli.etherscan.io/address/' + walletAddress}>Click here</a>
+				</div>
+			)}
 		</main>
 	)
 }
