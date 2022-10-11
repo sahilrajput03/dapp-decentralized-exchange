@@ -908,6 +908,6 @@ migrate --reset
 
 ![image](https://user-images.githubusercontent.com/31458531/195033789-b2375ae1-82bd-4b24-830e-d5895807fbba.png)
 
-- **Adding account (required for one time only) from `truffle develop`'s accounts?:**
+- **Adding account from `truffle develop`'s accounts? (required for one time only):**
 
 ![image](https://user-images.githubusercontent.com/31458531/195037219-71e21250-0523-44b6-b92a-14207857dadd.png)
