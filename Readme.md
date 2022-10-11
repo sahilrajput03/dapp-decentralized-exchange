@@ -1006,3 +1006,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	Q. bytes32 vs. string? Source: https://ethereum.stackexchange.com/a/11557/106687
 	
 	![image](https://user-images.githubusercontent.com/31458531/195171530-6849ccda-c1fb-4a44-9a01-09b6b82f4d06.png)
+
+	- Safe and secure smart solidity contracts
+
+	![image](https://user-images.githubusercontent.com/31458531/195176708-3a165a0e-b36d-487e-bd93-98d9ee68726a.png)
