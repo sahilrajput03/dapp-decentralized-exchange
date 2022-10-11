@@ -960,3 +960,5 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - **Deployment to network ~Author:**
 
 	`truffle migrate --reset --network goerli`
+
+## PROJECT - A Decentralized Exchange with ERC20 tokens

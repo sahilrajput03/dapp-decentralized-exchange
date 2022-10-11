@@ -1,0 +1,25 @@
+{
+  "name": "wallet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test",
+    "test2": "truffle test --network development",
+    "start-local-blockchain": "truffle develop",
+    "deploy-local-multisig-wallet": "truffle migrate --reset",
+    "deploy-goerli-multisig-wallet": "truffle migrate --reset --network goerli"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/test-helpers": "^0.5.16",
+    "@truffle/hdwallet-provider": "^2.0.17",
+    "bn.js": "^5.2.1",
+    "dotenv": "^16.0.3"
+  }
+}
