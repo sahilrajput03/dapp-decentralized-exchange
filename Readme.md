@@ -942,4 +942,8 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	
 	![image](https://user-images.githubusercontent.com/31458531/195057167-329d426f-0049-4aab-9e7b-7a2de81ad614.png)
 
-
+- **installs:**
+	```bash
+	npm i @truffle/hdwallet-provider
+	# why do we need hdwallet-provider? Ans. https://ethereum.stackexchange.com/a/47182/106687
+	```

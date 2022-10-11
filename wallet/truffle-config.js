@@ -44,10 +44,14 @@
 // require('dotenv').config();
 // const { MNEMONIC, PROJECT_ID } = process.env;
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider')
+
+const MNEMONIC = process.env.PROJECT_ID // Mnemonic from output of `truffle develop`
+const PROJECT_ID = process.env.PROJECT_ID // # FYI: PROJECT_ID = INFURA's API_KEY (Infura team changed the names of the this value, source: from their documentation.)
+
+if (!MNEMONIC || !PROJECT_ID) process.exit(1)
 
 const path = require('path')
-
 module.exports = {
 	/**
 	 * Networks define how you connect to your ethereum client and let you set the
@@ -76,7 +80,7 @@ module.exports = {
 			port: 9545, // Standard Ethereum port (DEFAULT: none)
 			network_id: '*', // Any network (DEFAULT: none)
 			websockets: true,
-			// from: "", // default address to use for any transaction Truffle makes 
+			// from: "", // default address to use for any transaction Truffle makes
 			// disableConfirmationListener: true, // (TRIED TO IMPROVE PERFORMANCE WITH THIS) set to true to disable web3's confirmation listener // src: https://trufflesuite.com/docs/truffle/reference/configuration/
 		},
 		//
@@ -92,13 +96,13 @@ module.exports = {
 		//
 		// Useful for deploying to a PUBLIC NETWORK.
 		// Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
-		// goerli: {
-		//   provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`),
-		//   network_id: 5,       // Goerli's id
-		//   confirmations: 2,    // # of confirmations to wait between deployments. (DEFAULT: 0)
-		//   timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/DEFAULT: 50)
-		//   skipDryRun: true     // Skip dry run before migrations? (DEFAULT: false for public nets )
-		// },
+		goerli: {
+			provider: () => new HDWalletProvider(MNEMONIC, `https://goerli.infura.io/v3/${PROJECT_ID}`),
+			network_id: 5, // Goerli's id (~Sahi: Chain id is also 5)
+			confirmations: 2, // # of confirmations to wait between deployments. (DEFAULT: 0)
+			timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/DEFAULT: 50)
+			skipDryRun: true, // Skip dry run before migrations? (DEFAULT: false for public nets )
+		},
 		//
 		// Useful for PRIVATE NETWORKS
 		// private: {
