@@ -911,3 +911,7 @@ migrate --reset
 - **Adding account from `truffle develop`'s accounts? (required for one time only):**
 
 ![image](https://user-images.githubusercontent.com/31458531/195037219-71e21250-0523-44b6-b92a-14207857dadd.png)
+
+- **Why does the restarting the `truffle develop` server requires you to "Reset Accounts" in metmask (like we do after restarting local blochkchain)?:**
+
+	Its becuase of mismatch of nonce value in the metamask.
