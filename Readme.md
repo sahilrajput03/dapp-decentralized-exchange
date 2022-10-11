@@ -931,3 +931,7 @@ migrate --reset
 	- Support Page: [Click here](https://infura.io/support/ticket)
 	- INFURA: *ETH2 API DEPRECATION
 Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be deprecated on October 12, 2022.*
+
+- **Creating new key in infura:**
+
+	![image](https://user-images.githubusercontent.com/31458531/195056274-7554707b-6b78-4a21-aaad-8a97b8fbcbab.png)
