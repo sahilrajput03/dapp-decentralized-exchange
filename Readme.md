@@ -961,4 +961,18 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 	`truffle migrate --reset --network goerli`
 
-## PROJECT - A Decentralized Exchange with ERC20 tokens
+## PROJECT - A Decentralized Exchange with ERC-20 tokens
+
+ERC-20 Tokens: It is a virtual currency inside a smart contract.
+
+A decentralized exchange is a smart contract that allows traders to buy or sell ERC-20 tokens in decentralized way.
+
+Contrary to centralized exchanges, with decentralized exchange you don't have any kind of third party which sits between traders, it all happens in the code of the smart contract. No body can close the account of the trader or stop the trading. This project is a good example of defi also called decentralized finance, which is main use case for ethreum decentralized apps.
+
+ERC-20 Standard: Its very important to understand this bcoz our decentralized token is all about trading decentralized ERC-20 tokens.
+
+ERC-20 is the first token standard: https://github.com/ethereum/EIPs/issues/20
+
+You can find it here: 
+- https://eips.ethereum.org/EIPS/eip-20
+- Or at github: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
