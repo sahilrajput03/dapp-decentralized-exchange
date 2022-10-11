@@ -923,6 +923,8 @@ migrate --reset
 	
 - **Goerli:** [Pronounciation](https://www.howtopronounce.com/dutch/g%C3%B6rli-1)
 
+- **Alchemy vs. Infura?** I am using alchemy in my hardhat project.
+
 - **Infura:**
 	- Discord: [Click here](https://discord.gg/fwnFRrZRJn)
 	- Merge workshops: [Click here](https://www.crowdcast.io/e/the-merge-weekly/)
@@ -931,3 +933,4 @@ migrate --reset
 	- Support Page: [Click here](https://infura.io/support/ticket)
 	- INFURA: *ETH2 API DEPRECATION
 Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be deprecated on October 12, 2022.*
+
