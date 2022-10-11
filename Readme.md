@@ -993,3 +993,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	![image](https://user-images.githubusercontent.com/31458531/195123658-1756b436-8738-48fc-9c80-201d288e5776.png)
 
 	Api to html converter: [Website](https://tgerring.github.io/abi2html/), [Github](https://github.com/tgerring/abi2html.js)
+
+- **Thats how decentralized app makes the transfers and maintains one's balance in their ledger:**
+
+	![image](https://user-images.githubusercontent.com/31458531/195167593-9fa8eb28-8651-4355-8c4a-59399de79637.png)
