@@ -947,3 +947,12 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	npm i @truffle/hdwallet-provider
 	# why do we need hdwallet-provider? Ans. https://ethereum.stackexchange.com/a/47182/106687
 	```
+- **PROJECT_ID is missing in infura dashboard?:**
+  
+  Source: [Click here](https://docs.infura.io/infura/networks/ethereum/how-to/secure-a-project/project-id)
+  
+  ![image](https://user-images.githubusercontent.com/31458531/195074491-ad05a109-cd53-47a8-a3bb-a0c822b1a7da.png) 
+  
+- **Generating addresses from private keys provided in the deployment settings?:**
+
+  ![image](https://user-images.githubusercontent.com/31458531/195076419-e466ffdd-0ec6-4ff0-94ce-d1c1ec48e1f3.png)
