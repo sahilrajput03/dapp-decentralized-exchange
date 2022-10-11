@@ -1003,3 +1003,6 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 	- Our decentralize exchange manipulates Ethereum ERC-20 tokens. And we need to control which tokens are allowed to be traded otherwise if we don't preapprove which tokens to be traded it can be a big security risk. So, we're gonna implement a token registry on our dex smart contract.
 
+	Q. bytes32 vs. string?
+	
+	![image](https://user-images.githubusercontent.com/31458531/195171530-6849ccda-c1fb-4a44-9a01-09b6b82f4d06.png)
