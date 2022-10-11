@@ -987,3 +987,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 
 	ERC-20 Tokens can represent fungible assets. Fungible assets are assets that can be exchanged for one-another. For e.g., if we have a 1 dollar bill you can exchagne against any other 1 dollar bill it really doesn't matter. There are many other assets like this such as stocks as if you buy one stock you really don't care which stock it is coz they arel all same.
+
+	You can send 0 amount of ERC tokens according to ERC-20 token standard:
+	
+	![image](https://user-images.githubusercontent.com/31458531/195123658-1756b436-8738-48fc-9c80-201d288e5776.png)
