@@ -30,3 +30,6 @@ There is no test watch mode support from truffle suite and they don't care to su
   
   ![image](https://user-images.githubusercontent.com/31458531/195074491-ad05a109-cd53-47a8-a3bb-a0c822b1a7da.png) 
   
+- **Generating addresses from private keys provided in the deployment settings?:**
+
+  ![image](https://user-images.githubusercontent.com/31458531/195076419-e466ffdd-0ec6-4ff0-94ce-d1c1ec48e1f3.png)
