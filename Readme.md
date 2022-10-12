@@ -1042,7 +1042,8 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	- ERC is the implementation of the token contract.
 
 	- Difference between ERC vs. EIP in ethereum?
-		Amazing article by coindesk: https://www.coindesk.com/learn/what-are-eip-and-erc-and-how-are-they-connected/
+		
+		**Amazing article by coindesk:** https://www.coindesk.com/learn/what-are-eip-and-erc-and-how-are-they-connected/
 
 		![image](https://user-images.githubusercontent.com/31458531/195401089-6c0a2568-f277-40b0-958d-a702279ed08d.png)
 
