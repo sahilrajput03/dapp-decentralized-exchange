@@ -1027,3 +1027,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - AUG - Augur Token:
 
 ![image](https://user-images.githubusercontent.com/31458531/195322665-02ea3143-6cdc-49a9-943e-bed2561b5013.png)
+
+- What is limit order?
+
+	A limit order is a buy or sell order with a limit price. For buy order its going to be max price and for a sell order its going to be min price. For e.g, buy order @ 100 (it means that user is willing to buy upto Rs. 100 to buy this token).
