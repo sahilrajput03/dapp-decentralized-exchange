@@ -1050,6 +1050,6 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 - Standards Definitions from openzepplin docs: https://docs.openzeppelin.com/contracts/2.x/tokens
 
-	**LOOKS AMAZING: Read above artice.**
+	**LOOKS AMAZING: Read above artice.** Installation on archlinux: [click here](https://github.com/sahilrajput03/sahilrajput03/blob/master/arch-notes.md#installed-ganache-ui)
 
 	![image](https://user-images.githubusercontent.com/31458531/195399307-3e470d3c-16c3-4199-ae71-075892ca0575.png)
