@@ -1015,6 +1015,6 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 	A currency pair is the dyadic quotation of the relative value of a currency unit against the unit of another currency in the foreign exchange market. The currency that is used as the reference is called the counter currency, quote currency, or currency[1] and the currency that is quoted in relation is called the base currency or transaction currency. Source: https://en.wikipedia.org/wiki/Currency_pair
 
-- Is minining possible after merge in Ethereum public net?
+- Is minining possible after merge i.e., concensus mechanism to Proof of Stake in Ethereum public net?
 
 ![image](https://user-images.githubusercontent.com/31458531/195311243-3d12d353-2e84-4b10-aeb7-276b5c7f2091.png)
