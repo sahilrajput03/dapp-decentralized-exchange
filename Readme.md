@@ -1047,4 +1047,5 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 	**LOOKS AMAZING: Read above artice.**
 
+	![image](https://user-images.githubusercontent.com/31458531/195399307-3e470d3c-16c3-4199-ae71-075892ca0575.png)
 
