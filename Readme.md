@@ -1031,3 +1031,12 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - What is limit order?
 
 	A limit order is a buy or sell order with a limit price. For buy order its going to be max price and for a sell order its going to be min price. For e.g, buy order @ 100 (it means that user is willing to buy upto Rs. 100 to buy this token).
+
+- What is ERC and IERC in openzepplin contracts?
+
+	[Source](https://ethereum.stackexchange.com/a/99547/106687)
+
+	Short answer: 
+
+	- IERC is the Interface for the token contract.
+	- ERC is the implementation of the token contract.
