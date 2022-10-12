@@ -1010,3 +1010,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	- Safe and secure smart solidity contracts
 
 	![image](https://user-images.githubusercontent.com/31458531/195176708-3a165a0e-b36d-487e-bd93-98d9ee68726a.png)
+
+	- vid 82: We r going to integrate dai stable coin into our decentralized exchange.
+
+	A currency pair is the dyadic quotation of the relative value of a currency unit against the unit of another currency in the foreign exchange market. The currency that is used as the reference is called the counter currency, quote currency, or currency[1] and the currency that is quoted in relation is called the base currency or transaction currency. Source: https://en.wikipedia.org/wiki/Currency_pair
