@@ -3,6 +3,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 // import "hardhat/console.sol";
 import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol';
+import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/math/SafeMath.sol'
 
 // Our Token Registry
 contract Dex {
@@ -10,6 +11,10 @@ contract Dex {
 		bytes32 tiker;
 		address tokenAddress;
 	}
+
+	// in solidity we can use `using` keyword allows us to use a library and attach it to a particular type.
+	using SafeMath for uint;
+	// LEARN: Now we have methods of `SafeMath.sol` like for eg we can do `a.add(2)` and it will evaluate to `add(a,2)` where add is a fn from `SafeMath.sol`.
 
 	enum Side {
 		BUY,
@@ -66,12 +71,14 @@ contract Dex {
 	// fn to send tokens - consider `mohit` calls this fn(2, 'SIB') thus he means to shift from SIB account to this wallet say DEX.
 	function deposit(uint amount, bytes32 ticker) tokenExists(ticker) external {
 		IERC20(tokens[ticker].tokenAddress).transferFrom(msg.sender, address(this), amount);
-		traderBalances[msg.sender][ticker] += amount;
+		// safemath// traderBalances[msg.sender][ticker] += amount;
+		traderBalances[msg.sender][ticker] = traderBalances[msg.sender][ticker].add(amount);
 	}
 
 	function withdraw(uint amount, bytes32 ticker) tokenExists(ticker) external {
 		require(traderBalances[msg.sender][ticker] >= amount, 'balance too low');
-		traderBalances[msg.sender][ticker] -= amount;
+		// safemath // traderBalances[msg.sender][ticker] -= amount;
+		traderBalances[msg.sender][ticker] = traderBalances[msg.sender][ticker].sub(amount);
 		IERC20(tokens[ticker].tokenAddress).transfer(msg.sender, amount);
 	}
 
@@ -82,7 +89,8 @@ contract Dex {
 			require( traderBalances[msg.sender][ticker] >= amount, 'token balance is too low');
 		} else {
 		// if this is buy order we need to make sure trader has enough DAI token
-			require(traderBalances[msg.sender][DAI] >=  amount*price, 'dai balance too low');
+			// safemath // require(traderBalances[msg.sender][DAI] >=  amount*price, 'dai balance too low');
+			require(traderBalances[msg.sender][DAI] >=  amount.mul(price), 'dai balance too low');
 		}
 
 		// now we can add the order to order book
@@ -92,7 +100,8 @@ contract Dex {
 		orders.push(Order(nextOrderId, msg.sender, side, ticker, amount, 0, price, now()))
 		
 		// using bubble sort algorithm
-		uint i = orders.length - 1; // LETS say we have 3 orders already then after pushing new order, its idx is 4 so it can jump for 3 times at maz say if its maximum of all orders.
+		// integer underflow error fix: // uint i = orders.length - 1; // LETS say we have 3 orders already then after pushing new order, its idx is 4 so it can jump for 3 times at maz say if its maximum of all orders.
+		uint i = orders.length > 0 ? orders.length - 1 : 0; // LETS say we have 3 orders already then after pushing new order, its idx is 4 so it can jump for 3 times at maz say if its maximum of all orders.
 		while(i > 0){
 			// for buy orders high prices at beginning and for sell low prices at beginning		
 			if(side == Side.BUY && orders[i-1].price > orders[i].price){ // buy order
@@ -108,9 +117,11 @@ contract Dex {
 			orders[i] = order;
 
 			// DECREMENT I FOR THE WHILE LOOP
-			i--;
+			// safemath // i--;
+			i = i.sub(1);
 		}
-		nextOrderId++;
+		// safe math // nextOrderId++;
+		nextOrderId = nextOrderId.add(1);
 	}
 
 	// LEARN: Exchagne: Market orders are matched with best priced limit buy/sell orders and market order will keep settling up with the limit orders in the order of best price until the market order is filled.
@@ -126,10 +137,13 @@ contract Dex {
 
 		while(i < orders.length && remaining > 0){
 			// we need to know the available liquidity of each order of the orderbook
-			uint available = orders[i].amount - orders[i].filled; // AVAILABLE TOKENS FOR BUY/SELL OF EACH LIMIT ORDER ~IMO~Sahil
+			// safemath // uint available = orders[i].amount - orders[i].filled; // AVAILABLE TOKENS FOR BUY/SELL OF EACH LIMIT ORDER ~IMO~Sahil
+			uint available = orders[i].amount.sub(orders[i].filled); // AVAILABLE TOKENS FOR BUY/SELL OF EACH LIMIT ORDER ~IMO~Sahil
 			uint matched = (remaining > available) ? available : remaining; // MATCH IS THE MAXIMUM POSSIBLE BUY/SELL TOKENS FROM THIS PARTICULAR LIMIT ORDER
-			remaining -= matched;
-			orders[i].filled += matched;
+			// safemath // remaining -= matched;
+			remaining = remaining.sub(matched);
+			// safemath // orders[i].filled += matched;
+			orders[i].filled = orders[i].filled.add(matched) ;
 			emit NewTrade(
 				nextTradeId, // uint tradeId,
 				orders[i].id, // uint orderId,
@@ -141,26 +155,37 @@ contract Dex {
 				now // uint date,
 			);
 			if(side == Side.SELL){
-				// deduct ticker and add dai
-				traderBalances[msg.sender][ticker] -= matched;
-				traderBalances[msg.sender][DAI] += matched * orders[i].price;
-				// add ticker and deduct dai
-				traderBalances[orders[i].trader][ticker] += matched;
-				traderBalances[orders[i].trader][DAI] -= matched * orders[i].price;
+				// DEDUCT TICKER AND ADD DAI
+				// safemath // traderBalances[msg.sender][ticker] -= matched;
+				traderBalances[msg.sender][ticker] = traderBalances[msg.sender][ticker].sub(matched);
+				// safemath // traderBalances[msg.sender][DAI] += matched * orders[i].price;
+				traderBalances[msg.sender][DAI] = traderBalances[msg.sender][DAI].add(matched.mul(orders[i].price));
+				// ADD TICKER AND DEDUCT DAI
+				// safemath // traderBalances[orders[i].trader][ticker] += matched;
+				traderBalances[orders[i].trader][ticker] = traderBalances[orders[i].trader][ticker].add(matched);
+				// safemath // traderBalances[orders[i].trader][DAI] -= matched * orders[i].price;
+				traderBalances[orders[i].trader][DAI] = traderBalances[orders[i].trader][DAI].sub(matched.mul(orders[i].price));
 			}
 
 			// copy of same above code but conditioned for buy order this time
 			if(side == Side.BUY){
-				require(traderBalances[msg.sender][DAI] >= matched * orders[i].price, 'dai balance too low');
-				// deduct ticker and add dai
-				traderBalances[msg.sender][ticker] += matched;
-				traderBalances[msg.sender][DAI] -= matched * orders[i].price;
-				// add ticker and deduct dai
-				traderBalances[orders[i].trader][ticker] -= matched;
-				traderBalances[orders[i].trader][DAI] += matched * orders[i].price;
+				require(traderBalances[msg.sender][DAI] >= matched.mul(orders[i].price), 'dai balance too low');
+				// DEDUCT TICKER AND ADD DAI
+				// safemath // traderBalances[msg.sender][ticker] += matched;
+				traderBalances[msg.sender][ticker] = traderBalances[msg.sender][ticker] + matched;
+				// safemath // traderBalances[msg.sender][DAI] -= matched * orders[i].price;
+				traderBalances[msg.sender][DAI] = traderBalances[msg.sender][DAI].sub(matched.mul(orders[i].price));
+				// ADD TICKER AND DEDUCT DAI
+				// safemath // traderBalances[orders[i].trader][ticker] -= matched;
+				traderBalances[orders[i].trader][ticker] = traderBalances[orders[i].trader][ticker].sub(matched);
+				// safemath // traderBalances[orders[i].trader][DAI] += matched * orders[i].price;
+				traderBalances[orders[i].trader][DAI] = traderBalances[orders[i].trader][DAI].add(matched.mul(orders[i].price));
 			}
-			nextOrderId++;
-			i++;
+			// we know its less readable than before (i.e., without safemath) but we got no choice becoz its more important to be more safe than readable.
+			// safemath // nextOrderId++;
+			nextOrderId = nextOrderId.add(1);
+			// safemath // i++;
+			i = i.add(1);
 		}
 
 		// algorithm to remove the empty trades from the orderBook, VIEW VID 85 (END PART OF IT)
@@ -171,7 +196,8 @@ contract Dex {
 				orders[j] = orders[j+1];
 			}
 			orders.pop();
-			i++;
+			// safemath // i++;
+			i = i.add(1);
 		}
 	)
 
