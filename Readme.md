@@ -1024,3 +1024,6 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 ![image](https://user-images.githubusercontent.com/31458531/195311243-3d12d353-2e84-4b10-aeb7-276b5c7f2091.png)
 
+- AUG - Augur Token:
+
+![image](https://user-images.githubusercontent.com/31458531/195322665-02ea3143-6cdc-49a9-943e-bed2561b5013.png)
