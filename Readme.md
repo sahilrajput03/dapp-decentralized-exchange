@@ -1053,3 +1053,7 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	**LOOKS AMAZING: Read above artice.**
 
 	![image](https://user-images.githubusercontent.com/31458531/195399307-3e470d3c-16c3-4199-ae71-075892ca0575.png)
+
+- Ganache ui is pretty cool though(it runs the server by default as well):
+
+	![image](https://user-images.githubusercontent.com/31458531/195449455-45d86575-a797-45e2-804c-b03dbfd17f81.png)
