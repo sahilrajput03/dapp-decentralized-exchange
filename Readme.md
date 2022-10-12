@@ -1040,3 +1040,11 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 	- IERC is the Interface for the token contract.
 	- ERC is the implementation of the token contract.
+
+	- Difference between ERC vs. EIP in ethereum? Source: https://www.coindesk.com/learn/what-are-eip-and-erc-and-how-are-they-connected/
+
+- Standards Definitions from openzepplin docs: https://docs.openzeppelin.com/contracts/2.x/tokens
+
+	**LOOKS AMAZING: Read above artice.**
+
+
