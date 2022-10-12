@@ -3,6 +3,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 // import "hardhat/console.sol";
 import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol';
+import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20Detailed.sol';
 
 // Our Token Registry
 contract Dex {
