@@ -1062,3 +1062,20 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - About decimals in ERC20:
 
 	![image](https://user-images.githubusercontent.com/31458531/195558871-e76aa599-9209-44dd-b798-af732c7fafec.png)	
+
+	How to override the decimals function? Source: https://forum.openzeppelin.com/t/what-does-it-look-like-to-override-the-decimals-function/9581
+	
+	```sol
+	pragma solidity 0.8.0;
+
+	import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+	contract MyToken is ERC20 {
+		constructor () ERC20 ("MyToken", "MTK") {
+			_mint(msg.sender, 1000000);
+			function decimals() public view override returns (uint8) {
+				return 0;
+			}
+		}
+	}
+	```
