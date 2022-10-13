@@ -1073,6 +1073,8 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 	contract MyToken is ERC20 {
 		constructor () ERC20 ("MyToken", "MTK") {
 			_mint(msg.sender, 1000000);
+			
+			// overriding the decimals funciton
 			function decimals() public view override returns (uint8) {
 				return 0;
 			}
