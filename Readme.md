@@ -1081,3 +1081,12 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 		}
 	}
 	```
+
+- ether to wei conversion:
+
+```js
+		// convert ether to wei
+		const amount = ethers.utils.parseEther('1000') // returns (1000 Ether in wei)
+		// const amount = ethers.utils.parseUnits('1000', 'ether') // returns (1000 Ether in wei) // WORKS AS WELL
+		// console.log(amount); // 1000 * 10**18
+```
