@@ -1057,3 +1057,8 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - Ganache ui is pretty cool though(it runs the server by default as well):
 
 	![image](https://user-images.githubusercontent.com/31458531/195449455-45d86575-a797-45e2-804c-b03dbfd17f81.png)
+
+
+- About decimals in ERC20:
+
+	![image](https://user-images.githubusercontent.com/31458531/195558871-e76aa599-9209-44dd-b798-af732c7fafec.png)	
