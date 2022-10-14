@@ -49,9 +49,9 @@ const getContracts = async (web3: any) => {
 	// returning contract instance
 	const dex = new web3.eth.Contract(Dex.abi, dexAddress)
 
-	const tokens = await dex.methods.getTokens().call()
-	console.log('got tokens?', tokens) // should be: [{ticker, tokenAddress}, {...}, {...}]
-	const tokenContracts = tokens.reduce(
+	const rawTokens = await dex.methods.getTokens().call()
+	// console.log('got tokens?', tokens) // should be: [{ticker, tokenAddress}, {...}, {...}]
+	const tokenContracts = rawTokens.reduce(
 		(acc: any, token: any) => ({
 			...acc,
 			[web3.utils.hexToUtf8(token.ticker)]: new web3.eth.Contract(ERC20.abi, token.tokenAddress),

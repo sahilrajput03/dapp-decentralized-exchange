@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "NEXT_PUBLIC_BC_NETWORK=local next dev",
-		"dev-goerli": "NEXT_PUBLIC_BC_NETWORK=goerli next dev",
-		"dev-mumbai": "NEXT_PUBLIC_BC_NETWORK=mumbai next dev",
-
+    "dev-goerli": "NEXT_PUBLIC_BC_NETWORK=goerli next dev",
+    "dev-mumbai": "NEXT_PUBLIC_BC_NETWORK=mumbai next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "bootstrap": "^5.2.2",
+    "immer": "^9.0.15",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

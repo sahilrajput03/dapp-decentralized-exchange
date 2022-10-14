@@ -1,10 +1,11 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {getWeb3, getContracts} from '../helpers/utils'
 import ClientOnly from '../components/ClientOnly'
 import {useEffect, useState} from 'react'
 import config from '../config'
+import {useAppData} from '../contexts'
+import Header from '../components/Header'
 
 // console.log('got config?', config)
 const {dexAddress, networkName} = config
@@ -15,13 +16,15 @@ const Home: NextPage = () => {
 		<div className={styles.container}>
 			<Head>
 				<title>Decentralized Exchange Dapp</title>
-				<meta name='description' content='Multisig Dapp' />
+				<meta name='description' content='Decentralized Exchange Dapp' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<ClientOnly>
+			<Content />
+
+			{/* <ClientOnly>
 				<Content />
-			</ClientOnly>
+			</ClientOnly> */}
 		</div>
 	)
 }
@@ -29,37 +32,20 @@ const Home: NextPage = () => {
 type addressType = string[] | undefined
 
 const Content = () => {
-	const [web3, setWeb3] = useState<any>(undefined)
-	const [accounts, setAccounts] = useState<addressType>(undefined)
-	const [dex, setDex] = useState<any>(undefined)
+	const [appData, setAppDataImmer] = useAppData()
 
-	useEffect(() => {
-		async function init() {
-			const web3: any = await getWeb3()
-			const accounts = await web3.eth.getAccounts()
-			const wallet = await getContracts(web3)
-
-			// * FOR REFERENCE
-			// const val = await wallet.methods.createTransfer(transfer.amount, transfer.to).send({from: accounts[0]}) // .send() is for `sending data` to contract
-			// const approvers = await wallet.methods.getApprovers().call()
-
-			setWeb3(web3)
-			setAccounts(accounts)
-			setDex(wallet)
-		}
-		init()
-	}, [])
-
-	console.log({web3, accounts, wallet: dex})
-
-	if (!web3 || !accounts || !dex) {
-		return <div>Loading...</div>
+	if (!appData.user.selectedToken) {
+		return (
+			<div>
+				Loading...
+			</div>
+		)
 	}
 
 	return (
 		<main className={styles.main}>
-			Multisig Dapp
-			<div></div>
+			<Header />
+
 			<BasicInfo network={networkName} address={dexAddress} />
 		</main>
 	)

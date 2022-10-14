@@ -1094,9 +1094,15 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - Inheritance Good article by geeks for geeks: [Click here](https://www.geeksforgeeks.org/solidity-inheritance/)
 - SO?: Inheritance and Function Overwriting: Who can call the parent function?: [Click here](https://ethereum.stackexchange.com/a/25308/106687)
 
-- **TODO_RESEARCH_MORE: SHOULD I COMMIT CONTRACTS BUILD to git repo or track them?**
+- **SHOULD I COMMIT CONTRACTS BUILD to git repo or track them?**
 
 	1 - [Is it safe to commit truffle build files to Github (open source)?](https://ethereum.stackexchange.com/questions/66284/is-it-safe-to-commit-truffle-build-files-to-github-open-source)
 	2 - [what is a standard .gitignore for truffle?](https://ethereum.stackexchange.com/questions/24296/what-is-a-standard-gitignore-for-truffle)
 
+	~Sahil: MY ADVICE: DO NOT COMMIT build files e.g., `abis` to your source code becoz you should make a git tag to the commit when you deploy the contracts to public net or test net and name it as particular release version say: `v1.1_20221014` ( where 1.1 is version and 20001014 is date) on commit you deployed the smart contracts (so at later point you would find it easy to find the tests, migration files and solidity code for the contracts you used at that time for comparing references).
+
 	tldr; research more about it!
+
+- **What is ABI? (seems good article):** [Click here](https://www.geeksforgeeks.org/application-binary-interfaceabi-in-ethereum-virtual-machine/)
+
+- Adding bootstrap to nextjs: [Click here](https://dev.to/anuraggharat/adding-bootstrap-to-nextjs-39b2) , [fallback source](https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c)
