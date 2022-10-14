@@ -1,21 +1,20 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {getWeb3, getMsWallet} from '../helpers/utils'
-import type {Web3InstanceType} from '../helpers/utils'
+import {getWeb3, getContracts} from '../helpers/utils'
 import ClientOnly from '../components/ClientOnly'
 import {useEffect, useState} from 'react'
-import Header from '../components/Header'
-import NewTransfer from '../components/NewTransfer'
-import TransferList from '../components/TransferList'
-import type {transferT} from '../components/NewTransfer'
-import {network, walletAddress} from '../config'
+import config from '../config'
+
+// console.log('got config?', config)
+const {dexAddress, networkName} = config
+// console.log('got address?', dexAddress, networkName)
 
 const Home: NextPage = () => {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>MultiSig Dapp</title>
+				<title>Decentralized Exchange Dapp</title>
 				<meta name='description' content='Multisig Dapp' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
@@ -28,81 +27,60 @@ const Home: NextPage = () => {
 }
 
 type addressType = string[] | undefined
-type quorumType = number | undefined
-type approversType = string[] | undefined
 
 const Content = () => {
-	const [web3, setWeb3] = useState<Web3InstanceType>(undefined)
+	const [web3, setWeb3] = useState<any>(undefined)
 	const [accounts, setAccounts] = useState<addressType>(undefined)
-	const [wallet, setWallet] = useState<any>(undefined)
-	const [approvers, setApprovers] = useState<approversType>(undefined)
-	const [quorum, setQuorum] = useState<quorumType>(undefined)
-	const [transfers, setTransfers] = useState(undefined)
+	const [dex, setDex] = useState<any>(undefined)
 
 	useEffect(() => {
 		async function init() {
-			const web3 = await getWeb3()
+			const web3: any = await getWeb3()
 			const accounts = await web3.eth.getAccounts()
-			const wallet = await getMsWallet(web3)
-			const approvers = await wallet.methods.getApprovers().call()
-			const quorum = await wallet.methods.quorum().call() // .call() is for `reading data` from contract
-			const transfers = await wallet.methods.getTransfers().call() // .call() is for `reading data` from contract
+			const wallet = await getContracts(web3)
+
+			// * FOR REFERENCE
+			// const val = await wallet.methods.createTransfer(transfer.amount, transfer.to).send({from: accounts[0]}) // .send() is for `sending data` to contract
+			// const approvers = await wallet.methods.getApprovers().call()
 
 			setWeb3(web3)
 			setAccounts(accounts)
-			setWallet(wallet)
-			setApprovers(approvers)
-			setQuorum(quorum)
-			setTransfers(transfers)
+			setDex(wallet)
 		}
 		init()
 	}, [])
 
-	console.log({web3, accounts, wallet, approvers, quorum})
+	console.log({web3, accounts, wallet: dex})
 
-	if (!web3 || !accounts || !wallet || !approvers || !quorum || !transfers) {
+	if (!web3 || !accounts || !dex) {
 		return <div>Loading...</div>
-	}
-
-	const createTransfer = async (transfer: transferT) => {
-		try {
-			const k = await wallet.methods.createTransfer(transfer.amount, transfer.to).send({from: accounts[0]}) // .send() is for `sending data` to contract
-			console.log({k})
-		} catch (error: any) {
-			console.log('error.name', error.name)
-			console.log('error.message', error.message)
-		}
-	}
-
-	const approveTransfer = async (transferId: number) => {
-		try {
-			const m = await wallet.methods.approveTransfer(transferId).send({from: accounts[0]}) // .send() is for `sending data` to contract
-			console.log({m})
-		} catch (error: any) {
-			console.log('error.name', error.name)
-			console.log('error.message', error.message)
-		}
 	}
 
 	return (
 		<main className={styles.main}>
 			Multisig Dapp
-			<Header approvers={approvers} quorum={quorum} />
-			<NewTransfer createTransfer={createTransfer} />
-			<TransferList transfers={transfers} approveTransfer={approveTransfer} />
-			{network === 'local' && <pre>{allAddresses}</pre>}
-			{network === 'goerli' && (
-				<div>
-					<h2>View Transactions</h2>
-					View transaction @ goerli.etherscan.io:{' '}
-					<a href={'https://goerli.etherscan.io/address/' + walletAddress}>Click here</a>
-				</div>
-			)}
+			<div></div>
+			<BasicInfo network={networkName} address={dexAddress} />
 		</main>
 	)
 }
 
 export default Home
+
+function BasicInfo({network, address}: any) {
+	return (
+		<div>
+			{network === 'local' && <pre>{allAddresses}</pre>}
+			{network === 'goerli' && (
+				<div>
+					<h2>View Transactions</h2>
+					View transaction @ goerli.etherscan.io:{' '}
+					<a href={'https://goerli.etherscan.io/address/' + address}>Click here</a>
+				</div>
+			)}
+		</div>
+	)
+}
 
 const allAddresses = `
 Accounts:

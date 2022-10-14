@@ -2,10 +2,13 @@
 import Web3 from 'web3'
 
 // `Wallet` is a contract abstraction
-import Wallet from '../contracts/MultiSigWallet.json'
-import * as config from '../config/'
+import Dex from '../abis/Dex.json'
+import ERC20 from '../abis/ERC20.json'
+import config from '../config/'
 
-const {walletAddress} = config
+const {dexAddress} = config
+
+if (!dexAddress) throw '`dexAddress` not found, please make sure you have it in config file.'
 
 declare global {
 	interface Window {
@@ -38,20 +41,26 @@ const getWeb3 = () => {
 		})
 	})
 }
-export type Web3InstanceType = ReturnType<typeof getWeb3> | undefined
-// export type MsWalletInstanceType = undefined //? I can't find the type for the wallet :( ~Sahil
 
-const getMsWallet = async (web3: any) => {
-	// getting networkId from contract absration
-	// const networkId = await web3.eth.net.getId()
+// LEARN:
+// `web3.utils.hexToUtf8()` converts bytes32(hex) => ascii(human readable)
 
-	// LEARN: We use networkId to extract information from the contract artifact
-	const contractDeployment: any = {address: walletAddress}
-	// const contractDeployment: any = Wallet.networks[networkId] //? (DOES NOT WORK) Time spend on this 3 HOURS
-
+const getContracts = async (web3: any) => {
 	// returning contract instance
-	return new web3.eth.Contract(Wallet.abi, contractDeployment && contractDeployment.address)
+	const dex = new web3.eth.Contract(Dex.abi, dexAddress)
+
+	const tokens = await dex.methods.getTokens().call()
+	console.log('got tokens?', tokens) // should be: [{ticker, tokenAddress}, {...}, {...}]
+	const tokenContracts = tokens.reduce(
+		(acc: any, token: any) => ({
+			...acc,
+			[web3.utils.hexToUtf8(token.ticker)]: new web3.eth.Contract(ERC20.abi, token.tokenAddress),
+		}),
+		{}
+	)
+
+	return {dex, ...tokenContracts}
 	// return new web3.eth.Contract(Wallet.abi) //? This throws error: Error: This contract object doesn't have address set yet, please set an address first
 }
 
-export {getWeb3, getMsWallet}
+export {getWeb3, getContracts}

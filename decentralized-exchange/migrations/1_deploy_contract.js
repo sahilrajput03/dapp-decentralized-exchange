@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 // @ts-ignore
 const {artifacts} = global
 const Dai = artifacts.require('mocks/DaiT.sol')
@@ -16,7 +18,7 @@ var web3
 
 const [DAI, BAT, REP, ZRX] = ['DAI', 'BAT', 'REP', 'ZRX'].map((ticker) => web3.utils.fromAscii(ticker))
 
-module.exports = async function (deployer, _trader, accounts) {
+module.exports = async function (deployer, network, accounts) {
 	const [trader1, trader2, trader3, trader4, _] = accounts
 
 	await Promise.all([Dai, Bat, Rep, Zrx, Dex].map((Contract) => deployer.deploy(Contract)))
@@ -124,6 +126,20 @@ module.exports = async function (deployer, _trader, accounts) {
 	await dex.createLimitOrder(ZRX, 1500, 23, SIDE.SELL, {from: trader3})
 	await dex.createLimitOrder(ZRX, 1200, 22, SIDE.SELL, {from: trader3})
 	await dex.createLimitOrder(ZRX, 900, 21, SIDE.SELL, {from: trader4})
+
+	writeContractAddressToFile(dex, network)
+}
+
+function writeContractAddressToFile(dex, networkName) {
+	let config = `
+export const dexAddress = '${dex.address}'
+export const networkName = '${networkName}'
+// (Alert: WORKS FOR GOERLI CONTRACTS ONLY) View txns @ goerli.etherscan.io: https://goerli.etherscan.io/address/${dex.address}
+`.trim()
+
+	let data = JSON.stringify(config)
+	const TARGET_FILE_PATH = `./client/config/config-${networkName === 'development' ? 'local' : networkName}.ts`
+	fs.writeFileSync(TARGET_FILE_PATH, JSON.parse(data))
 }
 
 //! Singe using any of below method of using `Promise.all` doesn't seem to work, so above dumb code rocks for truffle for now. ~Sahil

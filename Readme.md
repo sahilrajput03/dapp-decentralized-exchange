@@ -1093,3 +1093,10 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 - Inheritance Good article by geeks for geeks: [Click here](https://www.geeksforgeeks.org/solidity-inheritance/)
 - SO?: Inheritance and Function Overwriting: Who can call the parent function?: [Click here](https://ethereum.stackexchange.com/a/25308/106687)
+
+- **TODO_RESEARCH_MORE: SHOULD I COMMIT CONTRACTS BUILD to git repo or track them?**
+
+	1 - [Is it safe to commit truffle build files to Github (open source)?](https://ethereum.stackexchange.com/questions/66284/is-it-safe-to-commit-truffle-build-files-to-github-open-source)
+	2 - [what is a standard .gitignore for truffle?](https://ethereum.stackexchange.com/questions/24296/what-is-a-standard-gitignore-for-truffle)
+
+	tldr; research more about it!
