@@ -1,0 +1,16 @@
+import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol';
+import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/math/SafeMath.sol'
+
+
+# With ERC20Detailed: (from Author when using previous version of OpenZepplin contracts)
+
+contract Rep is ERC20, ERC20Detailed {
+	// note: for most ERC20 tokens the number of `decimals` is 18 to make it consistent with ETHER
+	constructor() public ERC20Detailed('REP', 'Augur token', 18) {}
+}
+
+#With new ERC20 (with latest version of OpenZeppelin contracts)
+
+contract Rep is ERC20 {
+	constructor() ERC20('Augur token', 'REP') {}
+}
