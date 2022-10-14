@@ -2,10 +2,10 @@ import type {NextPage} from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import ClientOnly from '../components/ClientOnly'
-import {useEffect, useState} from 'react'
 import config from '../config'
 import {useAppData} from '../contexts'
 import Header from '../components/Header'
+import Walllet from '../components/Walllet'
 
 // console.log('got config?', config)
 const {dexAddress, networkName} = config
@@ -34,17 +34,20 @@ type addressType = string[] | undefined
 const Content = () => {
 	const [appData, setAppDataImmer] = useAppData()
 
-	if (!appData.user.selectedToken) {
-		return (
-			<div>
-				Loading...
-			</div>
-		)
+	if (!appData.user?.selectedToken) {
+		return <div>Loading...</div>
 	}
 
 	return (
 		<main className={styles.main}>
 			<Header />
+			<main className='container-fluid'>
+				<div className='row'>
+					<div className='col-sm4 first-col'>
+						<Walllet />
+					</div>
+				</div>
+			</main>
 
 			<BasicInfo network={networkName} address={dexAddress} />
 		</main>

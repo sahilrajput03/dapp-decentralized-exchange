@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {useAppData} from '../contexts'
+import type {tokenType} from '../contexts'
 
 type OptionT = {
-	value?: string
-	label: string
+	label?: string
+	value?: tokenType
 }
 
 const Dropdown = () => {
 	const [appData, setAppDataImmer] = useAppData()
 
-	const tokensOptions: OptionT[] = appData.tokens?.map((item: any) => ({label: item.ticker, value: item}))
+	const tokensOptions = appData.tokens?.map((item) => ({label: item.ticker, value: item}))
 
 	const [dropdownVisible, setDropdownVisible] = useState(false)
 
@@ -23,8 +24,8 @@ const Dropdown = () => {
 	}
 
 	const activeItem = {
-		label: appData.user?.selectedToken.ticker,
-		value: appData.user?.selectedToken.value,
+		label: appData.user?.selectedToken?.ticker,
+		value: appData.user?.selectedToken,
 	}
 	// console.log('🚀 ~ file: Dropdown.tsx ~ line 40 ~ Dropdown ~ activeItem', activeItem)
 
