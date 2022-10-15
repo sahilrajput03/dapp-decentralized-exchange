@@ -2,11 +2,23 @@ import {createContext, useContext, useEffect, useState, ReactNode} from 'react'
 import produce from 'immer'
 import {getWeb3, getContracts} from '../helpers/utils'
 
+const SIDE = {
+	BUY: 0,
+	SELL: 1,
+}
+
 const AppDataContext = createContext<any>({loading: true})
 
+type createMarketOrderFnT = (amount: number, side: number) => Promise<boolean>
+type createLimitOrderFnT = (amount: number, price: string, side: number) => Promise<boolean>
+type depositFnT = (amount: number) => Promise<boolean>
+type withdrawFnT = (amount: number) => Promise<boolean>
+
 type others = {
-	deposit: (amount: number) => Promise<void>
-	withdraw: (amount: number) => Promise<void>
+	deposit: depositFnT
+	withdraw: withdrawFnT
+	createMarketOrder: createMarketOrderFnT
+	createLimitOrder: createLimitOrderFnT
 }
 
 export const useAppData = (): [AppDataType, immerSetter, others] => useContext(AppDataContext)
@@ -24,6 +36,10 @@ type AppDataType = {
 	web3?: any
 	contracts?: any
 	tokens?: tokenType[] // array of token
+	orders?: {
+		buy?: any
+		sell?: any
+	}
 	user?: {
 		accounts?: any
 		selectedToken?: tokenType
@@ -80,13 +96,12 @@ export function AppDataProvider({children}: Props) {
 
 			setAppDataImmer((state) => {
 				Object.assign(state, {web3, contracts, tokens, user: {balances, accounts, selectedToken: tokens[0]}})
-			})
-			// TODO: to be cleaned
-			// setWeb3(web3)
-			// setAccounts(accounts)
-			// setContracts(contracts)
 
-			// * FOR REFERENCE
+				///// TODO: REMOVE BELOW LATER (for easy debugging in ui)
+				// Object.assign(state, {web3, contracts, tokens, user: {balances, accounts, selectedToken: tokens[1]}})
+			})
+
+			// * FOR REFERENCE FOR CALLING CONTRACT FUNCTIONS
 			// const val = await wallet.methods.createTransfer(transfer.amount, transfer.to).send({from: accounts[0]}) // .send() is for `sending data` to contract
 			// const approvers = await wallet.methods.getApprovers().call()
 		}
@@ -94,9 +109,12 @@ export function AppDataProvider({children}: Props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	/**Deposit Function */
+	/**Deposit Function */ /** //TODO: TEST IF YOU CAN MOVE THESE FUNCTIONS DEFINITION BELOW THE RETURN STATEMENT AND TEST THAT. AND ALSO MOVE ALL THE FUNCITONS (like: withdraw, createMarketOrder, createLimitOrder) THERE FOR GOOD CODE READABILITY.  */
 	const deposit = async (amount: number) => {
-		if (!user?.selectedToken?.ticker) return alert('user/selectedToken/ticker is undefined')
+		if (!user?.selectedToken?.ticker) {
+			alert('user/selectedToken/ticker is undefined')
+			return false
+		}
 
 		await contracts[user.selectedToken.ticker].methods
 			.approve(contracts.dex.options.address, amount)
@@ -113,7 +131,10 @@ export function AppDataProvider({children}: Props) {
 	}
 	/**Withdraw Function */
 	const withdraw = async (amount: number) => {
-		if (!user?.selectedToken?.ticker) return alert('user/selectedToken/ticker is undefined')
+		if (!user?.selectedToken?.ticker) {
+			alert('user/selectedToken/ticker is undefined')
+			return false
+		}
 
 		await contracts.dex.methods
 			.withdraw(amount, web3.utils.fromAscii(user.selectedToken.ticker))
@@ -123,9 +144,50 @@ export function AppDataProvider({children}: Props) {
 			if (!appData.user) return alert('user property is undefined..')
 			appData.user.balances = balances
 		})
+
+		return true
+	}
+	const getOrders = async (token: tokenType) => {
+		const orders = await Promise.all([
+			contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker), SIDE.BUY).call(),
+			contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker), SIDE.SELL).call(),
+		])
+		return {buy: orders[0], sell: orders[1]}
+	}
+
+	const createMarketOrder: createMarketOrderFnT = async (amount, side) => {
+		if (!user?.selectedToken?.ticker) {
+			alert('user/selectedToken/ticker not found!')
+			return false
+		}
+
+		await contracts.dex.methods
+			.createMarketOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, side)
+			.send({from: user.accounts[0]})
+		const orders = await getOrders(user.selectedToken)
+		setAppDataImmer((appData) => {
+			Object.assign(appData, {orders})
+		})
+		return true
+	}
+
+	const createLimitOrder: createLimitOrderFnT = async (amount, price, side) => {
+		if (!user?.selectedToken?.ticker) {
+			alert('user/selectedToken/ticker not found!')
+			return false
+		}
+
+		await contracts.dex.methods
+			.createLimitOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, price, side)
+			.send({from: user.accounts[0]})
+		const orders = await getOrders(user.selectedToken)
+		setAppDataImmer((appData) => {
+			Object.assign(appData, {orders})
+		})
+		return true
 	}
 	/**Packing Functions Together for passing in third item for access via `useAppData()` */
-	const others = {deposit, withdraw}
+	const others = {deposit, withdraw, createMarketOrder, createLimitOrder}
 
 	// NOTE: you *might* need to memoize this value
 	// Learn more in http://kcd.im/optimize-context

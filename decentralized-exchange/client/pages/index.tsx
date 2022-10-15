@@ -1,11 +1,14 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import ClientOnly from '../components/ClientOnly'
-import config from '../config'
-import {useAppData} from '../contexts'
-import Header from '../components/Header'
-import Walllet from '../components/Walllet'
+import styles from 'styles/Home.module.css'
+import ClientOnly from 'components/ClientOnly'
+import config from 'config'
+import {useAppData} from 'contexts'
+import Header from 'components/Header'
+import Walllet from 'components/Walllet'
+import NewOrder from 'components/NewOrder'
+
+console.log('NewOrder?', NewOrder)
 
 // console.log('got config?', config)
 const {dexAddress, networkName} = config
@@ -45,6 +48,8 @@ const Content = () => {
 				<div className='row'>
 					<div className='col-sm-5 first-col'>
 						<Walllet />
+						{/* Show NewOrder component for non-dai token is selected in UI. */}
+						{appData.user.selectedToken.ticker !== 'DAI' && <NewOrder />}
 					</div>
 				</div>
 			</main>

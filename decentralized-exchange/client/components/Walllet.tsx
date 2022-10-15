@@ -11,20 +11,30 @@ const DIRECTION = {
 
 const Walllet = () => {
 	const [direction, setDirection] = useState(DIRECTION.DEPOSIT)
-	const [amount, setAmount] = useState(0)
+	const [amount, setAmount] = useState('')
 	const [appData, setAppDataImmer, {deposit, withdraw}] = useAppData()
 
-	const onSubmit = (e: any) => {
+	const onSubmit = async (e: any) => {
+		let status
+
 		e.preventDefault()
 		if (direction === DIRECTION.DEPOSIT) {
-			deposit(amount)
+			status = await deposit(Number(amount))
+			alert('Deposit successful.')
+			setAmount('')
 		} else {
-			withdraw(amount)
+			status = await withdraw(Number(amount))
+			alert('Withdraw successful.')
+			setAmount('')
+		}
+
+		if (!status) {
+			console.error('Some error occured in deposit/withdraw funciton ~Sahil')
 		}
 	}
 
 	return (
-		<div id='wallet' className='card px-2 pt-3 pb-5 mt-3'>
+		<div id='wallet' className='card px-4 pt-3 pb-5 mt-3'>
 			<h2 className='card-title'>Wallet</h2>
 			{/* <h3>Token balance for {appData?.user?.selectedToken?.ticker}</h3> */}
 			<h3>Token balances</h3>
@@ -79,6 +89,7 @@ const Walllet = () => {
 								id='amount'
 								type='text'
 								className='form-control hide__arrows'
+								placeholder='Please enter token amount'
 								onChange={(e) => {
 									let v = e.target.value
 									const isNotNumber = isNaN(Number(v))
