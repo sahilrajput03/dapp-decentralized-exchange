@@ -1,5 +1,10 @@
 # Readme
 
+App Screenshots:
+
+![image](https://user-images.githubusercontent.com/31458531/195987653-16a5f6d5-e123-431e-a75e-92c3a37c472d.png)
+
+
 What is blockchain?
 
 It is a special kind of db, and its main fn is to store data. Like its name implies it is a series of block of data. These blocks are linked to each other with cryptography.
