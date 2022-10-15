@@ -101,14 +101,20 @@ const Walllet = () => {
 								value={amount}
 							/>
 							<div className='input-group-append'>
-								<span className='input-group-text'>{appData?.user?.selectedToken?.ticker}</span>
+								<span className='input-group-text'>
+									{direction === DIRECTION.DEPOSIT ? appData?.user?.selectedToken?.ticker : 'DEX'}
+								</span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className='text-right'>
 					<button type='submit' className='btn btn-primary'>
-						Submit
+						{`Transfer  ${
+							direction === DIRECTION.DEPOSIT
+								? `${appData?.user?.selectedToken?.ticker} → DEX`
+								: `DEX → ${appData?.user?.selectedToken?.ticker}`
+						}`}
 					</button>
 				</div>
 			</form>

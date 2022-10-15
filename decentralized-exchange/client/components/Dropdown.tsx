@@ -34,30 +34,28 @@ const Dropdown = () => {
 	})
 
 	return (
-		<div>
-			<div className='dropdown ml-3'>
-				<button
-					className='btn btn-secondary dropdown-toggle'
-					type='button'
-					data-bs-toggle='dropdown'
-					aria-expanded='false'
-				>
-					{activeItem?.label || 'Label not found'}
-				</button>
-				<ul className='dropdown-menu'>
-					{!!tokensOptions &&
-						tokensOptions.map((tokenOption, idx: number) => (
-							<li key={idx + '8gh'}>
-								<a
-									className={`dropdown-item ${activeItem.label === tokenOption.label ? 'active' : ''}`}
-									onClick={selectItem(tokenOption)}
-								>
-									{tokenOption.label}
-								</a>
-							</li>
-						))}
-				</ul>
-			</div>
+		<div className='dropdown'>
+			<button
+				className='btn btn-secondary dropdown-toggle'
+				type='button'
+				data-bs-toggle='dropdown'
+				aria-expanded='false'
+			>
+				{activeItem?.label || 'Label not found'}
+			</button>
+			<ul className='dropdown-menu'>
+				{!!tokensOptions &&
+					tokensOptions.map((tokenOption, idx: number) => (
+						<li key={idx + '8gh'}>
+							<a
+								className={`dropdown-item ${activeItem.label === tokenOption.label ? 'active' : ''}`}
+								onClick={selectItem(tokenOption)}
+							>
+								{tokenOption.label}
+							</a>
+						</li>
+					))}
+			</ul>
 		</div>
 	)
 }

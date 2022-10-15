@@ -7,6 +7,7 @@ import {useAppData} from 'contexts'
 import Header from 'components/Header'
 import Walllet from 'components/Walllet'
 import NewOrder from 'components/NewOrder'
+import AllOrders from 'components/AllOrders'
 
 console.log('NewOrder?', NewOrder)
 
@@ -51,6 +52,8 @@ const Content = () => {
 						{/* Show NewOrder component for non-dai token is selected in UI. */}
 						{appData.user.selectedToken.ticker !== 'DAI' && <NewOrder />}
 					</div>
+
+					<div className='col-sm-7 second-col'>{appData.user.selectedToken.ticker !== 'DAI' && <AllOrders />}</div>
 				</div>
 			</main>
 

@@ -68,12 +68,7 @@ export function AppDataProvider({children}: Props) {
 	// Destructured for easy access
 	const {contracts, user, web3} = appData
 
-	const getBalances = async (account: any, token: tokenType) => {
-		const tokenDex = await contracts.dex.methods.traderBalances(account, web3.utils.fromAscii(token.ticker)).call()
-		const tokenWallet = await contracts[token.ticker!].methods.balanceOf(account).call()
-		return {tokenDex, tokenWallet}
-	}
-	const getBalancesWithContract = async (account: any, token: tokenType, contracts: any, web3: any) => {
+	const getBalances = async (account: any, token: tokenType, contracts: any, web3: any) => {
 		const tokenDex = await contracts.dex.methods.traderBalances(account, web3.utils.fromAscii(token.ticker)).call()
 		const tokenWallet = await contracts[token.ticker!].methods.balanceOf(account).call()
 		return {tokenDex, tokenWallet}
@@ -92,13 +87,12 @@ export function AppDataProvider({children}: Props) {
 			const tokens = rawTokens.map((token: any) => ({...token, ticker: web3.utils.hexToUtf8(token.ticker)}))
 			// token[0]: {"ticker": "DAI","tokenAddress": "0x37a0B612Efe75775474071950A3A55944Bcc2D5B"}
 
-			const balances = await getBalancesWithContract(accounts[0], tokens[0], contracts, web3)
-
+			const balances = await getBalances(accounts[0], tokens[0], contracts, web3)
+			const selectedToken = tokens[0]
+			// const selectedToken = tokens[1] ///// TODO: REMOVE BELOW LATER (for easy debugging in ui)
+			const orders = await getOrders(selectedToken, contracts, web3)
 			setAppDataImmer((state) => {
-				Object.assign(state, {web3, contracts, tokens, user: {balances, accounts, selectedToken: tokens[0]}})
-
-				///// TODO: REMOVE BELOW LATER (for easy debugging in ui)
-				// Object.assign(state, {web3, contracts, tokens, user: {balances, accounts, selectedToken: tokens[1]}})
+				Object.assign(state, {web3, contracts, tokens, orders, user: {balances, accounts, selectedToken}})
 			})
 
 			// * FOR REFERENCE FOR CALLING CONTRACT FUNCTIONS
@@ -109,8 +103,33 @@ export function AppDataProvider({children}: Props) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
+	useEffect(() => {
+		// Reload balances and orders
+		const init = async () => {
+			if (!user?.selectedToken) return
+
+			const selectedToken = user?.selectedToken
+			const balances = await getBalances(user.accounts[0], selectedToken, contracts, web3)
+			const orders = await getOrders(selectedToken, contracts, web3)
+			setAppDataImmer((appData) => {
+				if (!appData.user) return
+
+				// Object.assign(state, {web3, contracts, tokens, orders, user: {balances, accounts, selectedToken}})
+				Object.assign(appData.user, {balances})
+				Object.assign(appData, {orders})
+			})
+		}
+
+		// Run only if user has selectedToken already (so don't run on page load).
+		if (typeof user?.selectedToken !== 'undefined') {
+			init()
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [user?.selectedToken])
+
 	/**Deposit Function */ /** //TODO: TEST IF YOU CAN MOVE THESE FUNCTIONS DEFINITION BELOW THE RETURN STATEMENT AND TEST THAT. AND ALSO MOVE ALL THE FUNCITONS (like: withdraw, createMarketOrder, createLimitOrder) THERE FOR GOOD CODE READABILITY.  */
-	const deposit = async (amount: number) => {
+	const deposit: depositFnT = async (amount) => {
 		if (!user?.selectedToken?.ticker) {
 			alert('user/selectedToken/ticker is undefined')
 			return false
@@ -123,14 +142,15 @@ export function AppDataProvider({children}: Props) {
 		// TODO: check the computed value here
 		console.log('tikerNameHexBytes32', tikerNameHexBytes32)
 		await contracts.dex.methods.deposit(amount, tikerNameHexBytes32).send({from: user.accounts[0]})
-		const balances = await getBalances(user.accounts[0], user.selectedToken)
+		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			if (!appData.user) return alert('user property is undefined..')
 			appData.user.balances = balances
 		})
+		return true
 	}
 	/**Withdraw Function */
-	const withdraw = async (amount: number) => {
+	const withdraw: withdrawFnT = async (amount: number) => {
 		if (!user?.selectedToken?.ticker) {
 			alert('user/selectedToken/ticker is undefined')
 			return false
@@ -139,7 +159,7 @@ export function AppDataProvider({children}: Props) {
 		await contracts.dex.methods
 			.withdraw(amount, web3.utils.fromAscii(user.selectedToken.ticker))
 			.send({from: user.accounts[0]})
-		const balances = await getBalances(user.accounts[0], user.selectedToken)
+		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			if (!appData.user) return alert('user property is undefined..')
 			appData.user.balances = balances
@@ -147,12 +167,12 @@ export function AppDataProvider({children}: Props) {
 
 		return true
 	}
-	const getOrders = async (token: tokenType) => {
-		const orders = await Promise.all([
+	const getOrders = async (token: tokenType, contracts: any, web3: any) => {
+		const [buy, sell] = await Promise.all([
 			contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker), SIDE.BUY).call(),
 			contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker), SIDE.SELL).call(),
 		])
-		return {buy: orders[0], sell: orders[1]}
+		return {buy, sell}
 	}
 
 	const createMarketOrder: createMarketOrderFnT = async (amount, side) => {
@@ -164,7 +184,7 @@ export function AppDataProvider({children}: Props) {
 		await contracts.dex.methods
 			.createMarketOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, side)
 			.send({from: user.accounts[0]})
-		const orders = await getOrders(user.selectedToken)
+		const orders = await getOrders(user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			Object.assign(appData, {orders})
 		})
@@ -180,7 +200,7 @@ export function AppDataProvider({children}: Props) {
 		await contracts.dex.methods
 			.createLimitOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, price, side)
 			.send({from: user.accounts[0]})
-		const orders = await getOrders(user.selectedToken)
+		const orders = await getOrders(user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			Object.assign(appData, {orders})
 		})

@@ -6,20 +6,18 @@ import Dropdown from './Dropdown'
 const Header = () => {
 	const [appData, setAppDataImmer] = useAppData()
 
+	// Q. Why container-fluid? Becoz it gives uniform padding across across the whole website without managing padding manually.
+	// LEARN: card class uses flex system in bootstrap. card class gives the outer round light border, so sweet of bootstrap. ~Docs
 	return (
-		<header id='header' className='card'>
-			{/** card uses flex system in bootstrap ~Docs */}
-			<div className='row'>
-				<div className='col-sm-2 flex'>
+		<header id='header' className='container-fluid'>
+			<div className='card px-2 py-3 mt-3'>
+				<div className='d-flex justify-content-start'>
 					<Dropdown />
-				</div>
-				<div className='col-sm-10'>
 					<div className='fs-2'>Decentralized Exchange</div>
 				</div>
-
 				<div className='d-flex align-items-center'>
 					<div className='fs-3 contract-address'>Contract Address: </div>
-					<div className='fs-4 address ps-1'>{appData.contracts.dex.options.address}</div>
+					<div className='fs-4 address'>{appData.contracts.dex.options.address}</div>
 				</div>
 			</div>
 		</header>
