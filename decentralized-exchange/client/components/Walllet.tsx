@@ -24,26 +24,27 @@ const Walllet = () => {
 	}
 
 	return (
-		<div id='wallet' className='card'>
+		<div id='wallet' className='card px-2 pt-3 pb-5 mt-3'>
 			<h2 className='card-title'>Wallet</h2>
-			<h3>Token balance for {appData?.user?.selectedToken?.ticker}</h3>
+			{/* <h3>Token balance for {appData?.user?.selectedToken?.ticker}</h3> */}
+			<h3>Token balances</h3>
 			<div className='form-group row'>
 				<label htmlFor='wallet' className='col-sm-4 col-form-label'>
-					Wallet
+					Wallet {'(' + appData?.user?.selectedToken?.ticker + ' Tokens)'}
 				</label>
 				<div className='col-sm-8'>
 					<input className='form-control' id='wallet' disabled value={appData?.user?.balances?.tokenWallet} />
 				</div>
 			</div>
-			<div className='form-group row'>
+			<div className='form-group row mt-3'>
 				<label htmlFor='contract' className='col-sm-4 col-form-label'>
-					Dex
+					Dex Tokens
 				</label>
 				<div className='col-sm-8'>
 					<input className='form-control' id='wallet' disabled value={appData?.user?.balances?.tokenDex} />
 				</div>
 			</div>
-			<h3>Transfer {appData?.user?.selectedToken?.ticker}</h3>
+			<h3 className='mt-3'>Transfer {appData?.user?.selectedToken?.ticker}</h3>
 			<form id='transfer' onSubmit={(e) => onSubmit(e)}>
 				<div className='form-group row'>
 					<label htmlFor='direction' className='col-sm-4 col-form-label'>
@@ -68,7 +69,7 @@ const Walllet = () => {
 						</div>
 					</div>
 				</div>
-				<div className='form-group row'>
+				<div className='form-group row mt-3'>
 					<label htmlFor='amount' className='col-sm-4 col-form-label'>
 						Amount
 					</label>
@@ -76,9 +77,17 @@ const Walllet = () => {
 						<div className='input-group mb-3'>
 							<input
 								id='amount'
-								type='number'
+								type='text'
 								className='form-control hide__arrows'
-								onChange={(e) => setAmount(Number(e.target.value))}
+								onChange={(e) => {
+									let v = e.target.value
+									const isNotNumber = isNaN(Number(v))
+
+									if (isNotNumber) return alert('Please use numeric input for amount.')
+
+									return setAmount(v)
+								}}
+								value={amount}
 							/>
 							<div className='input-group-append'>
 								<span className='input-group-text'>{appData?.user?.selectedToken?.ticker}</span>

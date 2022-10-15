@@ -10,17 +10,16 @@ const Header = () => {
 		<header id='header' className='card'>
 			{/** card uses flex system in bootstrap ~Docs */}
 			<div className='row'>
-				<div className='col-sm-3 flex'>
+				<div className='col-sm-2 flex'>
 					<Dropdown />
 				</div>
-				<div className='col-sm-3 flex'></div>
-				<div className='col-sm-9'>
-					<h1 className='header-title'>
-						Dex -
-						<span className='contract-address'>
-							Contract Address: <span className='address'>{appData.contracts.dex.options.address}</span>
-						</span>
-					</h1>
+				<div className='col-sm-10'>
+					<div className='fs-2'>Decentralized Exchange</div>
+				</div>
+
+				<div className='d-flex align-items-center'>
+					<div className='fs-3 contract-address'>Contract Address: </div>
+					<div className='fs-4 address ps-1'>{appData.contracts.dex.options.address}</div>
 				</div>
 			</div>
 		</header>

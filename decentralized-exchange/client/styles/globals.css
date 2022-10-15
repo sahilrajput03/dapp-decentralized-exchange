@@ -24,15 +24,3 @@ a {
 		background: black;
 	}
 }
-
-/* Hide arrows from <input> of number type */
-/* Chrome, Safari, Edge, Opera */
-.hide__arrows input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	color: red;
-}
-/* Firefox */
-.hide__arrows input[type='number'] {
-	-moz-appearance: textfield;
-}

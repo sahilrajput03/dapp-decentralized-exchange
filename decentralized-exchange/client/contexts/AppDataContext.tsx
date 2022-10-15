@@ -70,7 +70,8 @@ export function AppDataProvider({children}: Props) {
 			const contracts = await getContracts(web3)
 
 			const rawTokens = await contracts.dex.methods.getTokens().call()
-			Object.assign(window, {rawTokens})
+			// For easy debugging
+			Object.assign(window, {rawTokens, _web3: web3}) // it seems metamask injects this `web3` in window object by default ~Sahil
 
 			const tokens = rawTokens.map((token: any) => ({...token, ticker: web3.utils.hexToUtf8(token.ticker)}))
 			// token[0]: {"ticker": "DAI","tokenAddress": "0x37a0B612Efe75775474071950A3A55944Bcc2D5B"}
@@ -95,14 +96,15 @@ export function AppDataProvider({children}: Props) {
 
 	/**Deposit Function */
 	const deposit = async (amount: number) => {
-		if (!user?.selectedToken?.ticker) return alert('user undefined')
+		if (!user?.selectedToken?.ticker) return alert('user/selectedToken/ticker is undefined')
 
 		await contracts[user.selectedToken.ticker].methods
 			.approve(contracts.dex.options.address, amount)
 			.send({from: user.accounts[0]})
-		await contracts.dex.methods
-			.deposit(amount, web3.utils.fromAscii(user.selectedToken.ticker))
-			.send({from: user.accounts[0]})
+		const tikerNameHexBytes32 = web3.utils.fromAscii(user.selectedToken.ticker)
+		// TODO: check the computed value here
+		console.log('tikerNameHexBytes32', tikerNameHexBytes32)
+		await contracts.dex.methods.deposit(amount, tikerNameHexBytes32).send({from: user.accounts[0]})
 		const balances = await getBalances(user.accounts[0], user.selectedToken)
 		setAppDataImmer((appData) => {
 			if (!appData.user) return alert('user property is undefined..')
@@ -111,7 +113,7 @@ export function AppDataProvider({children}: Props) {
 	}
 	/**Withdraw Function */
 	const withdraw = async (amount: number) => {
-		if (!user?.selectedToken?.ticker) return alert('user undefined')
+		if (!user?.selectedToken?.ticker) return alert('user/selectedToken/ticker is undefined')
 
 		await contracts.dex.methods
 			.withdraw(amount, web3.utils.fromAscii(user.selectedToken.ticker))

@@ -43,7 +43,7 @@ const Content = () => {
 			<Header />
 			<main className='container-fluid'>
 				<div className='row'>
-					<div className='col-sm4 first-col'>
+					<div className='col-sm-5 first-col'>
 						<Walllet />
 					</div>
 				</div>

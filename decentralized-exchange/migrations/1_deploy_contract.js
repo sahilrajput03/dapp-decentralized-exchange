@@ -37,7 +37,7 @@ module.exports = async function (deployer, network, accounts) {
 		await token.faucet(trader, amount)
 		await token.approve(dex.address, amount, {from: trader})
 		const ticker = await token.symbol() // const ticker = await token.name() // ~~Sahil In newer version of ERC20 Openzeppelin contract, you need to call `symbol()` to get the symbol/ticker name becoz `name()` will give you the full name of the coin say `Dai Stable Coin`.
-		console.log('got ticker?', ticker)
+		console.log(`INFO: ~Sahil: Calling method ${ticker}.faucet(${trader}, ${amount})`)
 		await dex.deposit(amount, web3.utils.fromAscii(ticker), {from: trader})
 	}
 
