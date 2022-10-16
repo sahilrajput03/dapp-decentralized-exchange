@@ -1187,3 +1187,7 @@ Ideally you need to position yourself both techincally and also for a specific b
 
 	- Desired output if your service is getting listend on port 8544 (which is proxified to 8545's ganache server):
 	![image](https://user-images.githubusercontent.com/31458531/196050307-dd849e90-66bb-41b1-b4e8-c3873f9e7cba.png)
+
+- **Generating same accounts with ganache server used by `truffle develop` command, yo:**
+
+	![image](https://user-images.githubusercontent.com/31458531/196053370-1ff81b76-e1f5-40a7-a600-ff431ea6e087.png)	
