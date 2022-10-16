@@ -1171,7 +1171,7 @@ Ideally you need to position yourself both techincally and also for a specific b
 
 	![image](https://user-images.githubusercontent.com/31458531/196036879-6488b913-a13e-45de-b444-30c3edd71975.png)
 
-- **Setting up my own local server on metamask device:**
+- **Setting up my own local ganache server on metamask(mobile device):**
 
 	- mobile:
 
