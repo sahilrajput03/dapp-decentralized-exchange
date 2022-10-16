@@ -1199,3 +1199,7 @@ Ideally you need to position yourself both techincally and also for a specific b
 	![image](https://user-images.githubusercontent.com/31458531/196055049-527d4094-0a55-49e6-8ded-69dd2b0a8c22.png)
 
 - **Using metamask in mobile @ youtube:** [Click here](https://www.youtube.com/watch?v=Cs_mKXrK02I)
+
+- **web3js types are also available:**
+
+![image](https://user-images.githubusercontent.com/31458531/196056081-9e96ecab-903b-4e8a-80fb-2569ab122e63.png)
