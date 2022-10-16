@@ -14,6 +14,12 @@
 
 ![image](https://user-images.githubusercontent.com/31458531/195989216-c529d3cc-8b93-4181-a2b4-7de2b1af8688.png)
 
+**All orders:**
+
+The orders are ordered by best prices in buy (maximum price first) and sell sections (lease price first).
+
+![image](https://user-images.githubusercontent.com/31458531/196035180-c114290f-9079-48ca-a6f3-78224566eb3e.png)
+
 
 What is blockchain?
 
