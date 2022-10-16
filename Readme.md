@@ -1191,3 +1191,9 @@ Ideally you need to position yourself both techincally and also for a specific b
 - **Generating same accounts with ganache server used by `truffle develop` command, yo:**
 
 	![image](https://user-images.githubusercontent.com/31458531/196053370-1ff81b76-e1f5-40a7-a600-ff431ea6e087.png)	
+
+- **web3js vs. etherjs:**
+
+	![image](https://user-images.githubusercontent.com/31458531/196055035-a69c0f0c-f858-4567-9b26-a37fd52a5484.png)
+
+	![image](https://user-images.githubusercontent.com/31458531/196055049-527d4094-0a55-49e6-8ded-69dd2b0a8c22.png)
