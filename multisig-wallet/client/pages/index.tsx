@@ -131,3 +131,5 @@ Private Keys:
 (9) 4db644c38b25eeb136abe2cbb52a05e84169271211dc834108582f87af976401
 (10) f7e9746e6fcb21c2dcac6c882fffd79df6d0b434474d9cfab0c511ba7761adea
 `
+
+const mnemonic = 'carry basket must lens sweet utility banner wash history appear car leisure'

@@ -62,7 +62,7 @@ const AllTrades = () => {
 	}
 
 	return (
-		<div className='card'>
+		<div className='card px-4 pt-3 pb-5'>
 			<h2 className='card-title'>All trades</h2>
 			<div className='row'>
 				<div className='col-sm-12'>
