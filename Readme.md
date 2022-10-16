@@ -1155,6 +1155,11 @@ Ideally you need to position yourself both techincally and also for a specific b
 
 	Date: 16 Oct, 2022
 
+	TODO: Read drizzle docs:
+	- Drizzle store: [Click here](https://github.com/trufflesuite/drizzle/tree/develop/packages/store#drizzle-state)
+	- Contract Interaction: [Click here](https://trufflesuite.com/docs/drizzle/getting-started/contract-interaction/)
+	- React Integration: [Click here](https://trufflesuite.com/docs/drizzle/react/react-integration/)
+
 	![image](https://user-images.githubusercontent.com/31458531/196036325-fe40f7e2-e0af-4ce2-961c-cf2b6d40cdc9.png)
 
 
