@@ -8,6 +8,8 @@ import Header from 'components/Header'
 import Walllet from 'components/Walllet'
 import NewOrder from 'components/NewOrder'
 import AllOrders from 'components/AllOrders'
+import MyOrders from 'components/MyOrders'
+import AllTrades from "components/AllTrades"
 
 console.log('NewOrder?', NewOrder)
 
@@ -53,7 +55,14 @@ const Content = () => {
 						{appData.user.selectedToken.ticker !== 'DAI' && <NewOrder />}
 					</div>
 
-					<div className='col-sm-7 second-col'>{appData.user.selectedToken.ticker !== 'DAI' && <AllOrders />}</div>
+					<div className='col-sm-7 second-col'>
+						{appData.user.selectedToken.ticker !== 'DAI' && (
+							<>
+								<AllOrders />
+								<MyOrders />
+							</>
+						)}
+					</div>
 				</div>
 			</main>
 

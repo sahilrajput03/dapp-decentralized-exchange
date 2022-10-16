@@ -11,13 +11,13 @@ const Header = () => {
 	return (
 		<header id='header' className='container-fluid'>
 			<div className='card px-2 py-3 mt-3'>
-				<div className='d-flex justify-content-start'>
+				<div className='d-flex justify-content-start align-items-center'>
 					<Dropdown />
-					<div className='fs-2'>Decentralized Exchange</div>
+					<div className='fs-2 ps-3'>Decentralized Exchange</div>
 				</div>
 				<div className='d-flex align-items-center'>
-					<div className='fs-3 contract-address'>Contract Address: </div>
-					<div className='fs-4 address'>{appData.contracts.dex.options.address}</div>
+					<div className='fs-5 contract-address'>Contract Address: </div>
+					<div className='fs-5 address'>{appData.contracts.dex.options.address}</div>
 				</div>
 			</div>
 		</header>
