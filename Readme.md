@@ -1170,3 +1170,20 @@ Ideally you need to position yourself both techincally and also for a specific b
 	- How data stays fresh: [Click here](https://trufflesuite.com/docs/drizzle/reference/how-data-stays-fresh/)
 
 	![image](https://user-images.githubusercontent.com/31458531/196036879-6488b913-a13e-45de-b444-30c3edd71975.png)
+
+- **Setting up my own local server on metamask device:**
+
+	- mobile:
+
+	![image](https://user-images.githubusercontent.com/31458531/196050182-c2181835-d2bb-4412-98d8-b2c3d452d760.png)	
+
+	- nginx:
+
+	![image](https://user-images.githubusercontent.com/31458531/196050217-b9ae6989-a743-4b2f-92b8-002a69d08212.png)
+
+	- ganache-ui:
+
+	![image](https://user-images.githubusercontent.com/31458531/196050345-80a4a39f-5651-4d8d-9679-8ac6dff7b621.png)
+
+	- Desired output if your service is getting listend on port 8544 (which is proxified to 8545's ganache server):
+	![image](https://user-images.githubusercontent.com/31458531/196050307-dd849e90-66bb-41b1-b4e8-c3873f9e7cba.png)
