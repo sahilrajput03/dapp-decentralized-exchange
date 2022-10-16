@@ -214,8 +214,8 @@ contract Dex {
 				// safemath // traderBalances[orders[i].trader][DAI] += matched * orders[i].price;
 			}
 			// we know its less readable than before (i.e., without safemath) but we got no choice becoz its more important to be more safe than readable.
-			// safemath // nextOrderId++;
-			nextOrderId = nextOrderId.add(1);
+			// safemath // nextTradeId++;
+			nextTradeId = nextTradeId.add(1);
 			// safemath // i++;
 			i = i.add(1);
 		}

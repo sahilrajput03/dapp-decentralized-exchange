@@ -29,10 +29,6 @@ const Dropdown = () => {
 	}
 	// console.log('🚀 ~ file: Dropdown.tsx ~ line 40 ~ Dropdown ~ activeItem', activeItem)
 
-	useEffect(() => {
-		console.log('rendered...')
-	})
-
 	return (
 		<div className='dropdown'>
 			<button

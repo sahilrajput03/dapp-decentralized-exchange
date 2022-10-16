@@ -1,9 +1,15 @@
+import {useAppData} from 'contexts'
 import React from 'react'
 import Moment from 'react-moment'
 import {ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis} from 'recharts'
 
 const AllTrades = () => {
-	const trades: any = [] // TODO: Fix this ASAP
+	const [appData, setAppDataImmer] = useAppData()
+
+	const trades = appData?.trades ?? []
+
+	console.log('trades?', trades)
+
 	const renderList = (trades: any[], className: string) => {
 		return (
 			<>

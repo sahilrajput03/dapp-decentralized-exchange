@@ -112,8 +112,8 @@ const NewOrder = () => {
 							type='text'
 							className='form-control'
 							id='order-amount'
-								placeholder='Please enter token amount'
-								value={order.amount}
+							placeholder='Please enter token amount'
+							value={order.amount}
 							onChange={({target: {value}}) => setOrder((order) => ({...order, amount: value}))}
 						/>
 					</div>
@@ -130,7 +130,7 @@ const NewOrder = () => {
 								type='text'
 								className='form-control'
 								id='order-price'
-								placeholder='Please enter price for the trade'
+								placeholder='Please enter price for the trade For e.g. 8'
 								value={order.price}
 								onChange={({target: {value}}) => setOrder((order) => ({...order, price: value}))}
 							/>
@@ -139,7 +139,8 @@ const NewOrder = () => {
 				)}
 				<div className='text-right mt-3'>
 					<button type='submit' className='btn btn-primary'>
-						Submit
+						{/* {Submit} */}
+						{order.side === 0 ? 'Buy DEX' : 'Sell DEX'}
 					</button>
 				</div>
 				{/* <pre>{JSON.stringify(order, null, 2)}</pre> */}

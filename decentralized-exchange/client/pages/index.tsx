@@ -9,9 +9,7 @@ import Walllet from 'components/Walllet'
 import NewOrder from 'components/NewOrder'
 import AllOrders from 'components/AllOrders'
 import MyOrders from 'components/MyOrders'
-import AllTrades from "components/AllTrades"
-
-console.log('NewOrder?', NewOrder)
+import AllTrades from 'components/AllTrades'
 
 // console.log('got config?', config)
 const {dexAddress, networkName} = config
@@ -58,6 +56,7 @@ const Content = () => {
 					<div className='col-sm-7 second-col'>
 						{appData.user.selectedToken.ticker !== 'DAI' && (
 							<>
+								<AllTrades />
 								<AllOrders />
 								<MyOrders />
 							</>

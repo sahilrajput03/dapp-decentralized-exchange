@@ -36,6 +36,8 @@ type AppDataType = {
 	web3?: any
 	contracts?: any
 	tokens?: tokenType[] // array of token
+	trades?: any[]
+	listener?: any // we listen to blockchain and manage above `trades[]` array with this listener
 	orders?: {
 		buy?: any
 		sell?: any
@@ -90,6 +92,7 @@ export function AppDataProvider({children}: Props) {
 			const balances = await getBalances(accounts[0], tokens[0], contracts, web3)
 			const selectedToken = tokens[0]
 			// const selectedToken = tokens[1] ///// TODO: REMOVE BELOW LATER (for easy debugging in ui)
+			listenToTrades(selectedToken, contracts, web3)
 			const orders = await getOrders(selectedToken, contracts, web3)
 			setAppDataImmer((state) => {
 				Object.assign(state, {web3, contracts, tokens, orders, user: {balances, accounts, selectedToken}})
@@ -101,6 +104,14 @@ export function AppDataProvider({children}: Props) {
 		}
 		onPageLoad()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
+
+		return () => {
+			if (!appData.listener) return console.log('~Sahil: appData listener not found.')
+
+			appData.listener.unsubscribe()
+			console.log('~Sahil: unsubscribed listener (onComponentMount sideEffect cleanup)')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	useEffect(() => {
@@ -109,6 +120,7 @@ export function AppDataProvider({children}: Props) {
 			if (!user?.selectedToken) return
 
 			const selectedToken = user?.selectedToken
+			listenToTrades(selectedToken, contracts, web3)
 			const balances = await getBalances(user.accounts[0], selectedToken, contracts, web3)
 			const orders = await getOrders(selectedToken, contracts, web3)
 			setAppDataImmer((appData) => {
@@ -125,13 +137,20 @@ export function AppDataProvider({children}: Props) {
 			init()
 		}
 
+		return () => {
+			if (!appData.listener) return console.log('~Sahil: appData listener not found.')
+
+			appData.listener.unsubscribe()
+			console.log('unsubscribed listener (selectedToken sideEffect cleanup)')
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user?.selectedToken])
 
 	/**Deposit Function */ /** //TODO: TEST IF YOU CAN MOVE THESE FUNCTIONS DEFINITION BELOW THE RETURN STATEMENT AND TEST THAT. AND ALSO MOVE ALL THE FUNCITONS (like: withdraw, createMarketOrder, createLimitOrder) THERE FOR GOOD CODE READABILITY.  */
 	const deposit: depositFnT = async (amount) => {
 		if (!user?.selectedToken?.ticker) {
-			alert('user/selectedToken/ticker is undefined')
+			console.log('user/selectedToken/ticker is undefined')
 			return false
 		}
 
@@ -144,7 +163,7 @@ export function AppDataProvider({children}: Props) {
 		await contracts.dex.methods.deposit(amount, tikerNameHexBytes32).send({from: user.accounts[0]})
 		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
-			if (!appData.user) return alert('user property is undefined..')
+			if (!appData.user) return console.log('user property is undefined..')
 			appData.user.balances = balances
 		})
 		return true
@@ -152,7 +171,7 @@ export function AppDataProvider({children}: Props) {
 	/**Withdraw Function */
 	const withdraw: withdrawFnT = async (amount: number) => {
 		if (!user?.selectedToken?.ticker) {
-			alert('user/selectedToken/ticker is undefined')
+			console.log('user/selectedToken/ticker is undefined')
 			return false
 		}
 
@@ -161,7 +180,7 @@ export function AppDataProvider({children}: Props) {
 			.send({from: user.accounts[0]})
 		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
-			if (!appData.user) return alert('user property is undefined..')
+			if (!appData.user) return console.log('user property is undefined..')
 			appData.user.balances = balances
 		})
 
@@ -177,7 +196,7 @@ export function AppDataProvider({children}: Props) {
 
 	const createMarketOrder: createMarketOrderFnT = async (amount, side) => {
 		if (!user?.selectedToken?.ticker) {
-			alert('user/selectedToken/ticker not found!')
+			console.log('user/selectedToken/ticker not found!')
 			return false
 		}
 
@@ -185,15 +204,18 @@ export function AppDataProvider({children}: Props) {
 			.createMarketOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, side)
 			.send({from: user.accounts[0]})
 		const orders = await getOrders(user.selectedToken, contracts, web3)
+
+		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			Object.assign(appData, {orders})
+			Object.assign(appData.user as any, {balances})
 		})
 		return true
 	}
 
 	const createLimitOrder: createLimitOrderFnT = async (amount, price, side) => {
 		if (!user?.selectedToken?.ticker) {
-			alert('user/selectedToken/ticker not found!')
+			console.log('user/selectedToken/ticker not found!')
 			return false
 		}
 
@@ -201,11 +223,53 @@ export function AppDataProvider({children}: Props) {
 			.createLimitOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, price, side)
 			.send({from: user.accounts[0]})
 		const orders = await getOrders(user.selectedToken, contracts, web3)
+		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
-			Object.assign(appData, {orders})
+			Object.assign(appData, {orders, balances})
+			Object.assign(appData.user as any, {balances})
 		})
 		return true
 	}
+
+	// SIGNATURE OF NEWTRADE EVENT
+	// event NewTrade( uint tradeId, uint orderId, bytes32 indexed ticker, address indexed trader1, address indexed trader2, uint amount, // AMOUNT IS THE NUMBER OF TOKENS REQUESTED FOR THE TRADE ~Sahil uint price, uint date);
+
+	const listenToTrades = (token: tokenType, contracts: any, web3: any) => {
+		const tradeIds = new Set()
+		// Reset trades coz we don't want to accumulate trades of differet tokens to be same array i.e, on change of selectedToken we set empty the trades array.
+		// setTrades([])// TODO: Remove
+		setAppDataImmer((appData) => {
+			if (!appData.trades) return console.log('~Sahil: setAppDataImmer() :: appData.trades is undefined.')
+
+			appData.trades.splice(0) // delete all items from the array
+		})
+
+		// connection to blockchain
+		const listener = contracts.dex.events
+			.NewTrade({
+				filter: {ticker: web3.utils.fromAscii(token.ticker)},
+				fromBlock: 0, // in production we can use block of the deployment of the smart contract to listen from that smart contract.
+			})
+			.on('data', (newTrade: any) => {
+				// To prevent duplicates i.e.,trade by using`tradeId` as identifier
+				if (tradeIds.has(newTrade.returnValues.tradeId)) {
+					debugger
+					return console.log('~Sahil: Prevented adding duplicate trade.')
+				}
+				tradeIds.add(newTrade.returnValues.tradeId)
+				// setTrades((trades) => [...trades, newTrade.returnValues]) // TODO: Remove
+				setAppDataImmer((appData) => {
+					if (typeof appData.trades === 'undefined') return console.log('Trades undefined')
+
+					appData.trades.push(newTrade.returnValues)
+				})
+			})
+		// setListener(listener) // TODO: Remove
+		setAppDataImmer((appData) => {
+			Object.assign(appData, {listener})
+		})
+	}
+
 	/**Packing Functions Together for passing in third item for access via `useAppData()` */
 	const others = {deposit, withdraw, createMarketOrder, createLimitOrder}
 

@@ -10,8 +10,8 @@
     "test": "truffle test",
     "test2": "truffle test --network development",
     "start-local-blockchain": "truffle develop",
-    "deploy-local-multisig-wallet": "truffle migrate --reset",
-    "deploy-goerli-multisig-wallet": "truffle migrate --reset --network goerli"
+    "deploy-local-dex": "truffle migrate --reset",
+    "deploy-goerli-dex": "truffle migrate --reset --network goerli"
   },
   "keywords": [],
   "author": "",
