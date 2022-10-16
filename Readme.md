@@ -1153,8 +1153,8 @@ Ideally you need to position yourself both techincally and also for a specific b
 
 - **Drizzle: A react librarary from truffle:**
 
-Date: 16 Oct, 2022
+	Date: 16 Oct, 2022
 
-![image](https://user-images.githubusercontent.com/31458531/196036183-40a7aa6a-ad94-4b33-ab69-fe3faf51626d.png)
+	![image](https://user-images.githubusercontent.com/31458531/196036183-40a7aa6a-ad94-4b33-ab69-fe3faf51626d.png)
 
-![image](https://user-images.githubusercontent.com/31458531/196036237-cb8c52e2-58c7-4852-b909-e87a91ce4b80.png)
+	![image](https://user-images.githubusercontent.com/31458531/196036237-cb8c52e2-58c7-4852-b909-e87a91ce4b80.png)
