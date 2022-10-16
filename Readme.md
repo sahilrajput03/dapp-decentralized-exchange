@@ -1127,3 +1127,26 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 - **What is ABI? (seems good article):** [Click here](https://www.geeksforgeeks.org/application-binary-interfaceabi-in-ethereum-virtual-machine/)
 
 - Adding bootstrap to nextjs: [Click here](https://dev.to/anuraggharat/adding-bootstrap-to-nextjs-39b2) , [fallback source](https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c)
+
+- **Finding blockchain jobs:**
+
+4 step process
+
+1. Position yourself on job market (become niche specific)
+2. Create attractive blockchain dev profile (3 Components: Blockchain CV, Github Link and Linkedin)
+3. Apply to blockchain jobs
+
+Step 1 Explained:
+1. Benefit of positioning on job market is that you can stand out from competitors
+2. You can find job faster
+3. Make more $$
+
+Two ways to position yourself:
+1. Technical Positioning:
+	- Frontend Dev(nice ui, you are good at integrating wallets, ui challenges specific to blockchain apps)
+	- Smart contract Dev
+	- Blockchain Devops
+	- Fullstack Blockchian Dev)
+2. Business Domian Positioning (Are you developing for games, finance?)
+
+Ideally you need to position yourself both techincally and also for a specific business domian.
