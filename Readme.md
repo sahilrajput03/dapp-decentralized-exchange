@@ -16,7 +16,7 @@
 
 **All orders:**
 
-The orders are ordered by best prices in buy (maximum price first) and sell sections (lease price first).
+The orders are ordered by best prices in buy (maximum price first) and sell sections (lease price first) thus execution of market orders will first perform those orders in same order.
 
 ![image](https://user-images.githubusercontent.com/31458531/196035180-c114290f-9079-48ca-a6f3-78224566eb3e.png)
 
