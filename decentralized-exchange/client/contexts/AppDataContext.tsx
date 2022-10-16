@@ -57,6 +57,7 @@ type immerSetter = (callback: immerCallback) => void
 
 const initialAppData = {
 	user: {},
+	trades: [],
 }
 
 // LEARN: web3.utils.hextToUtf8()	=> hex (bytes32) => utf8 (ascii) (readable format)
@@ -253,18 +254,15 @@ export function AppDataProvider({children}: Props) {
 			.on('data', (newTrade: any) => {
 				// To prevent duplicates i.e.,trade by using`tradeId` as identifier
 				if (tradeIds.has(newTrade.returnValues.tradeId)) {
-					debugger
 					return console.log('~Sahil: Prevented adding duplicate trade.')
 				}
 				tradeIds.add(newTrade.returnValues.tradeId)
-				// setTrades((trades) => [...trades, newTrade.returnValues]) // TODO: Remove
 				setAppDataImmer((appData) => {
 					if (typeof appData.trades === 'undefined') return console.log('Trades undefined')
 
 					appData.trades.push(newTrade.returnValues)
 				})
 			})
-		// setListener(listener) // TODO: Remove
 		setAppDataImmer((appData) => {
 			Object.assign(appData, {listener})
 		})
