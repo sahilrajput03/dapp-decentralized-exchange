@@ -1197,3 +1197,5 @@ Ideally you need to position yourself both techincally and also for a specific b
 	![image](https://user-images.githubusercontent.com/31458531/196055035-a69c0f0c-f858-4567-9b26-a37fd52a5484.png)
 
 	![image](https://user-images.githubusercontent.com/31458531/196055049-527d4094-0a55-49e6-8ded-69dd2b0a8c22.png)
+
+- **Using metamask in mobile @ youtube:** [Click here](https://www.youtube.com/watch?v=Cs_mKXrK02I)
