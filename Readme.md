@@ -1135,29 +1135,6 @@ Our Eth2 API, also known as the Consensus Layer or Beacon Chain API, will be dep
 
 - Adding bootstrap to nextjs: [Click here](https://dev.to/anuraggharat/adding-bootstrap-to-nextjs-39b2) , [fallback source](https://medium.com/nextjs/how-to-add-bootstrap-in-next-js-de997371fd9c)
 
-- **Finding blockchain jobs:**
-
-4 step process
-
-1. Position yourself on job market (become niche specific)
-2. Create attractive blockchain dev profile (3 Components: Blockchain CV, Github Link and Linkedin)
-3. Apply to blockchain jobs
-
-Step 1 Explained:
-1. Benefit of positioning on job market is that you can stand out from competitors
-2. You can find job faster
-3. Make more $$
-
-Two ways to position yourself:
-1. Technical Positioning:
-	- Frontend Dev(nice ui, you are good at integrating wallets, ui challenges specific to blockchain apps)
-	- Smart contract Dev
-	- Blockchain Devops
-	- Fullstack Blockchian Dev)
-2. Business Domian Positioning (Are you developing for games, finance?)
-
-Ideally you need to position yourself both techincally and also for a specific business domian.
-
 - **Drizzle: A react librarary from truffle:**
 
 	Date: 16 Oct, 2022
@@ -1232,3 +1209,42 @@ Source of below image: [Click here](https://geth.ethereum.org/docs/interface/har
 		- [Setup Geth Ethereum Private Blockchain and connect to Remix](https://medium.com/coinmonks/setup-geth-ethereum-private-network-3806ef7fbe42)
 		- [Connecting Geth to Metamask](https://medium.com/@kacharlabhargav21/connecting-geth-to-metamask-fc2b2c89d9f9)
 		- [SO Question](https://ethereum.stackexchange.com/questions/97816/cant-connect-metamask-to-local-geth-node)
+
+- **Finding blockchain jobs:**
+
+4 step process
+
+1. Position yourself on job market (become niche specific)
+2. Create attractive blockchain dev profile (3 Components: Blockchain CV, Github Link and Linkedin)
+3. Apply to blockchain jobs
+
+Ideally you need to position yourself both techincally and also for a specific business domian.
+
+Step 1 Explained:
+1. Benefit of positioning on job market is that you can stand out from competitors
+2. You can find job faster
+3. Make more $$
+
+Two ways to position yourself:
+1. Technical Positioning:
+	- FRONTEND DEV (Nice ui with diff ui libraries{tailwind, etc}, you are good at integrating wallets, ui challenges specific to blockchain apps, react native)
+	- SMART CONTRACT DEV (All about eth blockchain, differety type of tokens like ERC20, designing custom token protocol, good at testing smart contracts, understanding on security challenges of smart contract, optimizing smart contracts for gas consumption, solidity, openzeppelin, truffle, security tools like mythril{2.8K* on github})
+	- BLOCKCHAIN DEVOPS (need to show that you know how to deploy smart contracts to public testnets and mainnets, how to handle private keys securely, you know how to use tools like CI and CD and using them for smart contracts, optionally knowledge of hyperledger and other tech needed for private blockchain)
+	- FULLSTACK BLOCKCHIAN DEV (finally its possible to not specialize in anything and just be able to do little bit of everything)
+
+	YOU STRENGTHS SHOULD BE THAT YOU'RE WILLING TO DO DIFFERENT THINGS, LEARN NEW THINGS AND QUICKLY ADAPT.
+	
+2. Business Domian Positioning (Are you developing for games, finance?)
+
+Three categories of blockchian apps:
+- Enterprise Blockchain
+- Games and Gambling
+- DeFi
+
+You need to show companies that you're familiar with specific challenges of their business domain, for e.g., for games - random number generation, gasless transactions, fast transactions (really imp for games).
+
+For defi, you need to be familiar with the main defi protocol i.e., DAI, uniswap, [compound.finance](https://compound.finance/).
+
+For enterprise blockchain: You need to understnad permissioning and privacy on the blockchian.
+
+DEFI IS MOST SUGGESTED TO CHOOSE becoz its most popular especially on ethereum. ~Author
