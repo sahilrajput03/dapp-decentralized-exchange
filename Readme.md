@@ -1216,6 +1216,12 @@ Source of below image: [Click here](https://geth.ethereum.org/docs/interface/har
 
 - Hello world with geth:
 
-Source: [Click here](https://geth.ethereum.org/docs/interface/private-network)
+	Source: [Click here](https://geth.ethereum.org/docs/interface/private-network)
 
-![image](https://user-images.githubusercontent.com/31458531/196174679-68c82ed0-dde6-4b91-afcd-b0ae0a956f51.png)
+	![image](https://user-images.githubusercontent.com/31458531/196174679-68c82ed0-dde6-4b91-afcd-b0ae0a956f51.png)
+
+	- Reference Articles:
+		- [Google Search](https://www.google.com/search?q=setup+geth+with+metamask)
+		- [Setup Geth Ethereum Private Blockchain and connect to Remix](https://medium.com/coinmonks/setup-geth-ethereum-private-network-3806ef7fbe42)
+		- [Connecting Geth to Metamask](https://medium.com/@kacharlabhargav21/connecting-geth-to-metamask-fc2b2c89d9f9)
+		- [SO Question](https://ethereum.stackexchange.com/questions/97816/cant-connect-metamask-to-local-geth-node)
