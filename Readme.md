@@ -21,6 +21,13 @@ The orders are ordered by best prices in buy (maximum price first) and sell sect
 ![image](https://user-images.githubusercontent.com/31458531/196035180-c114290f-9079-48ca-a6f3-78224566eb3e.png)
 
 
+## TODO: Pending things to try out:
+
+- Why safe math for sum and subtract? Hot to use those two implementation/techniques directly in the code without using SafeMath library?
+- What is validator and how to run it? What is merge of PoW to PoS?
+- Try forking with hardhat and truffle.
+- Try debugger with hardhat and solidity compiler to see runtime values with a real debugger.
+
 What is blockchain?
 
 It is a special kind of db, and its main fn is to store data. Like its name implies it is a series of block of data. These blocks are linked to each other with cryptography.
