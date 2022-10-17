@@ -1203,3 +1203,13 @@ Ideally you need to position yourself both techincally and also for a specific b
 - **web3js types are also available:**
 
 ![image](https://user-images.githubusercontent.com/31458531/196056081-9e96ecab-903b-4e8a-80fb-2569ab122e63.png)
+
+- Can I use ganache's node server for production for a company?
+
+Ans. Definitely you can but geth is a production grade blockchain node software that you should use instead.
+
+Check SO's answer - [Can I make a proper website by using ganache and truffle? Like maybe abc.com?](https://ethereum.stackexchange.com/a/79537/106687)
+
+Source of below image: [Click here](https://geth.ethereum.org/docs/interface/hardware)
+
+![image](https://user-images.githubusercontent.com/31458531/196171324-7e4c626c-594f-4d2c-bbb9-1f1ec584c2cf.png)
