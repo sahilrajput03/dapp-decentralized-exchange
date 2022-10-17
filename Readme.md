@@ -1247,4 +1247,6 @@ For defi, you need to be familiar with the main defi protocol i.e., DAI, uniswap
 
 For enterprise blockchain: You need to understnad permissioning and privacy on the blockchian.
 
-DEFI IS MOST SUGGESTED TO CHOOSE becoz its most popular especially on ethereum. ~Author
+**DEFI IS MOST SUGGESTED TO CHOOSE becoz its most popular especially on ethereum. ~Author**
+
+![image](https://user-images.githubusercontent.com/31458531/196229021-cfd68891-efaf-4d06-a63f-6c1365b67fff.png)
