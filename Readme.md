@@ -21,6 +21,13 @@ The orders are ordered by best prices in buy (maximum price first) and sell sect
 ![image](https://user-images.githubusercontent.com/31458531/196035180-c114290f-9079-48ca-a6f3-78224566eb3e.png)
 
 
+## TODO: Pending things to try out:
+
+- Why safe math for sum and subtract? Hot to use those two implementation/techniques directly in the code without using SafeMath library?
+- What is validator and how to run it? What is merge of PoW to PoS?
+- Try forking with hardhat and truffle.
+- Try debugger with hardhat and solidity compiler to see runtime values with a real debugger.
+
 What is blockchain?
 
 It is a special kind of db, and its main fn is to store data. Like its name implies it is a series of block of data. These blocks are linked to each other with cryptography.
@@ -1197,3 +1204,31 @@ Ideally you need to position yourself both techincally and also for a specific b
 	![image](https://user-images.githubusercontent.com/31458531/196055035-a69c0f0c-f858-4567-9b26-a37fd52a5484.png)
 
 	![image](https://user-images.githubusercontent.com/31458531/196055049-527d4094-0a55-49e6-8ded-69dd2b0a8c22.png)
+
+- **Using metamask in mobile @ youtube:** [Click here](https://www.youtube.com/watch?v=Cs_mKXrK02I)
+
+- **web3js types are also available:**
+
+![image](https://user-images.githubusercontent.com/31458531/196056081-9e96ecab-903b-4e8a-80fb-2569ab122e63.png)
+
+- Can I use ganache's node server for production for a company?
+
+Ans. Definitely you can but geth is a production grade blockchain node software that you should use instead.
+
+Check SO's answer - [Can I make a proper website by using ganache and truffle? Like maybe abc.com?](https://ethereum.stackexchange.com/a/79537/106687)
+
+Source of below image: [Click here](https://geth.ethereum.org/docs/interface/hardware)
+
+![image](https://user-images.githubusercontent.com/31458531/196171324-7e4c626c-594f-4d2c-bbb9-1f1ec584c2cf.png)
+
+- Hello world with geth:
+
+	Source: [Click here](https://geth.ethereum.org/docs/interface/private-network)
+
+	![image](https://user-images.githubusercontent.com/31458531/196174679-68c82ed0-dde6-4b91-afcd-b0ae0a956f51.png)
+
+	- Reference Articles:
+		- [Google Search](https://www.google.com/search?q=setup+geth+with+metamask)
+		- [Setup Geth Ethereum Private Blockchain and connect to Remix](https://medium.com/coinmonks/setup-geth-ethereum-private-network-3806ef7fbe42)
+		- [Connecting Geth to Metamask](https://medium.com/@kacharlabhargav21/connecting-geth-to-metamask-fc2b2c89d9f9)
+		- [SO Question](https://ethereum.stackexchange.com/questions/97816/cant-connect-metamask-to-local-geth-node)
