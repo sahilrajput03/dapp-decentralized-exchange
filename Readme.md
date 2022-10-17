@@ -1249,4 +1249,6 @@ For enterprise blockchain: You need to understnad permissioning and privacy on t
 
 **DEFI IS MOST SUGGESTED TO CHOOSE becoz its most popular especially on ethereum. ~Author**
 
+**Fulstack Blockchian Dev are most needed in industry instead of specialists.**
+
 ![image](https://user-images.githubusercontent.com/31458531/196229021-cfd68891-efaf-4d06-a63f-6c1365b67fff.png)
