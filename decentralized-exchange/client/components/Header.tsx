@@ -15,9 +15,13 @@ const Header = () => {
 					<Dropdown />
 					<div className='fs-2 ps-3'>Decentralized Exchange</div>
 				</div>
+				<div className='d-flex align-items-center fs-6 justify-content-end'>
+					<div className='contract-address'>Your Address: </div>
+					<div className='address ps-1'>{appData.user?.accounts?.[0]}</div>
+				</div>
 				<div className='d-flex align-items-center'>
 					<div className='fs-5 contract-address'>Contract Address: </div>
-					<div className='fs-5 address'>{appData.contracts.dex.options.address}</div>
+					<div className='fs-5 address ps-1'>{appData.contracts?.dex.options.address}</div>
 				</div>
 			</div>
 		</header>

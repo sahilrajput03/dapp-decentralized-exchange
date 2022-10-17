@@ -9,8 +9,8 @@ const MyOrders = () => {
 
 	if (!orders || !user) return null
 
-	const myBuyOrders = orders.buy.filter((o: any) => o.trader.toLowerCase() === user.accounts[0].toLowerCase())
-	const mySellOrders = orders.sell.filter((o: any) => o.trader.toLowerCase() === user.accounts[0].toLowerCase())
+	const myBuyOrders = orders.buy.filter((o: any) => o.trader.toLowerCase() === user?.accounts?.[0].toLowerCase())
+	const mySellOrders = orders.sell.filter((o: any) => o.trader.toLowerCase() === user?.accounts?.[0].toLowerCase())
 
 	const renderList = (orders: any[], side: string, className: string) => {
 		return (

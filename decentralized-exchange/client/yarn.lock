@@ -1907,7 +1907,7 @@
     "flatted" "^3.1.0"
     "rimraf" "^3.0.2"
 
-"flatted@^3.1.0":
+"flatted@^3.1.0", "flatted@^3.2.7":
   "integrity" "sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ=="
   "resolved" "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   "version" "3.2.7"
@@ -4208,6 +4208,11 @@
     "web3-core-method" "1.8.0"
     "web3-core-subscriptions" "1.8.0"
     "web3-net" "1.8.0"
+
+"web3-types@^0.1.0-alpha.0":
+  "integrity" "sha512-tJhcPOiJGk/D9tXmgI/a3SmAroyBXllRmZneJH0cNNuGlxG4vylyLKdxP0/XX2eFSHTTCkXr7VOhvZrwTZwj+g=="
+  "resolved" "https://registry.npmjs.org/web3-types/-/web3-types-0.1.0-alpha.0.tgz"
+  "version" "0.1.0-alpha.0"
 
 "web3-utils@1.8.0":
   "integrity" "sha512-7nUIl7UWpLVka2f09CMbKOSEvorvHnaugIabU4mj7zfMvm0tSByLcEu3eyV9qgS11qxxLuOkzBIwCstTflhmpQ=="

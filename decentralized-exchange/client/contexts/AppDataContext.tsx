@@ -1,6 +1,8 @@
 import {createContext, useContext, useEffect, useState, ReactNode} from 'react'
 import produce from 'immer'
-import {getWeb3, getContracts} from '../helpers/utils'
+import {getWeb3, getContracts, getContractsReturnType} from '../helpers/utils'
+import type {web3Type} from '../helpers/utils'
+import Web3 from 'web3'
 
 const SIDE = {
 	BUY: 0,
@@ -32,9 +34,10 @@ export type tokenType = {
 	ticker?: string
 	tokenAddress?: string
 }
+
 type AppDataType = {
-	web3?: any
-	contracts?: any
+	web3?: web3Type
+	contracts?: getContractsReturnType
 	tokens?: tokenType[] // array of token
 	trades?: any[]
 	listener?: any // we listen to blockchain and manage above `trades[]` array with this listener
@@ -43,7 +46,7 @@ type AppDataType = {
 		sell?: any
 	}
 	user?: {
-		accounts?: any
+		accounts?: string[]
 		selectedToken?: tokenType
 		balances?: {
 			tokenWallet?: string
@@ -56,38 +59,57 @@ type immerCallback = (appData: AppDataType) => void
 type immerSetter = (callback: immerCallback) => void
 
 const initialAppData = {
+	web3: new Web3(null),
 	user: {},
 	trades: [],
 }
 
-// LEARN: web3.utils.hextToUtf8()	=> hex (bytes32) => utf8 (ascii) (readable format)
-// LEARN: web3.utils.fromAscii() 	=> utf8 (ascii)  => hex (bytes32)  (readable format)
+// LEARN: hextToUtf8() :: hex/bytes32 => utf8/ascii (readable format) // you can use toAscii() or toUtf8() for this as well. Src: https://ethereum.stackexchange.com/a/8871/106687
+// LEARN: fromAscii()  :: utf8/ascii  => hex/bytes32  (readable format)
+
+const utf8ToHex = Web3.utils.fromAscii
+const hexToUtf8 = Web3.utils.hexToUtf8
 
 export function AppDataProvider({children}: Props) {
 	const _state = useState<AppDataType>(initialAppData)
 	const [appData, setAppData] = _state
 	const setAppDataImmer: immerSetter = (cb) => setAppData((data) => produce(data, cb))
 
+	if (typeof window !== 'undefined') {
+		Object.assign(window as any, {appData})
+	}
+
 	// Destructured for easy access
 	const {contracts, user, web3} = appData
 
 	const getBalances = async (account: any, token: tokenType, contracts: any, web3: any) => {
-		const tokenDex = await contracts.dex.methods.traderBalances(account, web3.utils.fromAscii(token.ticker)).call()
+		const tokenDex = await contracts?.dex.methods.traderBalances(account, utf8ToHex(token.ticker!)).call()
 		const tokenWallet = await contracts[token.ticker!].methods.balanceOf(account).call()
 		return {tokenDex, tokenWallet}
 	}
 
 	useEffect(() => {
 		async function onPageLoad() {
-			const web3: any = await getWeb3()
-			const accounts = await web3.eth.getAccounts()
+			// Source: https://ethereum.stackexchange.com/a/42810/106687
+			window.ethereum.on('accountsChanged', function (accounts: string[]) {
+				setAppDataImmer((appData) => {
+					Object.assign(appData.user as any, {accounts})
+				})
+			})
+
+			// alert('yo1')
+			const web3 = await getWeb3()
+			// alert('yo2')
+			const accounts: string[] = await web3?.eth.getAccounts() // This is probabaly all the accounts user have in metamask IMO ~Sahil; // todo: Verify this.
+			// alert('yo3')
+
 			const contracts = await getContracts(web3)
 
-			const rawTokens = await contracts.dex.methods.getTokens().call()
+			const rawTokens = await contracts?.dex.methods.getTokens().call()
 			// For easy debugging
 			Object.assign(window, {rawTokens, _web3: web3}) // it seems metamask injects this `web3` in window object by default ~Sahil
 
-			const tokens = rawTokens.map((token: any) => ({...token, ticker: web3.utils.hexToUtf8(token.ticker)}))
+			const tokens = rawTokens.map((token: any) => ({...token, ticker: hexToUtf8(token.ticker)}))
 			// token[0]: {"ticker": "DAI","tokenAddress": "0x37a0B612Efe75775474071950A3A55944Bcc2D5B"}
 
 			const balances = await getBalances(accounts[0], tokens[0], contracts, web3)
@@ -122,7 +144,7 @@ export function AppDataProvider({children}: Props) {
 
 			const selectedToken = user?.selectedToken
 			listenToTrades(selectedToken, contracts, web3)
-			const balances = await getBalances(user.accounts[0], selectedToken, contracts, web3)
+			const balances = await getBalances(user.accounts?.[0], selectedToken, contracts, web3)
 			const orders = await getOrders(selectedToken, contracts, web3)
 			setAppDataImmer((appData) => {
 				if (!appData.user) return
@@ -155,14 +177,14 @@ export function AppDataProvider({children}: Props) {
 			return false
 		}
 
-		await contracts[user.selectedToken.ticker].methods
-			.approve(contracts.dex.options.address, amount)
-			.send({from: user.accounts[0]})
-		const tikerNameHexBytes32 = web3.utils.fromAscii(user.selectedToken.ticker)
+		await contracts?.[user.selectedToken.ticker].methods
+			.approve(contracts?.dex.options.address, amount)
+			.send({from: user.accounts?.[0]})
+		const tikerNameHexBytes32 = utf8ToHex(user.selectedToken.ticker)
 		// TODO: check the computed value here
 		console.log('tikerNameHexBytes32', tikerNameHexBytes32)
-		await contracts.dex.methods.deposit(amount, tikerNameHexBytes32).send({from: user.accounts[0]})
-		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
+		await contracts?.dex.methods.deposit(amount, tikerNameHexBytes32).send({from: user.accounts?.[0]})
+		const balances = await getBalances(user.accounts?.[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			if (!appData.user) return console.log('user property is undefined..')
 			appData.user.balances = balances
@@ -176,10 +198,10 @@ export function AppDataProvider({children}: Props) {
 			return false
 		}
 
-		await contracts.dex.methods
-			.withdraw(amount, web3.utils.fromAscii(user.selectedToken.ticker))
-			.send({from: user.accounts[0]})
-		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
+		await contracts?.dex.methods
+			.withdraw(amount, utf8ToHex(user.selectedToken.ticker))
+			.send({from: user?.accounts?.[0]})
+		const balances = await getBalances(user.accounts?.[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			if (!appData.user) return console.log('user property is undefined..')
 			appData.user.balances = balances
@@ -189,8 +211,8 @@ export function AppDataProvider({children}: Props) {
 	}
 	const getOrders = async (token: tokenType, contracts: any, web3: any) => {
 		const [buy, sell] = await Promise.all([
-			contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker), SIDE.BUY).call(),
-			contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker), SIDE.SELL).call(),
+			contracts?.dex.methods.getOrders(utf8ToHex(token.ticker!), SIDE.BUY).call(),
+			contracts?.dex.methods.getOrders(utf8ToHex(token.ticker!), SIDE.SELL).call(),
 		])
 		return {buy, sell}
 	}
@@ -201,12 +223,12 @@ export function AppDataProvider({children}: Props) {
 			return false
 		}
 
-		await contracts.dex.methods
-			.createMarketOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, side)
-			.send({from: user.accounts[0]})
+		await contracts?.dex.methods
+			.createMarketOrder(utf8ToHex(user.selectedToken.ticker), amount, side)
+			.send({from: user.accounts?.[0]})
 		const orders = await getOrders(user.selectedToken, contracts, web3)
 
-		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
+		const balances = await getBalances(user.accounts?.[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			Object.assign(appData, {orders})
 			Object.assign(appData.user as any, {balances})
@@ -220,11 +242,11 @@ export function AppDataProvider({children}: Props) {
 			return false
 		}
 
-		await contracts.dex.methods
-			.createLimitOrder(web3.utils.fromAscii(user.selectedToken.ticker), amount, price, side)
-			.send({from: user.accounts[0]})
+		await contracts?.dex.methods
+			.createLimitOrder(utf8ToHex(user.selectedToken.ticker), amount, price, side)
+			.send({from: user.accounts?.[0]})
 		const orders = await getOrders(user.selectedToken, contracts, web3)
-		const balances = await getBalances(user.accounts[0], user.selectedToken, contracts, web3)
+		const balances = await getBalances(user.accounts?.[0], user.selectedToken, contracts, web3)
 		setAppDataImmer((appData) => {
 			Object.assign(appData, {orders, balances})
 			Object.assign(appData.user as any, {balances})
@@ -246,9 +268,9 @@ export function AppDataProvider({children}: Props) {
 		})
 
 		// connection to blockchain
-		const listener = contracts.dex.events
+		const listener = contracts?.dex.events
 			.NewTrade({
-				filter: {ticker: web3.utils.fromAscii(token.ticker)},
+				filter: {ticker: utf8ToHex(token.ticker!)},
 				fromBlock: 0, // in production we can use block of the deployment of the smart contract to listen from that smart contract.
 			})
 			.on('data', (newTrade: any) => {

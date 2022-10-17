@@ -52,7 +52,15 @@ const AllTrades = () => {
 						dataKey='date'
 						tickFormatter={(dateStr) => {
 							const date = new Date(parseInt(dateStr) * 1000)
-							return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+							let h: any = date.getHours()
+							let m: any = date.getMinutes()
+							let s: any = date.getSeconds()
+
+							if ((isNaN(h), isNaN(m), isNaN(s))) {
+								return ''
+							} else {
+								return `${h}:${m}:${s}`
+							}
 						}}
 					/>
 					<YAxis dataKey='price' />

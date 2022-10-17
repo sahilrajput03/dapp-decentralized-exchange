@@ -10,6 +10,7 @@ import NewOrder from 'components/NewOrder'
 import AllOrders from 'components/AllOrders'
 import MyOrders from 'components/MyOrders'
 import AllTrades from 'components/AllTrades'
+import * as f from 'flatted'
 
 // console.log('got config?', config)
 const {dexAddress, networkName} = config
@@ -33,10 +34,23 @@ const Home: NextPage = () => {
 	)
 }
 
-type addressType = string[] | undefined
+const DebugAppData = () => {
+	const [appData] = useAppData()
+
+	// Disable Showing debug data in dom
+	return null
+
+	return (
+		<ClientOnly>
+			<pre>{JSON.stringify({...appData, web3: undefined, contracts: undefined, listener: undefined}, null, 2)}</pre>
+		</ClientOnly>
+	)
+
+	// return <pre>{JSON.stringify({})}</pre>
+}
 
 const Content = () => {
-	const [appData, setAppDataImmer] = useAppData()
+	const [appData] = useAppData()
 
 	if (!appData.user?.selectedToken) {
 		return <div>Loading...</div>
@@ -44,6 +58,8 @@ const Content = () => {
 
 	return (
 		<main className={styles.main}>
+			<DebugAppData />
+
 			<Header />
 			<main className='container-fluid'>
 				<div className='row'>
