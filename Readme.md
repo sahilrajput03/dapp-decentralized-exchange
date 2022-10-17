@@ -1213,3 +1213,9 @@ Check SO's answer - [Can I make a proper website by using ganache and truffle? L
 Source of below image: [Click here](https://geth.ethereum.org/docs/interface/hardware)
 
 ![image](https://user-images.githubusercontent.com/31458531/196171324-7e4c626c-594f-4d2c-bbb9-1f1ec584c2cf.png)
+
+- Hello world with geth:
+
+Source: [Click here](https://geth.ethereum.org/docs/interface/private-network)
+
+![image](https://user-images.githubusercontent.com/31458531/196174679-68c82ed0-dde6-4b91-afcd-b0ae0a956f51.png)
