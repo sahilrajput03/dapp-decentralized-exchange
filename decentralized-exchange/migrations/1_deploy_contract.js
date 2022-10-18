@@ -19,11 +19,17 @@ var web3
 const [DAI, BAT, REP, ZRX] = ['DAI', 'BAT', 'REP', 'ZRX'].map((ticker) => web3.utils.fromAscii(ticker))
 
 module.exports = async function (deployer, network, accounts) {
+	console.log(`Using network {{ File: ${__filename} }} ~Sahil`, network)
+	// process.exit(0)
+	
 	const [trader1, trader2, trader3, trader4, _] = accounts
 
 	await Promise.all([Dai, Bat, Rep, Zrx, Dex].map((Contract) => deployer.deploy(Contract)))
 
 	const [dai, bat, rep, zrx, dex] = await Promise.all([Dai, Bat, Rep, Zrx, Dex].map((Contract) => Contract.deployed()))
+
+	// Write to config-*network*.js file for frontend use of the dex contract
+	writeContractAddressToFile(dex, network)
 
 	await Promise.all([
 		dex.addToken(DAI, dai.address),
@@ -126,8 +132,6 @@ module.exports = async function (deployer, network, accounts) {
 	await dex.createLimitOrder(ZRX, 1500, 23, SIDE.SELL, {from: trader3})
 	await dex.createLimitOrder(ZRX, 1200, 22, SIDE.SELL, {from: trader3})
 	await dex.createLimitOrder(ZRX, 900, 21, SIDE.SELL, {from: trader4})
-
-	writeContractAddressToFile(dex, network)
 }
 
 function writeContractAddressToFile(dex, networkName) {
@@ -138,7 +142,8 @@ export const networkName = '${networkName}'
 `.trim()
 
 	let data = JSON.stringify(config)
-	const TARGET_FILE_PATH = `./config/config-${networkName === 'development' ? 'local' : networkName}.ts`
+	const isLocal = (networkName === 'development' || networkName === 'develop')
+	const TARGET_FILE_PATH = `./config/config-${isLocal ? 'local' : networkName}.ts`
 	fs.writeFileSync(TARGET_FILE_PATH, JSON.parse(data))
 }
 

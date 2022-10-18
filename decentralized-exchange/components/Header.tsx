@@ -2,6 +2,9 @@ import React from 'react'
 import {useAppData} from '../contexts'
 import {getContracts} from '../helpers/utils'
 import Dropdown from './Dropdown'
+import config from 'config'
+
+const {dexAddress, networkName} = config
 
 const Header = () => {
 	const [appData, setAppDataImmer] = useAppData()
@@ -19,10 +22,19 @@ const Header = () => {
 					<div className='contract-address'>Your Address: </div>
 					<div className='address ps-1'>{appData.user?.accounts?.[0]}</div>
 				</div>
+
 				<div className='d-flex align-items-center'>
 					<div className='fs-5 contract-address'>Contract Address: </div>
 					<div className='fs-5 address ps-1'>{appData.contracts?.dex.options.address}</div>
 				</div>
+				{networkName === 'goerli' && (
+					<div>
+						View on{' '}
+						<a target={'_blank'} href={'https://goerli.etherscan.io/address/' + dexAddress} rel='noreferrer'>
+							goerli.etherscan.io
+						</a>
+					</div>
+				)}
 			</div>
 		</header>
 	)
