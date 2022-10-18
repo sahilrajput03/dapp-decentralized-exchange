@@ -6,7 +6,8 @@
     "dev": "NEXT_PUBLIC_BC_NETWORK=local next dev",
     "dev-goerli": "NEXT_PUBLIC_BC_NETWORK=goerli next dev",
     "dev-mumbai": "NEXT_PUBLIC_BC_NETWORK=mumbai next dev",
-    "build": "next build",
+		"build-local": "NEXT_PUBLIC_BC_NETWORK=local next build",
+		"build-goerli": "NEXT_PUBLIC_BC_NETWORK=goerli next build",
     "start": "next start",
     "lint": "next lint",
     
