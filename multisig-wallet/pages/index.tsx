@@ -86,6 +86,12 @@ const Content = () => {
 
 	return (
 		<main className={styles.main}>
+			<Head>
+				<title>MultiSig Wallet | Ethereum</title>
+				<meta name='description' content='MultiSig Wallet | Ethereum' />
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
+
 			Multisig Dapp
 			<Header approvers={approvers} quorum={quorum} />
 			<NewTransfer createTransfer={createTransfer} />
