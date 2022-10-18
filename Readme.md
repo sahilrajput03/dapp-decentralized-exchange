@@ -1255,4 +1255,4 @@ For enterprise blockchain: You need to understnad permissioning and privacy on t
 
 # Deployment of decentralized exchange
 
-![image](https://user-images.githubusercontent.com/31458531/196424863-781d27ca-a6c5-4c32-a3a0-fef8de06642d.png)
+![image](https://user-images.githubusercontent.com/31458531/196443722-ab84dc7f-7779-4fa3-be10-2096c04f29fc.png)
