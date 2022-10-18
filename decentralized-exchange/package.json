@@ -32,6 +32,7 @@
 		"react-dom": "18.2.0",
 		"react-moment": "^1.1.2",
 		"recharts": "^2.1.15",
+		"truffle": "^5.6.1",
 		"web3": "^1.8.0",
 		"web3-types": "^0.1.0-alpha.0"
 	},
