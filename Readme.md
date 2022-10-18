@@ -21,7 +21,7 @@ The orders are ordered by best prices in buy (maximum price first) and sell sect
 ![image](https://user-images.githubusercontent.com/31458531/196035180-c114290f-9079-48ca-a6f3-78224566eb3e.png)
 
 
-## TODO: Pending things to try out:
+## TODO: ❤️ PENDING THINGS TO TRY OUT ❤️
 
 - Why safe math for sum and subtract? Hot to use those two implementation/techniques directly in the code without using SafeMath library?
 - What is validator and how to run it? What is merge of PoW to PoS?
