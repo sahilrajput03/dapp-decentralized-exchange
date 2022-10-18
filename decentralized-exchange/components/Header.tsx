@@ -16,7 +16,7 @@ const Header = () => {
 			<div className='card px-2 py-3 mt-3'>
 				<div className='d-flex justify-content-start align-items-center'>
 					<Dropdown />
-					<div className='fs-1 ms-3 fw-bold border-secondary border-bottom border-5'>Decentralized Exchange</div>
+					<div className='fs-1 ms-3 fw-bold border-secondary border-bottom border-1'>Decentralized Exchange</div>
 				</div>
 				<div className='d-flex align-items-center fs-6 justify-content-end'>
 					<div className='contract-address'>Your Address: </div>
