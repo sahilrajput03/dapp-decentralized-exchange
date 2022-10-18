@@ -1252,3 +1252,7 @@ For enterprise blockchain: You need to understnad permissioning and privacy on t
 **Fulstack Blockchian Dev are most needed in industry instead of specialists.**
 
 ![image](https://user-images.githubusercontent.com/31458531/196229021-cfd68891-efaf-4d06-a63f-6c1365b67fff.png)
+
+# Deployment of decentralized exchange
+
+![image](https://user-images.githubusercontent.com/31458531/196424863-781d27ca-a6c5-4c32-a3a0-fef8de06642d.png)
