@@ -2,7 +2,7 @@
 import Web3 from 'web3'
 
 // `Wallet` is a contract abstraction
-import Wallet from '../contracts/MultiSigWallet.json'
+import Wallet from '../abis/MultiSigWallet.json'
 import * as config from '../config/'
 
 const {walletAddress} = config
