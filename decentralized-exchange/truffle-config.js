@@ -64,7 +64,7 @@ module.exports = {
 	 * $ truffle test --network <network-name>
 	 */
 
-	contracts_build_directory: './client/abis',
+	contracts_build_directory: './abis',
 	// contracts_build_directory: path.join(__dirname, 'client/contracts'),
 
 	networks: {

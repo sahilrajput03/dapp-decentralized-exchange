@@ -28,7 +28,7 @@ The orders are ordered by best prices in buy (maximum price first) and sell sect
 - Try forking with hardhat and truffle.
 - Try debugger with hardhat and solidity compiler to see runtime values with a real debugger.
 
-What is blockchain?
+What is blockchain? ~Julien Klepatch
 
 It is a special kind of db, and its main fn is to store data. Like its name implies it is a series of block of data. These blocks are linked to each other with cryptography.
 
