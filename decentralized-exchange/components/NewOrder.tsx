@@ -50,7 +50,7 @@ const NewOrder = () => {
 
 	return (
 		<div id='orders' className='card px-4 pt-3 pb-5 mt-3'>
-			<h2 className='card-title'>New Order</h2>
+			<h2 className='card-title fw-bold border-primary border-bottom border-5'>New Order</h2>
 			<form onSubmit={onSubmit}>
 				{/* ORDER_TYPE{LIMIT/MARKET} INPUT */}
 				<div className='form-group row'>

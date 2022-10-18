@@ -35,7 +35,7 @@ const Walllet = () => {
 
 	return (
 		<div id='wallet' className='card px-4 pt-3 pb-5 mt-3'>
-			<h2 className='card-title'>Wallet</h2>
+			<h2 className='card-title fw-bold border-primary border-bottom border-5'>Wallet</h2>
 			{/* <h3>Token balance for {appData?.user?.selectedToken?.ticker}</h3> */}
 			<h3>Token balances</h3>
 			<div className='form-group row'>

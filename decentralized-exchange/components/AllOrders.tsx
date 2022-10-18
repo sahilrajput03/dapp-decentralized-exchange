@@ -40,7 +40,7 @@ const AllOrders = () => {
 
 	return (
 		<div className='card px-4 pt-3 pb-5 mt-3'>
-			<h2 className='card-title'>All orders</h2>
+			<h2 className='card-title fw-bold border-primary border-bottom border-5'>All orders</h2>
 			<div className='row'>
 				<div className='col-sm-6'>{renderList(orders.buy, 'Buy', 'order-list-buy')}</div>
 				<div className='col-sm-6'>{renderList(orders.sell, 'Sell', 'order-list-sell')}</div>
