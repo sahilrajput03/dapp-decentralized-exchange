@@ -39,7 +39,8 @@ export const networkName = '${networkName}'
 `.trim()
 
 	let data = JSON.stringify(config)
-	const TARGET_FILE_PATH = `./client/config/config-${networkName === 'development' ? 'local' : networkName}.ts`
+	const isLocal = (networkName === 'development' || networkName === 'develop')
+	const TARGET_FILE_PATH = `./config/config-${isLocal ? 'local' : networkName}.ts`
 	fs.writeFileSync(TARGET_FILE_PATH, JSON.parse(data))
 }
 
