@@ -1284,3 +1284,8 @@ ESG also known as "socially responsible investing,” “impact investing,” an
 - https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/
 - https://ethereum.stackexchange.com/questions/27048/comparison-of-the-different-testnets/30072#30072
 - https://ethereum.stackexchange.com/questions/69592/what-is-the-purpose-of-g%C3%B6rli-testnet
+- https://sepolia.dev/
+
+- truffle supports writing test in .ts files: https://trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript/#typescript-file-support
+
+Truffle boxes: https://trufflesuite.com/boxes/

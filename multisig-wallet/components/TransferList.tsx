@@ -5,6 +5,8 @@ type TransferListT = {
 	approveTransfer: any
 }
 
+const quorum = 2
+
 export default function TransferList({transfers, approveTransfer}: TransferListT) {
 	return (
 		<div>
@@ -21,23 +23,29 @@ export default function TransferList({transfers, approveTransfer}: TransferListT
 					</tr>
 				</thead>
 				<tbody>
-					{transfers.map((transfer: any) => (
-						<>
-							<tr key={transfer.id}>
-								<td>{transfer.id}</td>
-								<td>{transfer.amount}</td>
-								<td>{transfer.to}</td>
-								<td>{transfer.approvals}</td>
-								<td>{transfer.sent ? 'yes' : 'no'}</td>
+					{transfers.map((transfer: any) => {
+						return (
+							<>
+								<tr key={transfer.id}>
+									<td>{transfer.id}</td>
+									<td>{transfer.amount}</td>
+									<td>{transfer.to}</td>
+									<td>{transfer.approvals}</td>
+									<td>{transfer.sent ? 'yes' : 'no'}</td>
 
-								<td>
-									<button className='btn btn-primary' onClick={() => approveTransfer(transfer.id)}>
-										Approve
-									</button>
-								</td>
-							</tr>
-						</>
-					))}
+									<td>
+										<button
+											disabled={transfer.sent}
+											className={`btn btn-primary ${transfer.sent ? 'disabled' : ''}`}
+											onClick={() => approveTransfer(transfer.id)}
+										>
+											Approve
+										</button>
+									</td>
+								</tr>
+							</>
+						)
+					})}
 				</tbody>
 			</table>
 		</div>

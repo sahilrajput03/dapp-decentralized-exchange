@@ -55,6 +55,10 @@ const chainId_chainName: any = {
 	'80001': 'mumbai',
 }
 
+interface balancesMapType {
+	[key: string]: string
+}
+
 const Content = () => {
 	const [web3, setWeb3] = useState<Web3InstanceType>(undefined)
 	const [accounts, setAccounts] = useState<addressType>(undefined)
@@ -63,7 +67,7 @@ const Content = () => {
 	const [quorum, setQuorum] = useState<quorumType>(undefined)
 	const [transfers, setTransfers] = useState(undefined)
 	const appRef = useRef({isErrorReported: false, isNetworkChangeReported: false, isUserChangeReported: false})
-	const [balancesMap, setBalancesMap] = useState({})
+	const [balancesMap, setBalancesMap] = useState<balancesMapType>({})
 
 	useEffect(() => {
 		async function init() {
@@ -105,11 +109,14 @@ const Content = () => {
 				// 	'0xd2fCf98a201FA4319f5856503e9F05dF01eD2DDA',
 				// 	'0xF67187621a1CE42EBCEC146d644a2C321E3EFa45',
 				// ]
+
+				const allAddresses = [...approvers, walletAddress]
+
 				// Get balance of all users from blockchain (src: https://ethereum.stackexchange.com/a/88243/106687)
-				let allBalances = await Promise.all(approvers.map((addr: any) => web3.eth.getBalance(addr)))
+				let allBalances = await Promise.all(allAddresses.map((addr: any) => web3.eth.getBalance(addr)))
 				let allBalancesMap: any = {}
 				allBalances.forEach((b: any, idx: any) => {
-					allBalancesMap[approvers[idx]] = twoDecimalsETH(fromWei(b))
+					allBalancesMap[allAddresses[idx]] = b
 				})
 				setBalancesMap(allBalancesMap)
 
@@ -200,7 +207,15 @@ Thanks in advance.`)
 
 			<main className={styles.main + ' container mt-5'}>
 				<SimpleCard className='card rounded-5 mx-auto text-center p-5 pt-0 overflow-hidden shadow-lg'>
-					<h1 className='h1 fw-bold bg-primary text-white py-4 mx-n5'> Multisig Wallet</h1>
+					<h1 className='h1 fw-bold bg-primary text-white py-4 mx-n5'>
+						{' '}
+						Multisig Wallet
+						<li className='list-group-item border-primary text-primary text-end fs-5'>
+							<div className='bg-primary text-white rounded-5 px-3 py-1' style={{height: '1.5rem'}}>
+								{balancesMap?.[walletAddress] && 'Wallet Balance: ' + balancesMap?.[walletAddress] + ' WEI'}
+							</div>
+						</li>
+					</h1>
 					{isAppLoading ? (
 						// {true ? (
 						AppLoading
@@ -214,9 +229,9 @@ Thanks in advance.`)
 							/>
 							<NewTransfer createTransfer={createTransfer} />
 							<TransferList transfers={transfers} approveTransfer={approveTransfer} />
-							{network === 'local' && <pre>{allAddresses}</pre>}
+							{/* {network === 'local' || network === 'development' && <pre>{allAddresses}</pre>} */}
 							{network === 'goerli' && (
-								<div className="fst-italic mt-4">
+								<div className='fst-italic mt-4'>
 									View transaction on Blockchain -{' '}
 									<a target={'_blank'} href={'https://goerli.etherscan.io/address/' + walletAddress} rel='noreferrer'>
 										goerli.etherscan.io
