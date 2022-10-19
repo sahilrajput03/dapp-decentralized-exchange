@@ -1256,3 +1256,12 @@ For enterprise blockchain: You need to understnad permissioning and privacy on t
 # Deployment of decentralized exchange
 
 ![image](https://user-images.githubusercontent.com/31458531/196443722-ab84dc7f-7779-4fa3-be10-2096c04f29fc.png)
+
+
+## blockchain startups
+
+- https://www.quicknode.com: Blockchain infrastructure for everyone. We make it simple to build blockchain applications and scale up as you grow. From elastic APIs to powerful tools and analytics, all at your command through a simple control panel.
+
+## hello world with truffle
+
+https://sgerogia.github.io/Hello-world-Truffle/

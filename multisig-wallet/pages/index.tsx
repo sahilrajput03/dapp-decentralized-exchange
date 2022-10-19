@@ -4,12 +4,16 @@ import styles from '../styles/Home.module.css'
 import {getWeb3, getMsWallet} from '../helpers/utils'
 import type {Web3InstanceType} from '../helpers/utils'
 import ClientOnly from '../components/ClientOnly'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import Header from '../components/Header'
 import NewTransfer from '../components/NewTransfer'
 import TransferList from '../components/TransferList'
 import type {transferT} from '../components/NewTransfer'
 import {network, walletAddress} from '../config'
+import styled from 'styled-components'
+import Web3 from 'web3'
+
+export const {toDecimal} = Web3.utils
 
 const Home: NextPage = () => {
 	return (
@@ -31,6 +35,17 @@ type addressType = string[] | undefined
 type quorumType = number | undefined
 type approversType = string[] | undefined
 
+// networkId/chainId ~Sahil
+// ChainIds: https://docs.metamask.io/guide/ethereum-provider.html#chain-ids
+const chainId_chainName: any = {
+	'1': 'Ethereum Main Network (Mainnet)',
+	'3': 'Ropsten Test Network',
+	'4': 'Rinkeby Test Network',
+	'5': 'Goerli Test Network',
+	'42': 'Kovan Test Network',
+	'80001': 'mumbai',
+}
+
 const Content = () => {
 	const [web3, setWeb3] = useState<Web3InstanceType>(undefined)
 	const [accounts, setAccounts] = useState<addressType>(undefined)
@@ -38,35 +53,96 @@ const Content = () => {
 	const [approvers, setApprovers] = useState<approversType>(undefined)
 	const [quorum, setQuorum] = useState<quorumType>(undefined)
 	const [transfers, setTransfers] = useState(undefined)
+	const appRef = useRef({isErrorReported: false, isNetworkChangeReported: false, isUserChangeReported: false})
 
 	useEffect(() => {
 		async function init() {
-			const web3: any = await getWeb3()
-			const accounts = await web3.eth.getAccounts()
-			const wallet = await getMsWallet(web3)
-			const approvers = await wallet.methods.getApprovers().call()
-			const quorum = await wallet.methods.quorum().call() // .call() is for `reading data` from contract
-			const transfers = await wallet.methods.getTransfers().call() // .call() is for `reading data` from contract
+			try {
+				Object.assign(window, {__web3ForUtilsOnly: Web3})
 
-			setWeb3(web3)
-			setAccounts(accounts)
-			setWallet(wallet)
-			setApprovers(approvers)
-			setQuorum(quorum)
-			setTransfers(transfers)
+				// DETECTING NETWORK CHAGNE IN METAMASK
+				// `networkChanged` is deprecated: https://docs.metamask.io/guide/ethereum-provider.html#networkchanged-deprecated
+				// window.ethereum.on('networkChanged', function(networkId: string){
+				// 	alert(networkId) //
+				//   });
+				//
+				// `chainChanged`: https://docs.metamask.io/guide/ethereum-provider.html#chainchanged
+				// Metamask => We strongly recommend reloading the page on chain changes, unless you have good reason not to.
+				// DETECTING NETWORK CHAGNE IN METAMASK: **LATEST**
+				window.ethereum.on('chainChanged', (chainId: string) => {
+					if (appRef.current.isNetworkChangeReported) return
+					// alert(chainId)
+					// alert(toDecimal(chainId))
+					alert('Network Changed to ' + chainId_chainName?.[toDecimal(chainId)] ?? 'Network with chainId ' + chainId)
+					window.location.href = '' // refresh whole page
+					appRef.current.isNetworkChangeReported = true
+				})
+
+				const web3: any = await getWeb3()
+				const accounts = await web3.eth.getAccounts()
+				const wallet = await getMsWallet(web3)
+				const approvers = await wallet.methods.getApprovers().call()
+				const quorum = await wallet.methods.quorum().call() // .call() is for `reading data` from contract
+				const transfers = await wallet.methods.getTransfers().call() // .call() is for `reading data` from contract
+
+				Object.assign(window, {_web3: web3})
+
+				setWeb3(web3)
+				setAccounts(accounts)
+				setWallet(wallet)
+				setApprovers(approvers)
+				setQuorum(quorum)
+				setTransfers(transfers)
+
+				// Source: https://ethereum.stackexchange.com/a/42810/106687
+				window.ethereum.on('accountsChanged', function (accounts: string[]) {
+					if (appRef.current.isUserChangeReported) return // report user once
+
+					alert('User changed to:' + accounts[0])
+					window.location.href = '' // refresh whole page
+					appRef.current.isUserChangeReported = true
+				})
+			} catch (error: any) {
+				if (appRef.current.isErrorReported) return // report to user for only once
+
+				// alert(error.name) // Error
+				const errorMessage1 =
+					"Returned values aren't valid, did it run Out of Gas? You might also see this error if you are not using the correct ABI for the contract you are retrieving data from, requesting data from a block number that does not exist, or querying a node which is not fully synced."
+				if (error.message === errorMessage1) {
+					alert(`Probably:
+- You need to select appropriate network in your metamask wallet.
+- You are using wrong contract abi.`)
+				} else {
+					alert(`Unhandled Exception
+Kindly send me a screenshot of the next error message you see to me: sahilrajput03@gmail.com.
+Thanks in advance.`)
+					alert(error.message)
+				}
+
+				appRef.current.isErrorReported = true
+			}
 		}
+
 		init()
 	}, [])
 
 	console.log({web3, accounts, wallet, approvers, quorum})
 
-	if (!web3 || !accounts || !wallet || !approvers || !quorum || !transfers) {
-		return <div>Loading...</div>
-	}
+	const isAppLoading = !web3 || !accounts || !wallet || !approvers || !quorum || !transfers
+
+	// if (true) {
+	const AppLoading = (
+		<div className='mx-auto mt-5' style={{width: '500px', textAlign: 'center'}}>
+			<Loader className='spinner-grow text-primary' role='status'>
+				<span className='visually-hidden'>Loading...</span>
+			</Loader>
+			<h1>Loading</h1>
+		</div>
+	)
 
 	const createTransfer = async (transfer: transferT) => {
 		try {
-			const k = await wallet.methods.createTransfer(transfer.amount, transfer.to).send({from: accounts[0]}) // .send() is for `sending data` to contract
+			const k = await wallet.methods.createTransfer(transfer.amount, transfer.to).send({from: accounts?.[0]}) // .send() is for `sending data` to contract
 			console.log({k})
 		} catch (error: any) {
 			console.log('error.name', error.name)
@@ -76,7 +152,7 @@ const Content = () => {
 
 	const approveTransfer = async (transferId: number) => {
 		try {
-			const m = await wallet.methods.approveTransfer(transferId).send({from: accounts[0]}) // .send() is for `sending data` to contract
+			const m = await wallet.methods.approveTransfer(transferId).send({from: accounts?.[0]}) // .send() is for `sending data` to contract
 			console.log({m})
 		} catch (error: any) {
 			console.log('error.name', error.name)
@@ -85,28 +161,49 @@ const Content = () => {
 	}
 
 	return (
-		<main className={styles.main}>
+		<>
 			<Head>
 				<title>MultiSig Wallet | Ethereum</title>
 				<meta name='description' content='MultiSig Wallet | Ethereum' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			Multisig Dapp
-			<Header approvers={approvers} quorum={quorum} />
-			<NewTransfer createTransfer={createTransfer} />
-			<TransferList transfers={transfers} approveTransfer={approveTransfer} />
-			{network === 'local' && <pre>{allAddresses}</pre>}
-			{network === 'goerli' && (
-				<div>
-					<h2>View Transactions</h2>
-					View transaction @ goerli.etherscan.io:{' '}
-					<a href={'https://goerli.etherscan.io/address/' + walletAddress}>Click here</a>
-				</div>
-			)}
-		</main>
+			<main className={styles.main + ' container mt-5'}>
+				<SimpleCard className='card rounded-5 mx-auto text-center p-5 pt-0 overflow-hidden'>
+					<h1 className='h1 fw-bold bg-primary text-white py-4 mx-n5'> Multisig Wallet</h1>
+					{isAppLoading ? (
+						// {true ? (
+						AppLoading
+					) : (
+						<>
+							<Header approvers={approvers} quorum={quorum} accounts={accounts} />
+							<NewTransfer createTransfer={createTransfer} />
+							<TransferList transfers={transfers} approveTransfer={approveTransfer} />
+							{network === 'local' && <pre>{allAddresses}</pre>}
+							{network === 'goerli' && (
+								<div>
+									View transaction on Blockchain -{' '}
+									<a target={'_blank'} href={'https://goerli.etherscan.io/address/' + walletAddress} rel='noreferrer'>
+										goerli.etherscan.io
+									</a>
+								</div>
+							)}
+						</>
+					)}
+				</SimpleCard>
+			</main>
+		</>
 	)
 }
+
+const SimpleCard = styled.div`
+	width: 1000px;
+`
+
+const Loader = styled.div`
+	width: 4rem;
+	height: 4rem;
+`
 
 export default Home
 

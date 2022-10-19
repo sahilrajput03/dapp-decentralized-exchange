@@ -67,8 +67,8 @@ const initialAppData = {
 // LEARN: hextToUtf8() :: hex/bytes32 => utf8/ascii (readable format) // you can use toAscii() or toUtf8() for this as well. Src: https://ethereum.stackexchange.com/a/8871/106687
 // LEARN: fromAscii()  :: utf8/ascii  => hex/bytes32  (readable format)
 
-const utf8ToHex = Web3.utils.fromAscii
-const hexToUtf8 = Web3.utils.hexToUtf8
+export const utf8ToHex = Web3.utils.fromAscii
+export const hexToUtf8 = Web3.utils.hexToUtf8
 
 export function AppDataProvider({children}: Props) {
 	const _state = useState<AppDataType>(initialAppData)

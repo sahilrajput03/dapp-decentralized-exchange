@@ -1,0 +1,6 @@
+// You must change appropriate colors before importing bootstrap ~Sahil, Guide on customizing bootstrap: https://getbootstrap.com/docs/4.0/getting-started/theming/
+$primary: purple;
+$danger: red;
+$enable-negative-margins: true;
+
+@import 'node_modules/bootstrap/scss/bootstrap';

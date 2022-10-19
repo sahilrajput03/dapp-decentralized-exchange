@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import styled from 'styled-components'
 
 export type transferT = {amount?: string; to?: string}
 
@@ -20,14 +21,36 @@ export default function NewTransfer({createTransfer}: NewTransferProps) {
 	}
 
 	return (
-		<div>
+		<NewTransferDiv className='mx-auto p-2 mt-5'>
 			<h2>Create transfer</h2>
 			<form action='' onSubmit={submit}>
-				<label htmlFor='amount'>Amount</label>
-				<input id='amount' type='text' placeholder='amount' onChange={(e) => updateTransfer(e, 'amount')} />
-				<input id='to' type='text' placeholder='to (address)' onChange={(e) => updateTransfer(e, 'to')} />
-				<button type='submit'>Submit</button>
+				<div className='input-group mb-3'>
+					<input
+						className='form-control form-control-inline'
+						id='amount'
+						type='text'
+						placeholder='Enter amount here'
+						onChange={(e) => updateTransfer(e, 'amount')}
+					/>
+					<span className='input-group-text bg-primary text-white'>WEI</span>
+				</div>
+				<input
+					className='form-control form-control-inline mb-3'
+					id='to'
+					type='text'
+					placeholder='Enter recepient address'
+					onChange={(e) => updateTransfer(e, 'to')}
+				/>
+				<button className='btn btn-primary w-100' type='submit'>
+					Submit
+				</button>
 			</form>
-		</div>
+		</NewTransferDiv>
 	)
 }
+
+// width: min-content;
+const NewTransferDiv = styled.div`
+	width: 100%;
+	max-width: 500px;
+`

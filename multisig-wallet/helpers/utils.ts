@@ -33,7 +33,7 @@ const getWeb3 = () => {
 			} else if (window.web3) {
 				resolve(window.web3) // old vesion of metamask simply provider a provider directly
 			} else {
-				reject('Must install metamask')
+				reject('Please install metamask in your browser to use this app.')
 			}
 		})
 	})
