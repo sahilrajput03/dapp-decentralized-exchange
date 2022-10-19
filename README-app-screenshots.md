@@ -1,4 +1,4 @@
-# App Screenshots
+# MultiSig Wallet
 
 **Features:**
 - No new account can be added to this MultiSig wallet and its done on purpose.
