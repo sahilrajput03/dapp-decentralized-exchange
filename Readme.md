@@ -1265,3 +1265,22 @@ For enterprise blockchain: You need to understnad permissioning and privacy on t
 ## hello world with truffle
 
 https://sgerogia.github.io/Hello-world-Truffle/
+
+## Note:
+
+You should never send real ETH/GoerliETH to truffle/hardhat account coz they just dont' get added there, possibly they are autoconsumed somehow. I lost some goerli ether today while trying to add goerli ethers to imported account of truffle. SAD
+
+## read article
+
+19Oct, 2022: https://www.fxempire.com/news/article/ethereum-goerli-merge-everything-you-need-to-know-1092485
+
+ESG Investiong: https://www.adecesg.com/resources/faq/what-is-esg-investing/
+
+ESG also known as "socially responsible investing,” “impact investing,” and “sustainable investing”) refers to investing which prioritizes optimal environmental, social, and governance (ESG) factors or outcomes. ESG investing is widely seen as a way of investing “sustainably”—where investments are made with consideration of the environment and human wellbeing, as well as the economy.1 It is based upon the growing assumption that the financial performance of organizations is increasingly affected by environmental and social factors.2
+
+
+- TODO: RIGHT NOW
+- https://geth.ethereum.org/docs/getting-started
+- https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/
+- https://ethereum.stackexchange.com/questions/27048/comparison-of-the-different-testnets/30072#30072
+- https://ethereum.stackexchange.com/questions/69592/what-is-the-purpose-of-g%C3%B6rli-testnet

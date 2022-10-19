@@ -5,7 +5,7 @@ import Web3 from 'web3'
 import Wallet from '../abis/MultiSigWallet.json'
 import * as config from '../config/'
 
-export const {toDecimal, toBN, fromWei, fromUtf8, fromAscii} = Web3.utils
+export const {toDecimal, toBN, fromWei, fromUtf8, fromAscii, toWei} = Web3.utils
 export const utf8ToHex = Web3.utils.fromAscii
 export const hexToUtf8 = Web3.utils.hexToUtf8
 

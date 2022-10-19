@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
+import {toWei} from '../helpers/utils'
 
 export type transferT = {amount?: string; to?: string}
 
@@ -17,6 +18,7 @@ export default function NewTransfer({createTransfer}: NewTransferProps) {
 		e.preventDefault()
 		if (!transfer.amount || !transfer.to) return alert('Please make sure you have entered amount and to address.')
 
+		// createTransfer({...transfer, amount: toWei(transfer.amount)})
 		createTransfer(transfer)
 	}
 

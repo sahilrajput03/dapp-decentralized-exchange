@@ -182,6 +182,7 @@ Thanks in advance.`)
 	const approveTransfer = async (transferId: number) => {
 		try {
 			const m = await wallet.methods.approveTransfer(transferId).send({from: accounts?.[0]}) // .send() is for `sending data` to contract
+			// const m = await wallet.methods.approveTransfer(transferId).send({from: accounts?.[0], gasLimit: 1 * 10 ** 6 }) // .send() is for `sending data` to contract
 			console.log({m})
 		} catch (error: any) {
 			console.log('error.name', error.name)
@@ -198,7 +199,7 @@ Thanks in advance.`)
 			</Head>
 
 			<main className={styles.main + ' container mt-5'}>
-				<SimpleCard className='card rounded-5 mx-auto text-center p-5 pt-0 overflow-hidden'>
+				<SimpleCard className='card rounded-5 mx-auto text-center p-5 pt-0 overflow-hidden shadow-lg'>
 					<h1 className='h1 fw-bold bg-primary text-white py-4 mx-n5'> Multisig Wallet</h1>
 					{isAppLoading ? (
 						// {true ? (
@@ -215,11 +216,14 @@ Thanks in advance.`)
 							<TransferList transfers={transfers} approveTransfer={approveTransfer} />
 							{network === 'local' && <pre>{allAddresses}</pre>}
 							{network === 'goerli' && (
-								<div>
+								<div className="fst-italic mt-4">
 									View transaction on Blockchain -{' '}
 									<a target={'_blank'} href={'https://goerli.etherscan.io/address/' + walletAddress} rel='noreferrer'>
 										goerli.etherscan.io
 									</a>
+									<div className='d-flex justify-content-center'>
+										MultiSig Wallet Address:<div className='ms-1'>{walletAddress}</div>
+									</div>
 								</div>
 							)}
 						</>
