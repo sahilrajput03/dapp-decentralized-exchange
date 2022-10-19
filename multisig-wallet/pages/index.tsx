@@ -180,9 +180,12 @@ Thanks in advance.`)
 		try {
 			const k = await wallet.methods.createTransfer(transfer.amount, transfer.to).send({from: accounts?.[0]}) // .send() is for `sending data` to contract
 			console.log({k})
+			alert('Transfer request is created successfully.')
+			window.location.href = '' // refresh whole page
 		} catch (error: any) {
 			console.log('error.name', error.name)
 			console.log('error.message', error.message)
+			window.location.href = '' // refresh whole page
 		}
 	}
 
@@ -191,6 +194,7 @@ Thanks in advance.`)
 			const m = await wallet.methods.approveTransfer(transferId).send({from: accounts?.[0]}) // .send() is for `sending data` to contract
 			// const m = await wallet.methods.approveTransfer(transferId).send({from: accounts?.[0], gasLimit: 1 * 10 ** 6 }) // .send() is for `sending data` to contract
 			console.log({m})
+			alert('Transfer request approved.')
 		} catch (error: any) {
 			console.log('error.name', error.name)
 			console.log('error.message', error.message)
@@ -205,7 +209,7 @@ Thanks in advance.`)
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main className={styles.main + ' container mt-5'}>
+			<main className={styles.main + ' container my-5'}>
 				<SimpleCard className='card rounded-5 mx-auto text-center p-5 pt-0 overflow-hidden shadow-lg'>
 					<h1 className='h1 fw-bold bg-primary text-white py-4 mx-n5'>
 						{' '}
@@ -228,7 +232,11 @@ Thanks in advance.`)
 								balancesMap={balancesMap}
 							/>
 							<NewTransfer createTransfer={createTransfer} />
-							<TransferList transfers={transfers} approveTransfer={approveTransfer} />
+							<TransferList
+								transfers={transfers}
+								approveTransfer={approveTransfer}
+								walletBalance={balancesMap[walletAddress]}
+							/>
 							{/* {network === 'local' || network === 'development' && <pre>{allAddresses}</pre>} */}
 							{network === 'goerli' && (
 								<div className='fst-italic mt-4'>

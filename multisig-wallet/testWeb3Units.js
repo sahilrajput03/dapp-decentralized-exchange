@@ -1,10 +1,9 @@
 // @ts-nocheck
 const {assert} = require('console')
 const web3 = require('web3')
-const {toDecimal, toBN, fromWei, fromUtf8, fromAscii, toWei} = web3.utils
+const {toDecimal, toBN, fromWei, fromUtf8, fromAscii, toWei, BN} = web3.utils
 const utf8ToHex = web3.utils.fromAscii
 const hexToUtf8 = web3.utils.hexToUtf8
-
 
 assert(toWei('1') === '1000000000000000000', 'wei to ether')
 assert(fromWei('1000000000000000000') === '1', 'ether to wei')
@@ -20,4 +19,6 @@ const twoDecimalsETH = (m) => {
 
 assert(twoDecimalsETH(fromWei('1230000000000000000')) === '1.23')
 
-console.log(web3);
+assert(new BN('200000000000000000').gt(new BN(2)), 'Greater than comparison Big Number with web3js')
+
+// '200000000000000000'

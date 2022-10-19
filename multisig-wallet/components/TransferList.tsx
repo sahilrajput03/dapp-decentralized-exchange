@@ -1,13 +1,15 @@
+import {BN} from 'bn.js'
 import React from 'react'
 
 type TransferListT = {
 	transfers: any
 	approveTransfer: any
+	walletBalance: string
 }
 
-const quorum = 2
+const disabledMessage = 'Too High'
 
-export default function TransferList({transfers, approveTransfer}: TransferListT) {
+export default function TransferList({transfers, approveTransfer, walletBalance}: TransferListT) {
 	return (
 		<div>
 			<h2 className='mt-5'>Transfer List</h2>
@@ -24,6 +26,13 @@ export default function TransferList({transfers, approveTransfer}: TransferListT
 				</thead>
 				<tbody>
 					{transfers.map((transfer: any) => {
+						let buttonMessg = 'Approve'
+
+						if (transfer.sent) {
+							buttonMessg = 'Success'
+						} else {
+							if (new BN(transfer.amount).gt(new BN(walletBalance))) buttonMessg = disabledMessage
+						}
 						return (
 							<>
 								<tr key={transfer.id}>
@@ -35,11 +44,13 @@ export default function TransferList({transfers, approveTransfer}: TransferListT
 
 									<td>
 										<button
-											disabled={transfer.sent}
-											className={`btn btn-primary ${transfer.sent ? 'disabled' : ''}`}
+											disabled={transfer.sent || buttonMessg === disabledMessage}
+											className={`btn ${buttonMessg === disabledMessage ? 'btn-secondary' : 'btn-primary'} ${
+												transfer.sent ? 'disabled' : ''
+											}`}
 											onClick={() => approveTransfer(transfer.id)}
 										>
-											Approve
+											{buttonMessg}
 										</button>
 									</td>
 								</tr>
