@@ -1,7 +1,7 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {getWeb3, getMsWallet} from '../helpers/utils'
+import {getWeb3, getMsWallet, utf8ToHex, hexToUtf8, toDecimal, toBN, fromWei} from '../helpers/utils'
 import type {Web3InstanceType} from '../helpers/utils'
 import ClientOnly from '../components/ClientOnly'
 import {useEffect, useRef, useState} from 'react'
@@ -13,7 +13,16 @@ import {network, walletAddress} from '../config'
 import styled from 'styled-components'
 import Web3 from 'web3'
 
-export const {toDecimal} = Web3.utils
+// hex to ascii
+
+// Convert eth value upto 2 decimals
+const twoDecimalsETH = (m: string) => {
+	let tuple = m.split('.')
+	if (tuple.length === 1) return tuple // do try to get two decimals if there is no decimal
+
+	tuple[1] = tuple[1].slice(0, 2)
+	return tuple[0] + '.' + tuple[1]
+}
 
 const Home: NextPage = () => {
 	return (
@@ -54,6 +63,7 @@ const Content = () => {
 	const [quorum, setQuorum] = useState<quorumType>(undefined)
 	const [transfers, setTransfers] = useState(undefined)
 	const appRef = useRef({isErrorReported: false, isNetworkChangeReported: false, isUserChangeReported: false})
+	const [balancesMap, setBalancesMap] = useState({})
 
 	useEffect(() => {
 		async function init() {
@@ -86,6 +96,25 @@ const Content = () => {
 				const transfers = await wallet.methods.getTransfers().call() // .call() is for `reading data` from contract
 
 				Object.assign(window, {_web3: web3})
+
+				// TODO: In very future I can make these addresses to be fetched from the blockchain itself or may be i already have it there but i am too lazy rn.
+				Object.assign(window, {approvers})
+
+				// const accs = [
+				// 	'0xF1C8471dF8772D9ACE6fa116d5C5f077A3b7AFe6',
+				// 	'0xd2fCf98a201FA4319f5856503e9F05dF01eD2DDA',
+				// 	'0xF67187621a1CE42EBCEC146d644a2C321E3EFa45',
+				// ]
+				// Get balance of all users from blockchain (src: https://ethereum.stackexchange.com/a/88243/106687)
+				let allBalances = await Promise.all(approvers.map((addr: any) => web3.eth.getBalance(addr)))
+				let allBalancesMap: any = {}
+				allBalances.forEach((b: any, idx: any) => {
+					allBalancesMap[approvers[idx]] = twoDecimalsETH(fromWei(b))
+				})
+				setBalancesMap(allBalancesMap)
+
+				// wei to ether convert
+				// web3.utils.fromWei(number [, unit]) // docs: https://web3js.readthedocs.io/en/1.0/web3-utils.html
 
 				setWeb3(web3)
 				setAccounts(accounts)
@@ -176,7 +205,12 @@ Thanks in advance.`)
 						AppLoading
 					) : (
 						<>
-							<Header approvers={approvers} quorum={quorum} accounts={accounts} />
+							<Header
+								approvers={approvers}
+								quorum={quorum}
+								currentAccountAddress={accounts[0]}
+								balancesMap={balancesMap}
+							/>
 							<NewTransfer createTransfer={createTransfer} />
 							<TransferList transfers={transfers} approveTransfer={approveTransfer} />
 							{network === 'local' && <pre>{allAddresses}</pre>}
