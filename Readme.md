@@ -1298,3 +1298,11 @@ Truffle boxes: https://trufflesuite.com/boxes/
 ## jklepath's source of repo (i forked this as well)
 
 https://github.com/jklepatch/eattheblocks/blob/master/blockchain-masterclass/dex-3-frontend/21-integrate-all-trades-into-app/client/src/App.js
+
+## should i make constructor public/internal/private?
+
+![image](https://user-images.githubusercontent.com/31458531/197050605-8bcae144-2fec-4dcc-b232-3d4cb402ec31.png)
+
+Read about Breaking change of this constrctor making in solidity docs: [Click here](https://docs.soliditylang.org/en/v0.7.0/070-breaking-changes.html#functions-and-events)
+
+![image](https://user-images.githubusercontent.com/31458531/197050680-08a6c41b-db5d-4d68-8986-e74a2144e9b4.png)
