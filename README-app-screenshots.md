@@ -1,11 +1,11 @@
 # MultiSig Wallet - Decentralized Application
 
 **Features:**
-- No new account can be added to this MultiSig wallet and its done on purpose.
+- No new account can be added to this MultiSig wallet and it's done on purpose.
 - Anybody can send ether to the address of the wallet to add balance to the wallet.
-- Only approvers are allowed to create nwe transfer requets
+- Only approvers are allowed to create new transfer requets
 - A transaction request is completed if enough number (i.e., quorum) of people approve the transaction request.
-- Anybody can view the balances of all the accounts directly by tapping on **Show Account Balances** button.
+- Anybody can view the balances of all the accounts directly by tapping on the **Show Account Balances** button.
 
 ![image](https://user-images.githubusercontent.com/31458531/196784342-7ce57090-92fd-43c8-b038-592aeaa170c0.png)
 

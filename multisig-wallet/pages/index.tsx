@@ -68,6 +68,7 @@ const Content = () => {
 	const [transfers, setTransfers] = useState(undefined)
 	const appRef = useRef({isErrorReported: false, isNetworkChangeReported: false, isUserChangeReported: false})
 	const [balancesMap, setBalancesMap] = useState<balancesMapType>({})
+	const [appErrorMessg, setAppErrorMessg] = useState('')
 
 	useEffect(() => {
 		async function init() {
@@ -144,15 +145,22 @@ const Content = () => {
 				// alert(error.name) // Error
 				const errorMessage1 =
 					"Returned values aren't valid, did it run Out of Gas? You might also see this error if you are not using the correct ABI for the contract you are retrieving data from, requesting data from a block number that does not exist, or querying a node which is not fully synced."
-				if (error.message === errorMessage1) {
-					alert(`Probably:
-- You need to select appropriate network in your metamask wallet.
-- You are using wrong contract abi.`)
+				const errMessage2 = 'JsonRpcEngine: Response has no error or result for request'
+				if (error.message === errorMessage1 || error.message.startsWith(errMessage2)) {
+					const eMessg1 = `Probably:
+					1. You need to select goerli network in your metamask wallet.
+					2. You are using wrong contract abi.`
+
+					// alert(eMessg1)
+					setAppErrorMessg(eMessg1)
 				} else {
-					alert(`Unhandled Exception
-Kindly send me a screenshot of the next error message you see to me: sahilrajput03@gmail.com.
-Thanks in advance.`)
-					alert(error.message)
+					const eMessg2 = `Unhandled Exception
+					Kindly send me a screenshot of the next error message you see to me: sahilrajput03@gmail.com.
+					Thanks in advance.`
+
+					// alert(eMessg2)
+					// alert(error.message)
+					setAppErrorMessg(eMessg2 + error.message)
 				}
 
 				appRef.current.isErrorReported = true
@@ -169,10 +177,16 @@ Thanks in advance.`)
 	// if (true) {
 	const AppLoading = (
 		<div className='mx-auto mt-5' style={{width: '500px', textAlign: 'center'}}>
-			<Loader className='spinner-grow text-primary' role='status'>
-				<span className='visually-hidden'>Loading...</span>
-			</Loader>
-			<h1>Loading</h1>
+			{Boolean(appErrorMessg) ? (
+				<h5 className="text-danger text-start" style={{whiteSpace: 'pre-line'}}>{appErrorMessg}</h5>
+			) : (
+				<>
+					<Loader className='spinner-grow text-primary' role='status'>
+						<span className='visually-hidden'>Loading...</span>
+					</Loader>
+					<h1>Loading</h1>
+				</>
+			)}
 		</div>
 	)
 
