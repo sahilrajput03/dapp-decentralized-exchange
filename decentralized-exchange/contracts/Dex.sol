@@ -163,15 +163,15 @@ contract Dex {
 
 		Order[] storage orders = orderBook[ticker][uint(side == Side.BUY ? Side.SELL : Side.BUY)];
 		uint i; // default value is 0
-		uint remaining = amount; // AMOUNT IS THE NUMBER OF REQUESTED TOKENS BY THE CALLER
+		uint remainingTkns = amount; // AMOUNT IS THE NUMBER OF REQUESTED TOKENS BY THE CALLER
 
-		while (i < orders.length && remaining > 0) {
+		while (i < orders.length && remainingTkns > 0) {
 			// we need to know the available liquidity of each order of the orderbook
 			// safemath // uint available = orders[i].amount - orders[i].filled; // AVAILABLE TOKENS FOR BUY/SELL OF EACH LIMIT ORDER ~IMO~Sahil
-			uint available = orders[i].amount.sub(orders[i].filled); // AVAILABLE TOKENS FOR BUY/SELL OF EACH LIMIT ORDER ~IMO~Sahil
-			uint matched = (remaining > available) ? available : remaining; // MATCH IS THE MAXIMUM POSSIBLE BUY/SELL TOKENS FROM THIS PARTICULAR LIMIT ORDER
+			uint availableTkns = orders[i].amount.sub(orders[i].filled); // AVAILABLE TOKENS FOR BUY/SELL OF EACH LIMIT ORDER ~IMO~Sahil
+			uint matched = (remainingTkns > availableTkns) ? availableTkns : remainingTkns; // MATCH IS THE MAXIMUM POSSIBLE BUY/SELL TOKENS FROM THIS PARTICULAR LIMIT ORDER
 			// safemath // remaining -= matched;
-			remaining = remaining.sub(matched);
+			remainingTkns = remainingTkns.sub(matched);
 			// safemath // orders[i].filled += matched;
 			orders[i].filled = orders[i].filled.add(matched);
 			emit NewTrade(

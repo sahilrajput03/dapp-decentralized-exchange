@@ -134,10 +134,10 @@ export function AppDataProvider({children}: Props) {
 
 				// Source: https://ethereum.stackexchange.com/a/42810/106687
 				window.ethereum.on('accountsChanged', function (accounts: string[]) {
-					setAppDataImmer((appData) => {
-						Object.assign(appData.user as any, {accounts})
-					})
+					alert('User changed to:' + accounts[0])
+					window.location.href = '' // refresh whole page (recommended by metamask unless you have a special reason not to).
 				})
+
 				window.ethereum.on('chainChanged', (chainId: string) => {
 					if (appRef.current.isNetworkChangeReported) return
 					// alert(chainId)
