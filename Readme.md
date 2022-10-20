@@ -1293,3 +1293,8 @@ Truffle boxes: https://trufflesuite.com/boxes/
 - A very common mistake when we change user but we don't see user change event triggered or it could also cause other critical issue in the app as well  coz since the user is not connected the behaviour is unpredictable in the app as well:
 
 ![image](https://user-images.githubusercontent.com/31458531/196961577-64cf498b-653b-4500-a472-7aab227957ad.png)
+
+
+## jklepath's source of repo (i forked this as well)
+
+https://github.com/jklepatch/eattheblocks/blob/master/blockchain-masterclass/dex-3-frontend/21-integrate-all-trades-into-app/client/src/App.js

@@ -202,7 +202,7 @@ contract Dex {
 			if (side == Side.BUY) {
 				require(traderBalances[msg.sender][DAI] >= matched.mul(orders[i].price), 'dai balance too low');
 				// DEDUCT TICKER AND ADD DAI
-				traderBalances[msg.sender][ticker] = traderBalances[msg.sender][ticker] + matched;
+				traderBalances[msg.sender][ticker] = traderBalances[msg.sender][ticker].add(matched);
 				traderBalances[msg.sender][DAI] = traderBalances[msg.sender][DAI].sub(matched.mul(orders[i].price));
 				// safemath // traderBalances[msg.sender][ticker] += matched;
 				// safemath // traderBalances[msg.sender][DAI] -= matched * orders[i].price;
