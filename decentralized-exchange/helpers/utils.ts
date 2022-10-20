@@ -3,8 +3,16 @@ import Web3 from 'web3'
 
 // `Wallet` is a contract abstraction
 import Dex from '../abis/Dex.json'
-import ERC20 from '../abis/ERC20.json'
+// import ERC20 from '../abis/ERC20.json'
+import ERC20 from '../abis/DaiT.json' // ! NOTE: I am using `DaiT.json` instead of above `ERC20.json` that I can have access to my `faucet` function (and by default ERC20 tokens don't have a external implementation of _faucet method that it has already).
 import config from '../config/'
+
+// export {commify} // get it from multisig wallet project if needed
+export const {toDecimal, toBN, fromWei, fromUtf8, fromAscii, toWei} = Web3.utils
+// LEARN: hextToUtf8() :: hex/bytes32 => utf8/ascii (readable format) // you can use toAscii() or toUtf8() for this as well. Src: https://ethereum.stackexchange.com/a/8871/106687
+// LEARN: fromAscii()  :: utf8/ascii  => hex/bytes32  (readable format)
+export const utf8ToHex = Web3.utils.fromAscii
+export const hexToUtf8 = Web3.utils.hexToUtf8
 
 const {dexAddress} = config
 

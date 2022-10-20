@@ -88,7 +88,8 @@ const Content = () => {
 					if (appRef.current.isNetworkChangeReported) return
 					// alert(chainId)
 					// alert(toDecimal(chainId))
-					alert('Network Changed to ' + chainId_chainName?.[toDecimal(chainId)] ?? 'Network with chainId ' + chainId)
+					const chainName = chainId_chainName?.[toDecimal(chainId)]
+					alert(chainName ? 'Network Changed to ' + chainName : 'Network with chainId ' + chainId)
 					window.location.href = '' // refresh whole page
 					appRef.current.isNetworkChangeReported = true
 				})
@@ -178,7 +179,9 @@ const Content = () => {
 	const AppLoading = (
 		<div className='mx-auto mt-5' style={{width: '500px', textAlign: 'center'}}>
 			{Boolean(appErrorMessg) ? (
-				<h5 className="text-danger text-start" style={{whiteSpace: 'pre-line'}}>{appErrorMessg}</h5>
+				<h5 className='text-danger text-start' style={{whiteSpace: 'pre-line'}}>
+					{appErrorMessg}
+				</h5>
 			) : (
 				<>
 					<Loader className='spinner-grow text-primary' role='status'>

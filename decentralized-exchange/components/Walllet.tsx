@@ -12,7 +12,7 @@ const DIRECTION = {
 const Walllet = () => {
 	const [direction, setDirection] = useState(DIRECTION.DEPOSIT)
 	const [amount, setAmount] = useState('')
-	const [appData, setAppDataImmer, {deposit, withdraw}] = useAppData()
+	const [appData, setAppDataImmer, {deposit, withdraw, faucet}] = useAppData()
 
 	const onSubmit = async (e: any) => {
 		let status
@@ -118,6 +118,7 @@ const Walllet = () => {
 					</button>
 				</div>
 			</form>
+			<footer onClick={faucet} className="blockquote-footer text-end" style={{cursor: 'pointer'}}>Faucet: Click here to add 10,000 tokens to your {appData?.user?.selectedToken?.ticker} wallet.</footer>
 		</div>
 	)
 }

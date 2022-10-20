@@ -10,6 +10,7 @@ import NewOrder from 'components/NewOrder'
 import AllOrders from 'components/AllOrders'
 import MyOrders from 'components/MyOrders'
 import AllTrades from 'components/AllTrades'
+import styled from 'styled-components'
 import * as f from 'flatted'
 
 // console.log('got config?', config)
@@ -49,11 +50,32 @@ const DebugAppData = () => {
 	// return <pre>{JSON.stringify({})}</pre>
 }
 
+const Loader = styled.div`
+	width: 4rem;
+	height: 4rem;
+`
+
 const Content = () => {
 	const [appData] = useAppData()
 
 	if (!appData.user?.selectedToken) {
-		return <div>Loading...</div>
+		// return <div>Loading...</div>
+
+		return (
+			<div className='mx-auto mt-5' style={{width: '500px', textAlign: 'center'}}>
+				{Boolean(appData.appErrorMessg) ? (
+					<h5 className="text-danger text-start" style={{whiteSpace: 'pre-line'}}>{appData.appErrorMessg}</h5>
+				) : (
+					<>
+						<Loader className='spinner-grow text-primary' role='status'>
+							<span className='visually-hidden'>Loading...</span>
+						</Loader>
+						<h1>Loading</h1>
+					</>
+				)}
+			</div>
+		)
+		
 	}
 
 	return (
@@ -89,18 +111,7 @@ const Content = () => {
 export default Home
 
 function BasicInfo({network, address}: any) {
-	return (
-		<div>
-			{network === 'local' && <pre>{allAddresses}</pre>}
-			{network === 'goerli' && (
-				<div>
-					<h2>View Transactions</h2>
-					View transaction @ goerli.etherscan.io:{' '}
-					<a href={'https://goerli.etherscan.io/address/' + address}>Click here</a>
-				</div>
-			)}
-		</div>
-	)
+	return <div>{network === 'local' && <pre>{allAddresses}</pre>}</div>
 }
 
 const allAddresses = `
