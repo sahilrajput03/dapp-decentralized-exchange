@@ -64,7 +64,12 @@ const Content = () => {
 		return (
 			<div className='mx-auto mt-5' style={{width: '500px', textAlign: 'center'}}>
 				{Boolean(appData.appErrorMessg) ? (
-					<h5 className="text-danger text-start" style={{whiteSpace: 'pre-line'}}>{appData.appErrorMessg}</h5>
+					<h5 className='text-danger text-start' style={{whiteSpace: 'pre-line'}}>
+						{appData.appErrorMessg}
+						{appData.appErrorMessg?.startsWith('Please install') && (
+							<a target={'_blank'} href='https://metamask.io/' rel="noreferrer">https://metamask.io/</a>
+						)}
+					</h5>
 				) : (
 					<>
 						<Loader className='spinner-grow text-primary' role='status'>
@@ -75,7 +80,6 @@ const Content = () => {
 				)}
 			</div>
 		)
-		
 	}
 
 	return (

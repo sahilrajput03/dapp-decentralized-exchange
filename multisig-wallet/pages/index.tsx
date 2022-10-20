@@ -74,6 +74,10 @@ const Content = () => {
 		async function init() {
 			try {
 				Object.assign(window, {__web3ForUtilsOnly: Web3})
+				// Detech if metmask is not installed, src: https://ethereum.stackexchange.com/a/122761/106687
+				if (typeof window.ethereum === 'undefined') {
+					throw new Error('no-metamask')
+				}
 
 				// DETECTING NETWORK CHAGNE IN METAMASK
 				// `networkChanged` is deprecated: https://docs.metamask.io/guide/ethereum-provider.html#networkchanged-deprecated
@@ -146,6 +150,7 @@ const Content = () => {
 				// alert(error.name) // Error
 				const errorMessage1 =
 					"Returned values aren't valid, did it run Out of Gas? You might also see this error if you are not using the correct ABI for the contract you are retrieving data from, requesting data from a block number that does not exist, or querying a node which is not fully synced."
+				const errorMessage2 = 'no-metamask'
 				const errMessage2 = 'JsonRpcEngine: Response has no error or result for request'
 				if (error.message === errorMessage1 || error.message.startsWith(errMessage2)) {
 					const eMessg1 = `Probably:
@@ -154,6 +159,9 @@ const Content = () => {
 
 					// alert(eMessg1)
 					setAppErrorMessg(eMessg1)
+				} else if (error.message === errorMessage2) {
+					const eMessg2 = 'Please install metamask for your browser  '
+					setAppErrorMessg(eMessg2)
 				} else {
 					const eMessg2 = `Unhandled Exception
 					Kindly send me a screenshot of the next error message you see to me: sahilrajput03@gmail.com.
@@ -181,6 +189,11 @@ const Content = () => {
 			{Boolean(appErrorMessg) ? (
 				<h5 className='text-danger text-start' style={{whiteSpace: 'pre-line'}}>
 					{appErrorMessg}
+					{appErrorMessg.startsWith('Please install') && (
+						<a target={'_blank'} href='https://metamask.io/' rel='noreferrer'>
+							https://metamask.io/
+						</a>
+					)}
 				</h5>
 			) : (
 				<>

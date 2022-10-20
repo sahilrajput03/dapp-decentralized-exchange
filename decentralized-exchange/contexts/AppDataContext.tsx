@@ -127,6 +127,11 @@ export function AppDataProvider({children}: Props) {
 	useEffect(() => {
 		async function onPageLoad() {
 			try {
+				// Detech if metmask is not installed, src: https://ethereum.stackexchange.com/a/122761/106687
+				if (typeof window.ethereum === 'undefined') {
+					throw new Error('no-metamask')
+				}
+
 				// Source: https://ethereum.stackexchange.com/a/42810/106687
 				window.ethereum.on('accountsChanged', function (accounts: string[]) {
 					setAppDataImmer((appData) => {
@@ -177,6 +182,7 @@ export function AppDataProvider({children}: Props) {
 				const errorMessage1 =
 					"Returned values aren't valid, did it run Out of Gas? You might also see this error if you are not using the correct ABI for the contract you are retrieving data from, requesting data from a block number that does not exist, or querying a node which is not fully synced."
 				const errMessage2 = 'JsonRpcEngine: Response has no error or result for request'
+				const errorMessage3 = 'no-metamask'
 				if (error.message === errorMessage1 || error.message.startsWith(errMessage2)) {
 					const eMessg1 = `Probably:
 					1. You need to select goerli network in your metamask wallet.
@@ -186,13 +192,20 @@ export function AppDataProvider({children}: Props) {
 					setAppDataImmer((appData) => {
 						appData.appErrorMessg = eMessg1
 					})
+				} else if (error.message === errorMessage3) {
+					const eMessg2 = 'Please install metamask for your browser  '
+					setAppDataImmer((appData) => {
+						appData.appErrorMessg = eMessg2
+					})
 				} else {
 					const eMessg2 = `Unhandled Exception
-					Kindly send me a screenshot of the next error message you see to me: sahilrajput03@gmail.com.
+					Kindly send me a screenshot of  this page to me: sahilrajput03@gmail.com
 					Thanks in advance.`
 
 					// alert(eMessg2)
 					// alert(error.message)
+					console.log(error.message)
+
 					setAppDataImmer((appData) => {
 						appData.appErrorMessg = eMessg2
 					})
