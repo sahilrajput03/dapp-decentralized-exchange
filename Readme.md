@@ -1289,3 +1289,7 @@ ESG also known as "socially responsible investing,” “impact investing,” an
 - truffle supports writing test in .ts files: https://trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript/#typescript-file-support
 
 Truffle boxes: https://trufflesuite.com/boxes/
+
+- A very common mistake when we change user but we don't see user change event triggered or it could also cause other critical issue in the app as well  coz since the user is not connected the behaviour is unpredictable in the app as well:
+
+![image](https://user-images.githubusercontent.com/31458531/196961577-64cf498b-653b-4500-a472-7aab227957ad.png)
