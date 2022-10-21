@@ -1,6 +1,6 @@
 # Decentralized Exchange
 
-Ethereum-Based Decentralized Exchange - A crypto exchange where people can have their own DEX coins and trade with other popular fungible tokens (ERC20 Standard) like DAI, BAT, REP, and ZRX. I wrote quality tests for the smart contracts for the same. TECH: Solidity | NextJS | Truffle | Goerli (Testnet)
+This is a Ethereum-Based Decentralized Exchange. A crypto exchange where people can have their own DEX coins and trade with other popular fungible tokens (ERC20 Standard) like DAI, BAT, REP, and ZRX. I wrote quality tests for the smart contracts for the same. TECH: Solidity | NextJS | Truffle | Goerli (Testnet)
 
 Deployed URL: https://decentralized-exchange-sahilrajput03.vercel.app/
 
