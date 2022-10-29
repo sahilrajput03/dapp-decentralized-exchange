@@ -80,7 +80,7 @@ module.exports = {
 			host: '127.0.0.1', // Localhost (DEFAULT: none)
 			port: 9545, // Standard Ethereum port (DEFAULT: none)
 			network_id: '*', // Any network (DEFAULT: none)
-			websockets: true,
+			// websockets: true,
 			// from: "", // default address to use for any transaction Truffle makes
 			// disableConfirmationListener: true, // (TRIED TO IMPROVE PERFORMANCE WITH THIS) set to true to disable web3's confirmation listener // src: https://trufflesuite.com/docs/truffle/reference/configuration/
 		},

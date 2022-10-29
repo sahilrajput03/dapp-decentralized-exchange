@@ -23,6 +23,7 @@ module.exports = async function (deployer, network, accounts) {
 	// process.exit(0)
 	
 	const [trader1, trader2, trader3, trader4, _] = accounts
+	console.log('###got all account?', accounts);
 
 	await Promise.all([Dai, Bat, Rep, Zrx, Dex].map((Contract) => deployer.deploy(Contract)))
 
@@ -40,10 +41,10 @@ module.exports = async function (deployer, network, accounts) {
 
 	const amount = web3.utils.toWei('1000')
 	const seedTokenBalance = async (token, trader) => {
-		await token.faucet(trader, amount)
-		await token.approve(dex.address, amount, {from: trader})
 		const ticker = await token.symbol() // const ticker = await token.name() // ~~Sahil In newer version of ERC20 Openzeppelin contract, you need to call `symbol()` to get the symbol/ticker name becoz `name()` will give you the full name of the coin say `Dai Stable Coin`.
 		console.log(`INFO: ~Sahil: Calling method ${ticker}.faucet(${trader}, ${amount})`)
+		await token.faucet(trader, amount)
+		await token.approve(dex.address, amount, {from: trader})
 		await dex.deposit(amount, web3.utils.fromAscii(ticker), {from: trader})
 	}
 
